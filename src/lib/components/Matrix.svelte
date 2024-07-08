@@ -287,6 +287,9 @@
 </style>
 
 <div>
+    <div style="display:inline-block;">
+        <a href="https://github.com/peterjungx/pitchgrid" target="_blank">PitchGrid</a>
+    </div>
 
     <div style="display:inline-block;">
         <span>Labels:</span>
@@ -341,6 +344,10 @@
             <option value="rainbow">Rainbow</option>
             <option value="cleantone">Cleantone</option>
         </select>
+    </div>
+
+    <div style="display:inline-block;">
+       <a href="/about">About</a>
     </div>
 
     <div 
