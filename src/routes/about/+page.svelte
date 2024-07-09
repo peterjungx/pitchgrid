@@ -1,4 +1,22 @@
-<h1>PitchGrid.io</h1>
+<script>
+    import Logo from '../_Logo.svelte';
+</script>
+
+<style>
+    section {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    h1 {
+        font-size: 2em;
+        font-family: 'Futura', sans-serif;
+    }
+</style>
+<section>
+
+<h1>
+    <Logo size={50} /> PITCH GRID
+</h1>
 <p>
     A tool for exploring rank-2 regular temperaments (aka consistent tunings) 
     and isomorphic keyboard layouts for Western music.
@@ -95,3 +113,5 @@
 </p>
 
 <a href="/">Home</a>
+
+</section>

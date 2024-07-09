@@ -4,6 +4,14 @@
     import PianoStrip from './PianoStrip.svelte';
     import DSGrid from './DSGrid.svelte';
 
+    import { Container, Text, Group, Space, Stack, Anchor } from '@svelteuidev/core';
+    import { Grid } from '@svelteuidev/core';
+    import { Button } from '@svelteuidev/core';
+    import { NumberInput } from '@svelteuidev/core';
+    import { NativeSelect } from '@svelteuidev/core';
+    import { Navbar, ShellSection, Header, Flex, Title } from '@svelteuidev/core';
+
+
     import { ConsistentTuning } from '$lib/consistent_tuning';
     import { matrix, add, multiply, dot } from 'mathjs';
     import { onMount, createEventDispatcher } from 'svelte';
@@ -14,6 +22,7 @@
     let iso_button_path = 'M 0 0 L 60 30'
     let matrix_width=0, matrix_height=0
 
+    export let navbar_opened = false
 
     let roundCorners:(a:string, b:number, c:number)=>{path: string} 
         = (a:string, b:number, c:number)=>({path: a})
@@ -65,7 +74,16 @@
 
 
     // Temperament setup
-    let temperament = new ConsistentTuning(4, 7, 2**(7/12), 7, 12, 2)
+    const temperaments:{[key: string]: ConsistentTuning} = {
+        '12-TET':new ConsistentTuning(4, 7, 2**(7/12), 7, 12, 2),
+        '31-TET':new ConsistentTuning(1, 2, 2**(5/31), 7, 12, 2),
+        'Pythagorean':new ConsistentTuning(7, 12, 2, 4, 7, 3/2),
+        '1/4-Comma Meantone':new ConsistentTuning(2, 4, 5/4, 7, 12, 2),
+        '1/3-Comma Meantone':new ConsistentTuning(2, 3, 6/5, 7, 12, 2),
+        'Cleantone':new ConsistentTuning(2, 4, 5/4, 4, 7, 3/2),
+        'Cleantone-7':new ConsistentTuning(2, 3, 7/6, 4, 7, 3/2)
+    }
+    let temperament = temperaments['12-TET']
 
     let freq_A4 = 440.0 // concert pitch
 
@@ -82,47 +100,20 @@
     }
     retuneGrid()
 
-    const temperaments = {
-        '12-TET': {
-            'generator_a':{
-                'interval':'P5',
-                'frequency_ratio': 2**(7/12)
-            },
-            'generator_b':{
-                'interval':'P8',
-                'frequency_ratio': 2
-            }
-        }
-    }
+    //const temperaments = {
+    //    '12-TET': {
+    //        'generator_a':{
+    //            'interval':'P5',
+    //            'frequency_ratio': 2**(7/12)
+    //        },
+    //        'generator_b':{
+    //            'interval':'P8',
+    //            'frequency_ratio': 2
+    //        }
+    //    }
+    //}
 
-    function set12TETTemperament(){
-        temperament = new ConsistentTuning(4, 7, 2**(7/12), 7, 12, 2)
-        retuneGrid()
-    }
-    function set31TETTemperament(){
-        temperament = new ConsistentTuning(1, 2, 2**(5/31), 7, 12, 2)
-        retuneGrid()
-    }
-    function setPythagoreanTemperament(){
-        temperament = new ConsistentTuning(7, 12, 2, 4, 7, 3/2)
-        retuneGrid()
-    }
-    function setQCMeantoneTemperament(){
-        temperament = new ConsistentTuning(2, 4, 5/4, 7, 12, 2)
-        retuneGrid()
-    }
-    function setTCMeantoneTemperament(){
-        temperament = new ConsistentTuning(2, 3, 6/5, 7, 12, 2)
-        retuneGrid()
-    }
-    function setCleantoneTemperament(){
-        temperament = new ConsistentTuning(2, 4, 5/4, 4, 7, 3/2)
-        retuneGrid()
-    }
-    function setCleantone7Temperament(){
-        temperament = new ConsistentTuning(2, 3, 7/6, 4, 7, 3/2)
-        retuneGrid()
-    }
+
 
 
     // Layout setup
@@ -188,7 +179,7 @@
     function handleStartMove(event: CustomEvent<any>) {
         let ev = event.detail
 
-        console.log(ev.freq)
+        //console.log(ev.freq)
         dispatch('playnote', {freq: ev.freq})
 
     }
@@ -254,16 +245,16 @@
     }
     function handleEndMove(event: CustomEvent<any>) {
         let ev = event.detail
-        console.log('end move', ev)
+        //console.log('end move', ev)
         dispatch('stopnote', {freq: ev.freq})
     }
     function handleClick(d: number , s: number) {
-        console.log('clicked', d, s)
+        //console.log('clicked', d, s)
     }
 
     let selected_label: string = 'notename'
     let selected_layout: string = 'ds_lattice'
-    let temperament_select: ()=>void = set12TETTemperament
+    let temperament_select: string = '12-TET'
     let selected_colorscheme: string = 'piano'
 
     let piano_strip_offset = 0
@@ -279,76 +270,95 @@
         overflow:hidden;
         left:0px;
         right:0px;
-        top:40px;
+        top:68px;
         bottom:0px;
         /*border: 1px solid red;*/
         background-color: #404040;
     }
 </style>
 
-<div>
-    <div style="display:inline-block;">
-        <a href="https://github.com/peterjungx/pitchgrid" target="_blank">PitchGrid</a>
-    </div>
 
-    <div style="display:inline-block;">
-        <span>Labels:</span>
-        <select bind:value={selected_label}>
-            <option value="notename">Note names</option>
-            <option value="coordinates">Coordinates (d,s)</option>
-            <option value="freq">Frequency (Hz)</option>
-            <option value="interval">Interval</option>
-            <option value="cents">Cents</option>
-            <option value="et_delta_cents">dCents (ET)</option>
-        </select>
-    </div>
+<Navbar 
+    width={{sm:200}} 
+    hidden={!navbar_opened} 
+    hiddenBreakpoint='md'
+>
+    <Container>
+        <Stack>
+            <NativeSelect 
+                bind:value={selected_label}
+                label='Labels'
+                data={[
+                    {value:'notename', label:'Note names'},
+                    {value:'coordinates', label:'Coordinates (d,s)'},
+                    {value:'freq', label:'Frequency (Hz)'},
+                    {value:'interval', label:'Interval'},
+                    {value:'cents', label:'Cents'},
+                    {value:'et_delta_cents', label:'dCents (ET)'}
+                ]}
+            />
 
-    <div style="display:inline-block;">
-        <span>Layout:</span>
-        <select bind:value={selected_layout} on:change={()=>{setLayout(selected_layout)}}>
-            {#each Object.keys(layouts) as layout}
-                <option value={layout}>{layouts[layout].label}</option>
-            {/each}
-        </select>
-    </div>
+            <NativeSelect
+                bind:value={selected_layout}
+                on:change={()=>{setLayout(selected_layout)}}
+                label='Layout'
+                data={Object.keys(layouts).map(e=>({value:e, label:layouts[e].label}))}
+            />
 
+            <NativeSelect
+                bind:value={temperament_select}
+                label='Temperament'
+                on:change={()=>{
+                    temperament = temperaments[temperament_select];
+                    retuneGrid()
+                }}
+                data={Object.keys(temperaments)}
+            />
 
-    <div style="display:inline-block;">
-        <span>Temperament:</span>
-        <select bind:value={temperament_select} on:change={()=>{temperament_select()}}>
-            <option value="{set12TETTemperament}">12-TET</option>
-            <option value="{set31TETTemperament}">31-TET</option>
-            <option value="{setPythagoreanTemperament}">Pythagorean</option>
-            <option value="{setQCMeantoneTemperament}">1/4-Comma Meantone</option>
-            <option value="{setTCMeantoneTemperament}">1/3-Comma Meantone</option>
-            <option value="{setCleantoneTemperament}">Cleantone</option>
-            <option value="{setCleantone7Temperament}">Cleantone-7</option>
-        </select>
-    </div>
+            <NativeSelect 
+                bind:value={selected_colorscheme}
+                label='Color Scheme'
+                data={[
+                    {value:'piano', label:'Piano'},
+                    {value:'rainbow', label:'Rainbow'},
+                    {value:'cleantone', label:'Cleantone'}
+                ]}
+            />
 
-    <div style="display:inline-block;">
-        <button on:click={()=>{show_piano_strip = !show_piano_strip}}>Piano Strip ({#if show_piano_strip}on{:else}off{/if})</button>
-        <button on:click={()=>{show_pitch_grid = !show_pitch_grid}}>Pitch Grid ({#if show_pitch_grid}on{:else}off{/if})</button>
-        <button on:click={()=>{show_ds_grid = !show_ds_grid}}>DS Grid ({#if show_ds_grid}on{:else}off{/if})</button>
-    </div>
+            <Button 
+                on:click={()=>{show_piano_strip = !show_piano_strip}}
+            >
+                Piano Strip ({#if show_piano_strip}on{:else}off{/if})
+            </Button>
 
-    <div style="display:inline-block;">
-        <span>Concert Pitch (A4 in Hz)</span>
-        <input style="width:50px" type="number" bind:value={freq_A4} on:change={retuneGrid}/>
-    </div>
+            <Button 
+                on:click={()=>{show_pitch_grid = !show_pitch_grid}}
+            >
+                Pitch Grid ({#if show_pitch_grid}on{:else}off{/if})
+            </Button>
 
-    <div style="display:inline-block;">
-        <span>Color Scheme:</span>
-        <select bind:value={selected_colorscheme}>
-            <option value="piano">Piano</option>
-            <option value="rainbow">Rainbow</option>
-            <option value="cleantone">Cleantone</option>
-        </select>
-    </div>
+            <Button 
+                on:click={()=>{show_ds_grid = !show_ds_grid}}
+            >
+                DS Grid ({#if show_ds_grid}on{:else}off{/if})
+            </Button>
 
-    <div style="display:inline-block;">
-       <a href="/about">About</a>
-    </div>
+            <NumberInput 
+                label="Concert Pitch (A4 in Hz)"
+                placeholder="440.0"
+                type="number" 
+                bind:value={freq_A4} 
+                on:change={retuneGrid}
+            />
+            
+        </Stack>
+        <Stack justify="flex-end">
+            <Space h="xl" />
+            <Anchor href="/about">About</Anchor>
+        </Stack>
+    </Container>
+</Navbar>
+
 
     <div 
         class="matrix-container" 
@@ -398,7 +408,5 @@
     </div>
 
 
-
-</div>
-
+   
 

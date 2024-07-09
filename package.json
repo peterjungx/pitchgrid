@@ -27,7 +27,10 @@
   },
   "type": "module",
   "dependencies": {
+    "@svelteuidev/composables": "^0.15.7",
+    "@svelteuidev/core": "^0.15.7",
     "mathjs": "^13.0.1",
+    "radix-icons-svelte": "^1.2.1",
     "svelte-system-info": "^1.0.2",
     "svg-round-corners": "^0.4.3",
     "voronoi": "^1.0.0",

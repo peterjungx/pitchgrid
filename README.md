@@ -12,7 +12,16 @@ Clone, install dependencies with `npm install` and start a development server:
 npm run dev -- --open
 ```
 
-## Contribution
+
+## Acknowledgements
+
+I am using the magical SvelteKit, thank you Rich Harris! 
+
+## Support
+
+[Buy me a coffee](https://buymeacoffee.com/peterjungx)
+
+## Contribute
 
 Just do your pull requests
 
