@@ -3,6 +3,8 @@
     import PitchGrid from './PitchGrid.svelte';
     import PianoStrip from './PianoStrip.svelte';
     import DSGrid from './DSGrid.svelte';
+    import TinySynthCtl from '$lib/components/TinySynthCtl.svelte';
+
 
     import { Container, Text, Group, Space, Stack, Anchor } from '@svelteuidev/core';
     import { Grid } from '@svelteuidev/core';
@@ -23,6 +25,7 @@
     let matrix_width=0, matrix_height=0
 
     export let navbar_opened = false
+    export let temperament:ConsistentTuning
 
     let roundCorners:(a:string, b:number, c:number)=>{path: string} 
         = (a:string, b:number, c:number)=>({path: a})
@@ -67,6 +70,7 @@
                     color: d%7===0 && s%12===0 ? 'red' : 'white',
                     label: coord_to_note(d,s),
                     freq: 1,
+                    pressed: false,
                     //bordercolor: d===0&&s===0?'red':'orange'
                 })
         }
@@ -83,7 +87,7 @@
         'Cleantone':new ConsistentTuning(2, 4, 5/4, 4, 7, 3/2),
         'Cleantone-7':new ConsistentTuning(2, 3, 7/6, 4, 7, 3/2)
     }
-    let temperament = temperaments['12-TET']
+    temperament = temperaments['12-TET']
 
     let freq_A4 = 440.0 // concert pitch
 
@@ -99,21 +103,6 @@
         grid = grid
     }
     retuneGrid()
-
-    //const temperaments = {
-    //    '12-TET': {
-    //        'generator_a':{
-    //            'interval':'P5',
-    //            'frequency_ratio': 2**(7/12)
-    //        },
-    //        'generator_b':{
-    //            'interval':'P8',
-    //            'frequency_ratio': 2
-    //        }
-    //    }
-    //}
-
-
 
 
     // Layout setup
@@ -176,11 +165,17 @@
         calcIsoButtonPath()
     }
 
+    let _playSynthNote:(d:number, s:number, v:number)=>void = ()=>{};
+    function playSynthNote(d: number, s: number, v: number){
+        _playSynthNote(d, s, v);
+    }
+
     function handleStartMove(event: CustomEvent<any>) {
         let ev = event.detail
 
+        playSynthNote(ev.d, ev.s, 100)
         //console.log(ev.freq)
-        dispatch('playnote', {freq: ev.freq})
+        //dispatch('playnote', {freq: ev.freq})
 
     }
 
@@ -246,7 +241,8 @@
     function handleEndMove(event: CustomEvent<any>) {
         let ev = event.detail
         //console.log('end move', ev)
-        dispatch('stopnote', {freq: ev.freq})
+        playSynthNote(ev.d, ev.s, 0)
+        //dispatch('stopnote', {freq: ev.freq})
     }
     function handleClick(d: number , s: number) {
         //console.log('clicked', d, s)
@@ -261,6 +257,17 @@
     let show_piano_strip = false 
     let show_pitch_grid = false
     let show_ds_grid = false
+
+    let pressed_note_coords:any[] = []
+    function handlePressedNoteCoords(pnc: any[]) {
+        grid.forEach(f => {
+            f.pressed = pnc.some(e => e.d === f.d && e.s === f.s)
+        })
+        grid=grid
+    }
+
+    $:(handlePressedNoteCoords(pressed_note_coords))
+
 
 </script>
 
@@ -350,6 +357,12 @@
                 bind:value={freq_A4} 
                 on:change={retuneGrid}
             />
+
+            <TinySynthCtl 
+                temperament={temperament} 
+                bind:pressed_note_coords={pressed_note_coords} 
+                bind:playNote={_playSynthNote}
+            />
             
         </Stack>
         <Stack justify="flex-end">
@@ -377,6 +390,7 @@
                 bind:notename={e.note}
                 bind:freq={e.freq}
                 bind:freq_ratio={e.freq_ratio}
+                bind:pressed={e.pressed}
                 colorscheme={selected_colorscheme}
                 path={iso_button_path}
                 labeltype={selected_label}

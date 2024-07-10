@@ -14,8 +14,9 @@
 	//export let bordercolor = 'orange';
 	export let display_center_point:boolean = false;
 	export let path = 'M 0 0 L 60 30 L 0 60 L -60 30 Z';
+	export let pressed = true;
 	$: bordercolor = d===0&&s===0?'red':'orange'
-	
+	//$: console.log('pressed', pressed, d, s);
 
 	
     // Color setup
@@ -222,7 +223,7 @@
 				d="{path}" 
 				stroke-linejoin="round"
 				stroke-linecap="round"
-				fill="{color}"
+				fill="{pressed?'yellow':color}"
 			/>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<text 

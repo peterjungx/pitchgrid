@@ -12,6 +12,7 @@
     "sst:dev": "sst dev"
   },
   "devDependencies": {
+    "@bulatdashiev/svelte-slider": "^1.0.3",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
@@ -29,6 +30,8 @@
   "dependencies": {
     "@svelteuidev/composables": "^0.15.7",
     "@svelteuidev/core": "^0.15.7",
+    "jzz": "^1.8.5",
+    "jzz-synth-tiny": "^1.4.0",
     "mathjs": "^13.0.1",
     "radix-icons-svelte": "^1.2.1",
     "svelte-system-info": "^1.0.2",

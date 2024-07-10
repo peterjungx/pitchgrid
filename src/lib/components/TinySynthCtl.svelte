@@ -1,0 +1,68 @@
+<script lang='ts'>
+    import { onMount } from 'svelte';
+
+    import { ConsistentTuning } from '$lib/consistent_tuning';
+    import { KeyboardPiano } from '$lib/keyboard_piano';
+    import { NoteToMPE } from '$lib/note_to_mpe';
+
+    import { Text } from '@svelteuidev/core';
+
+    import JZZ from 'jzz';
+    import Tiny from 'jzz-synth-tiny';
+    Tiny(JZZ);
+    JZZ.synth.Tiny.register('Web Audio');
+    let synth = JZZ.synth.Tiny()
+
+    let selected_synth_engine_id = 0
+    //synth.setSynth(0, synth.getSynth(58))
+    //let tuba = synth.getSynth;
+    //synth.setSynth(0, tuba);
+    //for (let i = 1; i < 16; i++) {
+    //    synth.setBendRange(i,48)
+    //}
+
+    //let temperament = new ConsistentTuning(2,3, 7/6, 4,7,3/2)
+    export let temperament:ConsistentTuning
+    export let pressed_note_coords:any[] = [];
+
+    export const playNote = (d:number, s:number, v:number) => {
+        //console.log('playNote', d, s, v)
+        handleNoteCoords(d, s, v)
+    }
+
+    let keyboard_piano:KeyboardPiano 
+    let note_to_mpe = new NoteToMPE(temperament)
+    $:(note_to_mpe.temperament = temperament)
+
+    function handleNoteCoords(d:number, s:number, velocity:number){
+        let [mpe, pressed_notes] = note_to_mpe.noteCoordsToMPE(note_to_mpe, {d:d, s:s}, velocity)
+        pressed_note_coords = pressed_notes
+        //console.log('note', {d:d, s:s}, 'velocity', velocity, 'mpe', mpe)
+        mpe.forEach((msg) => {
+            synth.send(msg);
+        })
+    }
+    function handleNote(note:number, velocity:number){
+        let [mpe, pressed_notes] = note_to_mpe.noteToMPE(note_to_mpe, note, velocity)
+        pressed_note_coords = pressed_notes
+        //console.log('note', note, 'velocity', velocity, 'mpe', mpe)
+        mpe.forEach((msg) => {
+            synth.send(msg);
+        })
+    }
+    onMount(() => {
+        keyboard_piano = new KeyboardPiano(handleNote)
+    })
+
+</script>
+
+<Text size='sm'>Synth Engine {selected_synth_engine_id}</Text>
+<input type="range" 
+    bind:value={selected_synth_engine_id} 
+    min={0}
+    max={127}
+    step={1}
+    on:change={() => {
+        synth.setSynth(0, synth.getSynth(selected_synth_engine_id))
+    }}
+/>

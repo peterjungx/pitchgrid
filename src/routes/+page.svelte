@@ -1,11 +1,15 @@
 <script lang="ts">
 
     import Matrix from '$lib/components/Matrix.svelte'
-    import {Player} from '$lib/sound'
+    import { Player } from '$lib/sound'
     import { onMount } from 'svelte';
-    import {WebMidi} from "webmidi";
+    import { WebMidi } from "webmidi";
 
     import HeadContent from './HeadContent.svelte';
+
+    import { ConsistentTuning } from '$lib/consistent_tuning';
+    let temperament:ConsistentTuning
+
     let isDark = false;
     let opened = false;
     function toggleOpened() {
@@ -18,54 +22,40 @@
         isDark = !isDark;
     }
 
-    let player:Player;
-    onMount(() => {
-        player = new Player()
+    //let player:Player;
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Shift') {
-                //console.log('sustain')
-                sustain = true;
-            }
-        })  
-        window.addEventListener('keyup', (e) => {
-            if (e.key === 'Shift') {
-                //console.log('sustain off')
-                sustain = false;
-                sustainingNotes.forEach((freq) => {
-                    player.stopNote(freq)
-                })
-                sustainingNotes.clear()
-            }
-        })
-    })
+    //onMount(() => {
+    //    player = new Player()
+    //})
 
-    let midi_on = false;
+    //let midi_on = false;
+    //
+    //let sustain = false;
+    //let sustainingNotes = new Set<number>();
+    //function handle_stop_note(freq: number) {
+    //    if (!sustain) {
+    //        player.stopNote(freq)
+    //    }else{
+    //        sustainingNotes.add(freq)
+    //    }
+    //}
 
-    let sustain = false;
-    let sustainingNotes = new Set<number>();
-    function handle_stop_note(freq: number) {
-        if (!sustain) {
-            player.stopNote(freq)
-        }else{
-            sustainingNotes.add(freq)
-        }
-    }
+    //function toggleMidiOnOff() {
+    //    midi_on = !midi_on;
+    //
+    //    if (midi_on) {
+    //        WebMidi.enable()
+    //        .then(onWebMidiEnabled)
+    //        .catch(err => alert(err));
+    //    } else {
+    //        WebMidi.disable()
+    //        .then(() => console.log('WebMidi disabled!'))
+    //        .catch(err => alert(err));
+    //    }
+    //}
 
-    function toggleMidiOnOff() {
-        midi_on = !midi_on;
 
-        if (midi_on) {
-            WebMidi.enable()
-            .then(onWebMidiEnabled)
-            .catch(err => alert(err));
-        } else {
-            WebMidi.disable()
-            .then(() => console.log('WebMidi disabled!'))
-            .catch(err => alert(err));
-        }
-    }
-
+    /*
     function onWebMidiEnabled() {
         
         // Inputs
@@ -97,6 +87,7 @@
         );
 
     }
+        */
     
 </script>
 
@@ -116,9 +107,8 @@
 
         </Header>
         <Matrix 
-            on:playnote={(ev) => player.playNote(ev.detail.freq)} 
-            on:stopnote={(ev) => handle_stop_note(ev.detail.freq)} 
             navbar_opened={opened}
+            temperament={temperament}
         >
         </Matrix>
     </AppShell>
