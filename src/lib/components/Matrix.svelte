@@ -191,7 +191,7 @@
 
         const x0 = grid_sub[0].x
         const y0 = grid_sub[0].y
-        const offset = 6
+        const offset = 3
 
         let points = grid_sub
             .slice(0,7)
@@ -248,7 +248,7 @@
     let temperament_select: string = '12-TET'
     let selected_colorscheme: string = 'piano'
 
-    let piano_strip_offset = 0
+    let piano_strip_offset = 3
     let show_piano_strip = false 
     let show_pitch_grid = false
     let show_ds_grid = false
@@ -312,7 +312,7 @@
                 label='Temperament'
                 on:change={()=>{
                     temperament = temperaments[temperament_select];
-                    retuneGrid()
+                    retuneGrid(freq_A4)
                 }}
                 data={Object.keys(temperaments)}
             />
@@ -332,6 +332,15 @@
             >
                 Piano Strip ({#if show_piano_strip}on{:else}off{/if})
             </Button>
+            {#if show_piano_strip}
+                <NumberInput 
+                    bind:value={piano_strip_offset}
+                    label='Piano Strip Offset'
+                    min={1}
+                    max={6}
+                    step={1}
+                />
+            {/if}
 
             <Button 
                 on:click={()=>{show_pitch_grid = !show_pitch_grid}}
@@ -352,6 +361,7 @@
             bind:pressed_note_coords={pressed_note_coords} 
             bind:playNote={_playSynthNote}
             bind:freq_A4={freq_A4}
+            bind:pianokeyboardProjectionOffset={piano_strip_offset}
         />
 
         <Stack justify="flex-end">

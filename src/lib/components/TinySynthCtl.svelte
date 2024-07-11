@@ -5,7 +5,7 @@
     import { KeyboardPiano } from '$lib/keyboard_piano';
     import { NoteToMPE } from '$lib/note_to_mpe';
 
-    import { Text, NumberInput, Stack, Space } from '@svelteuidev/core';
+    import { Text, Stack, Space } from '@svelteuidev/core';
 
     import JZZ from 'jzz';
     import Tiny from 'jzz-synth-tiny';
@@ -21,9 +21,9 @@
     //    synth.setBendRange(i,48)
     //}
 
-    //let temperament = new ConsistentTuning(2,3, 7/6, 4,7,3/2)
     export let temperament:ConsistentTuning
     export let pressed_note_coords:any[] = [];
+    export let pianokeyboardProjectionOffset = 1
 
     export const playNote = (d:number, s:number, v:number) => {
         //console.log('playNote', d, s, v)
@@ -33,6 +33,7 @@
     let keyboard_piano:KeyboardPiano 
     let note_to_mpe = new NoteToMPE(temperament)
     $:(note_to_mpe.temperament = temperament)
+    $:(note_to_mpe.projectionOffset = pianokeyboardProjectionOffset)
 
     function handleNoteCoords(d:number, s:number, velocity:number){
         let [mpe, pressed_notes] = note_to_mpe.noteCoordsToMPE(note_to_mpe, {d:d, s:s}, velocity, freq_A4)

@@ -93,7 +93,7 @@ export class NoteToMPE {
     reverseProjection(it:NoteToMPE, note:number) : NoteCoords{
         // map midi note number to d and s
         let s = note - it.baseNoteMidiNumber;
-        let d = Math.floor((s*7+it.projectionOffset)/12+0.001);
+        let d = Math.floor((s*7+7-it.projectionOffset)/12+0.001);
         //console.log('reverseProjection',note,'->',d,s);
         return {d:d, s:s};
     }
