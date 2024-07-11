@@ -42,12 +42,12 @@ export class NoteToMPE {
         //console.log(this.playingNotes, this.playingChannels)
     }
 
-    noteToMPE(it:NoteToMPE, note: number, velocity: number) : any[] {
+    noteToMPE(it:NoteToMPE, note: number, velocity: number, base_freq_A4:number) : any[] {
         let coords = it.reverseProjection(it, note);
-        return it.noteCoordsToMPE(it, coords, velocity);
+        return it.noteCoordsToMPE(it, coords, velocity, base_freq_A4);
     }
 
-    noteCoordsToMPE(it:NoteToMPE, coords:NoteCoords, velocity:number) : [any[], any[]] {
+    noteCoordsToMPE(it:NoteToMPE, coords:NoteCoords, velocity:number, base_freq_A4:number) : [any[], any[]] {
         let mpe:any[] = [];
         let channel:number|undefined = undefined;
 
@@ -76,7 +76,7 @@ export class NoteToMPE {
             it.playingNotes.set(str(coords), {channel:channel, coords:coords});
         }
         
-        let freq = it.temperament.coord_to_freq(coords.d, coords.s);
+        let freq = base_freq_A4/440 * it.temperament.coord_to_freq(coords.d, coords.s);
         let exact_midi_note_number = it.baseNoteMidiNumber + 12*Math.log2(freq);
         //console.log(note, exact_midi_note_number, freq);
         let pitchBend = Math.min(Math.round(8192*(exact_midi_note_number - note)/it.pitchBendRange) + 8192, 16383);

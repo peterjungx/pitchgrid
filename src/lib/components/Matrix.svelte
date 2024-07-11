@@ -91,18 +91,18 @@
 
     let freq_A4 = 440.0 // concert pitch
 
-    function coord_to_freq(d: number, s: number){
-        return freq_A4 / temperament.coord_to_freq(5,9) * temperament.coord_to_freq(d,s)
+    function coord_to_freq(base_freq_a4:number, d: number, s: number){
+        return base_freq_a4 / temperament.coord_to_freq(5,9) * temperament.coord_to_freq(d,s)
     }
 
-    function retuneGrid(){
+    function retuneGrid(base_freq_a4:number){
         grid.forEach(e => {
-            e.freq = coord_to_freq(e.d, e.s)
+            e.freq = coord_to_freq(base_freq_a4, e.d, e.s)
             e.freq_ratio = temperament.coord_to_freq(e.d, e.s)
         })
         grid = grid
     }
-    retuneGrid()
+    $:retuneGrid(freq_A4)
 
 
     // Layout setup
@@ -124,11 +124,6 @@
             e.y = v.get([1]) 
         })
         grid = grid
-    }
-    function midi_note_to_freq(midi_note: number){
-        let s = midi_note - 69
-        let d = Math.floor((midi_note-69)/7)
-        return coord_to_freq(d, s)
     }
 
     let layouts: {[key: string]: {scale: number, transform: number[][], label:string}} = {
@@ -349,22 +344,16 @@
             >
                 DS Grid ({#if show_ds_grid}on{:else}off{/if})
             </Button>
-
-            <NumberInput 
-                label="Concert Pitch (A4 in Hz)"
-                placeholder="440.0"
-                type="number" 
-                bind:value={freq_A4} 
-                on:change={retuneGrid}
-            />
-
-            <TinySynthCtl 
-                temperament={temperament} 
-                bind:pressed_note_coords={pressed_note_coords} 
-                bind:playNote={_playSynthNote}
-            />
             
         </Stack>
+
+        <TinySynthCtl 
+            temperament={temperament} 
+            bind:pressed_note_coords={pressed_note_coords} 
+            bind:playNote={_playSynthNote}
+            bind:freq_A4={freq_A4}
+        />
+
         <Stack justify="flex-end">
             <Space h="xl" />
             <Anchor href="/about">About</Anchor>

@@ -5,7 +5,7 @@
     import { KeyboardPiano } from '$lib/keyboard_piano';
     import { NoteToMPE } from '$lib/note_to_mpe';
 
-    import { Text } from '@svelteuidev/core';
+    import { Text, NumberInput, Stack, Space } from '@svelteuidev/core';
 
     import JZZ from 'jzz';
     import Tiny from 'jzz-synth-tiny';
@@ -35,7 +35,7 @@
     $:(note_to_mpe.temperament = temperament)
 
     function handleNoteCoords(d:number, s:number, velocity:number){
-        let [mpe, pressed_notes] = note_to_mpe.noteCoordsToMPE(note_to_mpe, {d:d, s:s}, velocity)
+        let [mpe, pressed_notes] = note_to_mpe.noteCoordsToMPE(note_to_mpe, {d:d, s:s}, velocity, freq_A4)
         pressed_note_coords = pressed_notes
         //console.log('note', {d:d, s:s}, 'velocity', velocity, 'mpe', mpe)
         mpe.forEach((msg) => {
@@ -43,7 +43,7 @@
         })
     }
     function handleNote(note:number, velocity:number){
-        let [mpe, pressed_notes] = note_to_mpe.noteToMPE(note_to_mpe, note, velocity)
+        let [mpe, pressed_notes] = note_to_mpe.noteToMPE(note_to_mpe, note, velocity, freq_A4)
         pressed_note_coords = pressed_notes
         //console.log('note', note, 'velocity', velocity, 'mpe', mpe)
         mpe.forEach((msg) => {
@@ -53,16 +53,27 @@
     onMount(() => {
         keyboard_piano = new KeyboardPiano(handleNote)
     })
+    export let freq_A4 = 440.0
 
 </script>
 
-<Text size='sm'>Synth Engine {selected_synth_engine_id}</Text>
-<input type="range" 
-    bind:value={selected_synth_engine_id} 
-    min={0}
-    max={127}
-    step={1}
-    on:change={() => {
-        synth.setSynth(0, synth.getSynth(selected_synth_engine_id))
-    }}
-/>
+<Stack>
+    <Space/>
+    <Text size='sm'>Concert pitch {freq_A4} Hz</Text>
+    <input type="range" 
+        bind:value={freq_A4} 
+        min={420}
+        max={460}
+        step={0.1}
+    />    
+    <Text size='sm'>Tiny Synth No. {selected_synth_engine_id}</Text>
+    <input type="range" 
+        bind:value={selected_synth_engine_id} 
+        min={0}
+        max={127}
+        step={1}
+        on:change={() => {
+            synth.setSynth(0, synth.getSynth(selected_synth_engine_id))
+        }}
+    />
+</Stack>
