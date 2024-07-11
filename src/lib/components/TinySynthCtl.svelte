@@ -5,7 +5,7 @@
     import { KeyboardPiano } from '$lib/keyboard_piano';
     import { NoteToMPE } from '$lib/note_to_mpe';
 
-    import { Text, Stack, Space } from '@svelteuidev/core';
+    import { Text, Stack, Space, Tooltip } from '@svelteuidev/core';
 
     import JZZ from 'jzz';
     import Tiny from 'jzz-synth-tiny';
@@ -60,21 +60,44 @@
 
 <Stack>
     <Space/>
-    <Text size='sm'>Concert pitch {freq_A4} Hz</Text>
-    <input type="range" 
-        bind:value={freq_A4} 
-        min={420}
-        max={460}
-        step={0.1}
-    />    
-    <Text size='sm'>Tiny Synth No. {selected_synth_engine_id}</Text>
-    <input type="range" 
-        bind:value={selected_synth_engine_id} 
-        min={0}
-        max={127}
-        step={1}
-        on:change={() => {
-            synth.setSynth(0, synth.getSynth(selected_synth_engine_id))
-        }}
-    />
+    <Tooltip
+        wrapLines
+        width={300}
+        withArrow
+        openDelay={400}
+        closeDelay={400}
+        position="right"
+        color="indigo"
+        label="Adjust the concert pitch of the tuning. The note you adjust is always A4, which has the coordinates (5,9) in (d,s) space. (We set C4 as the origin, (0,0), in (d,s) space."
+    >    
+        <Text size='sm'>Concert pitch {freq_A4} Hz</Text>
+        <input type="range" 
+            bind:value={freq_A4} 
+            min={420}
+            max={460}
+            step={0.1}
+        /> 
+    </Tooltip>  
+
+    <Tooltip
+        wrapLines
+        width={200}
+        withArrow
+        openDelay={400}
+        closeDelay={400}
+        position="right"
+        color="indigo"
+        label="Select a preset for the YZZ Tiny Synth that is included in this app (128 presets available)."
+    >   
+        <Text size='sm'>Tiny Synth No. {selected_synth_engine_id}</Text>
+        <input type="range" 
+            bind:value={selected_synth_engine_id} 
+            min={0}
+            max={127}
+            step={1}
+            on:change={() => {
+                synth.setSynth(0, synth.getSynth(selected_synth_engine_id))
+            }}
+        />
+    </Tooltip> 
 </Stack>

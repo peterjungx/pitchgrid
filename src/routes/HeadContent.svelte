@@ -22,9 +22,27 @@
 	>
 		<Group>
 			<Logo size={50} />
-			<Text style="font-family:Futura" color={isDark?'white':'black'}  size="xl" override={{ d: 'none', '@sm': { d: 'block' } }}>
-				PITCH GRID
-			</Text>
+			<Tooltip
+				wrapLines
+				width={400}
+				color='indigo'
+				position='bottom'
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+				allowPointerEvents
+			>
+				<Text 
+					slot="label"
+					color={isDark?'black':'white'}
+				>
+					Welcome to the Pitch Grid! Explore consistent tunings for isomorphic layouts of the western tonal system. Anything you do here, all chords look the same and sound the same (i.e. involve the same frequency ratios) in any particular setting, which is kind of remarkable... Have fun! And if you think you've learned something, you can 
+					<Anchor href="https://www.buymeacoffee.com/peterjungx">buy me a coffee</Anchor>.
+				</Text>
+				<Text style="font-family:Futura" color={isDark?'white':'black'}  size="xl" override={{ d: 'none', '@sm': { d: 'block' } }}>
+					PITCH GRID
+				</Text>
+			</Tooltip>
 		</Group>
 	</Anchor>
 

@@ -1,5 +1,6 @@
 <script>
     import Logo from '../_Logo.svelte';
+    import { Anchor } from '@svelteuidev/core';
 </script>
 
 <style>
@@ -109,7 +110,11 @@
     on mobile devices.
 </p>
 <p>
-    Happy exploration! Cheers, Peter
+    Have fun! And if you think you've learned something, you can 
+<Anchor href="https://www.buymeacoffee.com/peterjungx">buy me a coffee</Anchor>. 
+</p>
+<p>
+    Cheers, <br/>Peter
 </p>
 
 <a href="/">Home</a>

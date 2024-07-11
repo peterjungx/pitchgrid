@@ -6,7 +6,7 @@
     import TinySynthCtl from '$lib/components/TinySynthCtl.svelte';
 
 
-    import { Container, Text, Group, Space, Stack, Anchor } from '@svelteuidev/core';
+    import { Container, Text, Group, Space, Stack, Anchor, Tooltip } from '@svelteuidev/core';
     import { Grid } from '@svelteuidev/core';
     import { Button } from '@svelteuidev/core';
     import { NumberInput } from '@svelteuidev/core';
@@ -57,7 +57,7 @@
         }
         let diatonic_note = notes[(d+70)%7]
         let accidental = '#'.repeat(s>halfsteps_major_d ? s-halfsteps_major_d:0) + 'b'.repeat(s<halfsteps_major_d ? halfsteps_major_d-s:0)
-        return diatonic_note + accidental + Math.floor(s/12+3)
+        return diatonic_note + accidental + Math.floor(s/12+4)
     }
 
     for (let d = -2*7; d <= 3*7; d++) {
@@ -71,7 +71,6 @@
                     label: coord_to_note(d,s),
                     freq: 1,
                     pressed: false,
-                    //bordercolor: d===0&&s===0?'red':'orange'
                 })
         }
     }
@@ -132,16 +131,6 @@
             transform: [[0, 1/Math.sqrt(2)], [-1/2, 0]],
             label:'(d,s)-Lattice'
         },
-        'cleantone':{
-            scale: 80,
-            transform: [[- 1/2, 1/2], [5/Math.sqrt(2), - 3/Math.sqrt(2)]],
-            label:'Cleantone'
-        },
-        'wicki':{
-            scale: 50,
-            transform: [[-12/Math.sqrt(2), 7/Math.sqrt(2)], [-2, 1]],
-            label:'Wicki'
-        },
         'bosanquet':{
             scale: 40,
             transform: [[0, Math.sqrt(2)/6], [12, -7]],
@@ -151,7 +140,17 @@
             scale: 120,
             transform: [[0, 0.3], [-1, 0.5]],
             label:'Fokker'
-        }
+        },
+        'wicki':{
+            scale: 50,
+            transform: [[-12/Math.sqrt(2), 7/Math.sqrt(2)], [-2, 1]],
+            label:'Wicki'
+        },
+        'cleantone':{
+            scale: 80,
+            transform: [[- 1/2, 1/2], [5/Math.sqrt(2), - 3/Math.sqrt(2)]],
+            label:'Cleantone'
+        },
     }
     function setLayout(layout: string){
         one = layouts[layout].scale
@@ -287,73 +286,163 @@
 >
     <Container>
         <Stack>
-            <NativeSelect 
-                bind:value={selected_label}
-                label='Labels'
-                data={[
-                    {value:'notename', label:'Note names'},
-                    {value:'coordinates', label:'Coordinates (d,s)'},
-                    {value:'freq', label:'Frequency (Hz)'},
-                    {value:'interval', label:'Interval'},
-                    {value:'cents', label:'Cents'},
-                    {value:'et_delta_cents', label:'dCents (ET)'}
-                ]}
-            />
-
-            <NativeSelect
-                bind:value={selected_layout}
-                on:change={()=>{setLayout(selected_layout)}}
-                label='Layout'
-                data={Object.keys(layouts).map(e=>({value:e, label:layouts[e].label}))}
-            />
-
-            <NativeSelect
-                bind:value={temperament_select}
-                label='Temperament'
-                on:change={()=>{
-                    temperament = temperaments[temperament_select];
-                    retuneGrid(freq_A4)
-                }}
-                data={Object.keys(temperaments)}
-            />
-
-            <NativeSelect 
-                bind:value={selected_colorscheme}
-                label='Color Scheme'
-                data={[
-                    {value:'piano', label:'Piano'},
-                    {value:'rainbow', label:'Rainbow'},
-                    {value:'cleantone', label:'Cleantone'}
-                ]}
-            />
-
-            <Button 
-                on:click={()=>{show_piano_strip = !show_piano_strip}}
+            <Space />
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="Select the information the keys show. You can show frequencies or deviation from equal temperament in cents, etc."
             >
-                Piano Strip ({#if show_piano_strip}on{:else}off{/if})
-            </Button>
-            {#if show_piano_strip}
-                <NumberInput 
-                    bind:value={piano_strip_offset}
-                    label='Piano Strip Offset'
-                    min={1}
-                    max={6}
-                    step={1}
+                <NativeSelect 
+                    bind:value={selected_label}
+                    label='Labels'
+                    data={[
+                        {value:'notename', label:'Note names'},
+                        {value:'coordinates', label:'Coordinates (d,s)'},
+                        {value:'freq', label:'Frequency (Hz)'},
+                        {value:'interval', label:'Interval'},
+                        {value:'cents', label:'Cents'},
+                        {value:'et_delta_cents', label:'dCents (ET)'}
+                    ]}
                 />
+            </Tooltip>  
+
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="Select preconfigured isomorphic layout. Default is diatonic steps (d) along y-axis and chormatic steps (semitones s) along x-axis. This is the (d,s)-lattice. Other options include historic layouts like Wicki, Bosanquet or Fokker. You can also drag C3, C#3 or Dbb3 to create your own isomorphic layout."
+            >
+                <NativeSelect
+                    bind:value={selected_layout}
+                    on:change={()=>{setLayout(selected_layout)}}
+                    label='Layout'
+                    data={Object.keys(layouts).map(e=>({value:e, label:layouts[e].label}))}
+                />
+            </Tooltip> 
+
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="Select the temperament applied to the 2-d layout. In the common 12-TET (twelve tone equal temperament) pitch does not change along the d-axis. In principle, any rank-2 regular temperament (or consistent tuning) is supported, with the Pythagorean and all Meantone temperaments being among them. Here we have some temperaments preconfigured."
+            >
+                <NativeSelect
+                    bind:value={temperament_select}
+                    label='Temperament'
+                    on:change={()=>{
+                        temperament = temperaments[temperament_select];
+                        retuneGrid(freq_A4)
+                    }}
+                    data={Object.keys(temperaments)}
+                />
+            </Tooltip>
+
+            <Tooltip
+                wrapLines
+                width={200}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="Select the coloring scheme to apply to the keys."
+                >            
+                <NativeSelect 
+                    bind:value={selected_colorscheme}
+                    label='Color Scheme'
+                    data={[
+                        {value:'piano', label:'Piano'},
+                        {value:'rainbow', label:'Rainbow'},
+                        {value:'cleantone', label:'Cleantone'}
+                    ]}
+                />
+            </Tooltip>
+
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="A piano keyboard is 1-dimensional, hence it only can play a subset of the notes from the two dimensions of Western musical scales presented here. Whatever keys happen to fall inside the piano strip will be available. You can use your PC keyboard to play a piano keyboard configuration."
+            >    
+                <Button 
+                    on:click={()=>{show_piano_strip = !show_piano_strip}}
+                >
+                    Piano Strip ({#if show_piano_strip}on{:else}off{/if})
+                </Button>
+            </Tooltip>
+            {#if show_piano_strip}
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="Apply an offset to the strip to change the area playable on the keyboard. Offset=1 means all black keys are b's, 6 means all black keys are #'s. This setting depends on which key you want to play in. For example, A-major has three accidentals, F#, C# and G#. If you want to play a piece in that key on the piano, the offset should be at least 4, so these notes are available."
+                >               
+                
+                    <NumberInput 
+                        bind:value={piano_strip_offset}
+                        label='Piano Strip Offset'
+                        min={1}
+                        max={6}
+                        step={1}
+                    />
+            </Tooltip>
             {/if}
 
-            <Button 
-                on:click={()=>{show_pitch_grid = !show_pitch_grid}}
-            >
-                Pitch Grid ({#if show_pitch_grid}on{:else}off{/if})
-            </Button>
+            <Tooltip
+                wrapLines
+                width={300}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="The lines in the pitch grid show along the direction of constant pitch. We display lines for the twelve pitches of 12-TET, and the generator frequencies of the selected temperament."
+            >    
+                <Button 
+                    on:click={()=>{show_pitch_grid = !show_pitch_grid}}
+                >
+                    Pitch Grid ({#if show_pitch_grid}on{:else}off{/if})
+                </Button>
+            </Tooltip>
 
-            <Button 
-                on:click={()=>{show_ds_grid = !show_ds_grid}}
-            >
-                DS Grid ({#if show_ds_grid}on{:else}off{/if})
-            </Button>
-            
+            <Tooltip
+                wrapLines
+                width={200}
+                withArrow
+                openDelay={400}
+                closeDelay={400}
+                position="right"
+                color="indigo"
+                label="The DS Grid shows lines along the diatonic and chromatic directions."
+            >                
+                <Button 
+                    on:click={()=>{show_ds_grid = !show_ds_grid}}
+                >
+                    DS Grid ({#if show_ds_grid}on{:else}off{/if})
+                </Button>
+            </Tooltip>  
+
         </Stack>
 
         <TinySynthCtl 
