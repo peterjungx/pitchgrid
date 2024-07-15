@@ -11,12 +11,13 @@
     h1 {
         font-size: 2em;
         font-family: 'Futura', sans-serif;
+        font-weight:normal;
     }
 </style>
 <section>
 
 <h1>
-    <Logo size={50} /> PITCH GRID
+    <Logo size={50} /> PITCH GRID [alpha]
 </h1>
 <p>
     A tool for exploring rank-2 regular temperaments (aka consistent tunings) 

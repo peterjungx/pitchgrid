@@ -40,7 +40,7 @@
 					<Anchor href="https://www.buymeacoffee.com/peterjungx">buy me a coffee</Anchor>.
 				</Text>
 				<Text style="font-family:Futura" color={isDark?'white':'black'}  size="xl" override={{ d: 'none', '@sm': { d: 'block' } }}>
-					PITCH GRID
+					PITCH GRID [alpha]
 				</Text>
 			</Tooltip>
 		</Group>
