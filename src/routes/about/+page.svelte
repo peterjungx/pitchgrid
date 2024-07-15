@@ -1,5 +1,6 @@
 <script>
-    import Logo from '../_Logo.svelte';
+    import DsGrid from '$lib/components/DSGrid.svelte';
+import Logo from '../_Logo.svelte';
     import { Anchor } from '@svelteuidev/core';
 </script>
 
@@ -25,9 +26,15 @@
 </p>
 <p>
     <i>
-        Note: This software is alpha version and is full of bugs. In particular, the played notes are not exactly tuned.
-        Nevertheless, feel free to explore and give feedback.
+        Note: This software is alpha version and is full of bugs. 
+        Nevertheless, feel free to explore and consider giving feedback.
     </i>
+</p>
+<p>
+    Use your computer keyboard or the mouse to play notes, if you are on a desktop, 
+    or touch the notes if you are on a mobile device. Use the sidebar menu to 
+    configure the temperament and the keyboard layout, to visualize different grids 
+    or to select the synth sound. 
 </p>
 
 
@@ -48,17 +55,18 @@
 <p>
     To make this difference explicit, we arrange the notes on a lattice, where one coordinate 
     represents the number of diatonic steps (d) and the other the number of semitones (s) relative to
-    a base note, which we pick to be C. On this lattice, C# lives at (0,1) whereas Db lives at (1,1).
+    a base note, which we pick to be C. On this lattice, 
+    C# lives at the coordinates (0,1) whereas Db lives at (1,1).
 </p>
 <p>
-    For the temperament most regularly used in the discussion of Western music, the 12-tone equal temperament,
-    the pitches associated with these two notes are the same. So are all pitches at the same value on 
-    the s coordinate axis.
-    But there exists an infinite number of alternative
+    For the temperament most regularly used in the discussion of Western music, 
+    the 12-tone equal temperament (or 12-TET for short),
+    the pitches associated with these two notes C# and Db are the same. More generally, in 12-TET, all pitches at the same value on 
+    the s coordinate axis are the same.
+    But besides 12-TET, there exists an infinite number of alternative
     temperaments. For instance, we can change the direction of constant pitch such that a perfect fifth 
     sounds at the just ratio of 3/2 while still keeping the octave at the just ratio of 2/1, and magically
-    all other notes will get the pitches corresponding to the Pythagorean temperament. You can hold the shift 
-    key to sustain the notes and hear different ones at the same time.
+    all other notes will get the pitches corresponding to the Pythagorean temperament. 
 </p>
 <p>
     The PitchGrid allows you to set different rank-2 regular temperaments and explore the resulting pitches. 
@@ -87,8 +95,9 @@
 </p>
 <p>
     The PitchGrid thus allows you to explore different isomorphic keyboard layouts.
-    You can select a layout from the menu, or you can click and drag some special notes 
-    (those with a 0 coordinate value on either axis) to reshape the keyboard configuration 
+    You can select a layout from the menu, or (if you are on a desktop computer) 
+    you can click and drag some special notes 
+    (those with a 0 coordinate value on either axis, e.g. C# or Dbb) to reshape the keyboard configuration 
     to any shape you like.
 </p>
 
@@ -102,17 +111,21 @@
     set of notes on the black keys.
 </p>
 
-
 <h2>Future Work</h2>
 <p>
-    I intend to add more features to the PitchGrid. For instance WebMIDI support, so that you can
-    attach a MIDI keyboard and play the notes or output MPE (MIDI Polyphonic Expression) to control
-    a synth and assigning exact pitch bend values to each note. I also would like to make it playable 
-    on mobile devices.
+    I intend to add more features to the PitchGrid. Here is a list of some that I am considering:
 </p>
+<ul>
+    <li>Regular MIDI in / MPE out (with pitches adjusted according to the selected temperament) using WebMIDI</li>
+    <li>Pitch visualizations for different intervals</li>
+    <li>Continuous modification of tunings to enable live morphing between tunings during a performance</li>
+    <li>Visualization of a piano keyboard</li>
+    <li>Miscellaneous bug fixes</li>
+    <li>More educational content</li>
+</ul>
 <p>
-    Have fun! And if you think you've learned something, you can 
-<Anchor href="https://www.buymeacoffee.com/peterjungx">buy me a coffee</Anchor>. 
+    Have fun! And if you think you've learned something or you want to support my work, please consider
+<Anchor href="https://www.buymeacoffee.com/peterjungx">buying me a coffee</Anchor>. 
 </p>
 <p>
     Cheers, <br/>Peter
