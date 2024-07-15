@@ -4,7 +4,7 @@ A tool for exploring rank-2 regular temperaments (aka consistent tunings) and is
 
 
 
-## Developing
+## Development
 
 Clone, install dependencies with `npm install` and start a development server:
 
@@ -12,6 +12,15 @@ Clone, install dependencies with `npm install` and start a development server:
 npm run dev -- --open
 ```
 
+## Hosting
+
+This app is hosted via SST into [pitchgrid.io](https://pitchgrid.io). I am running 
+
+```
+npx sst deploy --stage prod
+```
+
+locally each time I want to deploy.
 
 ## Acknowledgements
 

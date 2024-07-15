@@ -119,7 +119,8 @@
 
 	$:fontcolor = isDarkColor(color) ? "white" : "black";
 	
-	function onMouseDown() {
+	function onMouseDown(e: any) {
+		e.preventDefault();
 		moving = true;
         dispatch('startmove', {d:d, s:s, left:left, top:top, freq:freq});
 	}
@@ -133,6 +134,7 @@
      * @param {{ movementX: number; movementY: number; }} e
      */
 	function onMouseMove(e: any) {
+		e.preventDefault();
 		if (moving) {
 			left += e.movementX;
 			top += e.movementY;
@@ -142,7 +144,7 @@
 		}
 	}
 	
-	function onMouseUp() {
+	function onMouseUp(e: any) {
 		if (!moving) return;
 		moving = false;
         dispatch('endmove', {d:d, s:s, left:left, top:top, freq:freq});
@@ -218,7 +220,7 @@
 	<button class="button">
 		<svg class="button-svg" viewBox="-200 -200 400 400">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<path on:click={handleClick} on:mousedown={onMouseDown} role="button" tabindex="0"
+			<path on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
 				class="button-svg-path"
 				d="{path}" 
 				stroke-linejoin="round"
@@ -227,7 +229,7 @@
 			/>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<text 
-				on:click={handleClick} on:mousedown={onMouseDown} role="button" tabindex="0"
+				on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
 				class="button-svg-text"
 				x="0%"
 				y="0%" 
@@ -245,4 +247,4 @@
 	</button>
 </section>
 
-<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
+<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} on:touchend={onMouseUp} on:touchcancel={onMouseUp}/>
