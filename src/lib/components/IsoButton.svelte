@@ -20,7 +20,7 @@
 
 	
     // Color setup
-	let color = 'green'
+	let color = 'darkgreen'
     function setGridColors(col_scheme: string){
 		// octave is last character of e.note string, as integer
 		if (col_scheme === 'cleantone'){
@@ -35,7 +35,7 @@
 				}else if(accidental==='b' && (note==='B' || note==='D' || note==='E' || note==='G' || note==='A')){
 					color = (octave + ( (note==='B') ? 1 : 0 )) % 2 === 0 ? 'lightgrey' : 'black'
 				}else{
-					color = 'green'
+					color = 'darkgreen'
 				}
 			}
 		} else if (col_scheme === 'piano'){
@@ -49,7 +49,7 @@
 				}else if(accidental==='b' && (note==='B' || note==='D' || note==='E' || note==='G' || note==='A')){
 					color = 'black'
 				}else{
-					color = 'green'
+					color = 'darkgreen'
 				}
 			}
 		} else if (col_scheme === 'rainbow'){

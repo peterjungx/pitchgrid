@@ -133,8 +133,13 @@
         },
         'bosanquet':{
             scale: 40,
-            transform: [[0, Math.sqrt(2)/6], [12, -7]],
+            transform: [[-12*0.8, 7*0.8], [0, -0.355], ],
             label:'Bosanquet'
+        },
+        'bosanquet2':{
+            scale: 40,
+            transform: [[0, Math.sqrt(2)/6], [12, -7]],
+            label:'Bosanquet 2'
         },
         'fokker':{
             scale: 120,
