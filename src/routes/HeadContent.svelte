@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Logo from './_Logo.svelte';
 	import { Group, ActionIcon, Text, Anchor, Burger, Tooltip } from '@svelteuidev/core';
-	import { Sun, Moon, GithubLogo } from 'radix-icons-svelte';
+	import { Sun, Moon, GithubLogo, LightningBolt } from 'radix-icons-svelte';
 	import { hotkey, useOs } from '@svelteuidev/composables';
 
 	const os = useOs();
@@ -11,6 +11,9 @@
 	export let opened: boolean;
 	export let toggle: () => void;
 	export let toggleOpen: () => void;
+	export let show_terra_tuner = false;
+
+	
 </script>
 
 <Group override={{ height: '100%', px: 20 }} position="apart">
@@ -47,6 +50,9 @@
 	</Anchor>
 
     <Group>
+		<ActionIcon variant="default" on:click={()=>{show_terra_tuner=!show_terra_tuner}}>
+			<LightningBolt />
+		</ActionIcon>
         <Tooltip label={`${mod} + J`}>
             <ActionIcon variant="default" on:click={toggle} size={30} use={[[hotkey, [['mod+J', toggle]]]]}>
                 {#if isDark}
@@ -60,4 +66,5 @@
             <a href="https://github.com/peterjungx/pitchgrid"><GithubLogo /></a>
         </ActionIcon>
     </Group>
+
 </Group>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
 	import { browser } from '$app/environment';
+	import {coord_to_interval} from '$lib/consistent_tuning';
 
 	export let left = 100;
 	export let top = 100;
@@ -58,26 +59,7 @@
     }
 	$:setGridColors(colorscheme);
 
-	function coord_to_interval(d: number, s: number){
-        // 0,0 -> 'P1'
-        // 4,7 -> 'P5'
-        // 7,12 -> 'P8'
-        const halfsteps_major = [2,2,1,2,2,2,1]
-        let dia = d>-1 ? (d+1).toString() : ''
-        let decl = ''
-        if (d>-1){
-            let dia_s = 0
-            for (let i=0; i<d; i++){
-                dia_s += halfsteps_major[i%7]
-            }
-            if ([0,3,4].includes(d%7)) {
-                decl = s - dia_s === 0 ? 'P' : (s - dia_s > 0 ? 'A'.repeat(s - dia_s) : 'd'.repeat(dia_s - s))
-            }else{
-                decl = s - dia_s === 0 ? 'M' : (s - dia_s === -1 ? 'm' : (s - dia_s > 0 ? 'A'.repeat(s - dia_s) : 'd'.repeat(dia_s - s - 1)))
-            }
-        }
-        return decl + dia
-    }
+
 
 	function calclabel(labeltype: string, freq: number, notename: string) {
 		if (labeltype === 'freq') {

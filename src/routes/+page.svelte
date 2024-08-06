@@ -1,10 +1,6 @@
 <script lang="ts">
 
-    import Matrix from '$lib/components/Matrix.svelte'
-    import { Player } from '$lib/sound'
-    import { onMount } from 'svelte';
-    import { WebMidi } from "webmidi";
-
+    import Matrix from '$lib/components/Matrix.svelte'    
     import HeadContent from './HeadContent.svelte';
 
     import { ConsistentTuning } from '$lib/consistent_tuning';
@@ -88,6 +84,7 @@
 
     }
         */
+    let show_terra_tuner = false;
     
 </script>
 
@@ -102,13 +99,15 @@
             height={60}
         >
             <HeadContent 
-                {isDark} {opened} toggle={toggleTheme} toggleOpen={toggleOpened}
+                {isDark} {opened} toggle={toggleTheme} toggleOpen={toggleOpened} 
+                bind:show_terra_tuner={show_terra_tuner}
             />
 
         </Header>
         <Matrix 
             navbar_opened={opened}
             temperament={temperament}
+            bind:show_terra_tuner={show_terra_tuner}
         >
         </Matrix>
     </AppShell>

@@ -4,15 +4,9 @@
     import PianoStrip from './PianoStrip.svelte';
     import DSGrid from './DSGrid.svelte';
     import TinySynthCtl from '$lib/components/TinySynthCtl.svelte';
+    import TerraTuner from './TerraTuner.svelte';
 
-
-    import { Container, Text, Group, Space, Stack, Anchor, Tooltip } from '@svelteuidev/core';
-    import { Grid } from '@svelteuidev/core';
-    import { Button } from '@svelteuidev/core';
-    import { NumberInput } from '@svelteuidev/core';
-    import { NativeSelect } from '@svelteuidev/core';
-    import { Navbar, ShellSection, Header, Flex, Title } from '@svelteuidev/core';
-
+    import { Container, Space, Stack, Anchor, Tooltip, NumberInput, Navbar, NativeSelect, Button } from '@svelteuidev/core';
 
     import { ConsistentTuning } from '$lib/consistent_tuning';
     import { matrix, add, multiply, dot } from 'mathjs';
@@ -267,6 +261,7 @@
 
     $:(handlePressedNoteCoords(pressed_note_coords))
 
+    export let show_terra_tuner = false
 
 </script>
 
@@ -514,6 +509,11 @@
 
     </div>
 
+    <TerraTuner 
+        bind:opened={show_terra_tuner} 
+        bind:grid={grid}
+        bind:temperament={temperament}
+    />
+    
 
-   
 
