@@ -51,9 +51,10 @@
 
     <Group>
 		<ActionIcon variant="default" on:click={()=>{show_terra_tuner=!show_terra_tuner}}>
-			<LightningBolt />
+			<!--<img src='/somasynths_fav.png'/>-->
+			<img src='/somalogo_navbar_proper.svg' width="16"/>
 		</ActionIcon>
-        <Tooltip label={`${mod} + J`}>
+        <!--<Tooltip label={`${mod} + J`}>
             <ActionIcon variant="default" on:click={toggle} size={30} use={[[hotkey, [['mod+J', toggle]]]]}>
                 {#if isDark}
                     <Moon />
@@ -61,7 +62,7 @@
                     <Sun />
                 {/if}
             </ActionIcon>
-        </Tooltip>
+        </Tooltip>-->
         <ActionIcon variant="default">
             <a href="https://github.com/peterjungx/pitchgrid"><GithubLogo /></a>
         </ActionIcon>

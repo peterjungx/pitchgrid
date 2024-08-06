@@ -1,8 +1,9 @@
 <script lang='ts'>
     import { onMount } from 'svelte';
-    import { Modal, NativeSelect, Button, CheckboxGroup, Flex, Grid, Text, Space } from '@svelteuidev/core';
+    import { Modal, NativeSelect, Button, CheckboxGroup, Flex, Grid, Text, Space, Textarea, Title, Stack } from '@svelteuidev/core';
     import { WebMidi } from "webmidi";
     import { ConsistentTuning, coord_to_interval, interval_to_coord, note_to_coord_C4_eq_00 } from '$lib/consistent_tuning';
+    import { log } from 'mathjs';
 
     export let opened = false;
     export let grid: any[];
@@ -67,6 +68,8 @@
         return binary;
     }
 
+
+
     onMount(() => {
         WebMidi.enable({sysex: true})
         .then(onWebMidiEnabled)
@@ -91,38 +94,76 @@
     const sysex_tail = new Uint8Array([0xF7]);
 
 
+    let logstring = '';
+
     // define type TerraFunction 
     type TerraFunction = {
-        sysex_cmd: Uint8Array|((bank:number, preset:number) => Uint8Array),
-        cb: (data:Uint8Array) => void
+        prepare_sysex_cmd: () => Uint8Array,
+        cb: (data:Uint8Array, status:number) => void
     }
     // define terra_functions with type Map of string to TerraFunction
     const fetch_live_state:TerraFunction = {
-        sysex_cmd: new Uint8Array([0x0A, 0x00, 0x7F, 0x0A]),
-        cb: (data:Uint8Array) => {
+        prepare_sysex_cmd: () => {
+            logstring += 'fetching live preset ...   ';
+            return new Uint8Array([0x0A, 0x00, 0x7F, 0x0A])
+        },
+        cb: (data:Uint8Array, status:number) => {
             console.log('live preset', data);
+            logstring += `done with status=${status}\n`;
             soma_terra_live_preset = data;
+
+            call_terra_function(fetch_pitch_shifter_preset);
         }
     }    
+
+    const transmit_live_state:TerraFunction = {
+        prepare_sysex_cmd: () => {
+            logstring += 'transmitting live preset ...   ';
+            return new Uint8Array([0x0B, 0x00, 0x7F, 0x0B, ...soma_binary_to_sysex(soma_terra_live_preset)])
+        },
+        cb: (response:Uint8Array, status:number) => {
+            console.log('live preset transmitted', response);
+
+            logstring += `done with status=${status}\n`;
+            call_terra_function(transmit_pitch_shifter_preset);
+        }
+    }
+
+    let pitch_shifter_bank = 2;
+    let pitch_shifter_preset = 7;
+
     const fetch_pitch_shifter_preset:TerraFunction = {
-        sysex_cmd: (bank:number, preset:number) => {return new Uint8Array([0x04, bank, preset, 0x04])},
-        cb: (data:Uint8Array) => {
+        prepare_sysex_cmd: () => {
+            logstring += `fetching pitch shifter preset B${pitch_shifter_bank+1}P${pitch_shifter_preset+1} ...   `;
+            return new Uint8Array([0x04, pitch_shifter_bank, pitch_shifter_preset, 0x04])
+        },
+        cb: (data:Uint8Array, status:number) => {
             console.log('pitch shifter preset', data);
+            logstring += `done with status=${status}\n`;
             soma_terra_pitch_shifter_preset = data;
+
+            set_tuning();
         }
     }
-    const fetch_full_dump:TerraFunction = {
-        sysex_cmd: new Uint8Array([0x00, 0x7F, 0x00, 0x00]),
-        cb: (data:Uint8Array) => {
-            console.log('full dump', data);
+
+    const transmit_pitch_shifter_preset:TerraFunction = {
+        prepare_sysex_cmd: () => {
+            logstring += `transmitting pitch shifter preset B${pitch_shifter_bank+1}P${pitch_shifter_preset+1} ...   `;
+            console.log('pitch shifter data', soma_terra_pitch_shifter_preset);
+            return new Uint8Array([0x05, pitch_shifter_bank, pitch_shifter_preset, 0x05, ...soma_binary_to_sysex(soma_terra_pitch_shifter_preset)])
+        },
+        cb: (response:Uint8Array, status:number) => {
+            console.log('pitch shifter preset transmitted');
+            logstring += `done with status=${status}\n`;
         }
     }
+
     let active_calls = new Map<string, TerraFunction>();
 
     function call_terra_function(func:TerraFunction){
         if (soma_terra_midi_out) {
             console.log('sending sysex to', soma_terra_midi_out);
-            let sysex_cmd = typeof func.sysex_cmd === 'function' ? func.sysex_cmd(pitch_shifter_bank, pitch_shifter_preset) : func.sysex_cmd;
+            let sysex_cmd = func.prepare_sysex_cmd();
             soma_terra_midi_out.send([...sysex_head, ...sysex_cmd, ...sysex_tail]);
             active_calls.set(sysex_cmd.slice(0,3).toString(), func);
             console.log('active_calls set', sysex_cmd.slice(0,3).toString());
@@ -144,12 +185,16 @@
                 }
                 let soma_sysex_cmd_str = e.data.slice(5, 8).toString()
                 if (active_calls.has(soma_sysex_cmd_str)) {
-                    active_calls.get(soma_sysex_cmd_str)?.cb(soma_sysex_to_binary(e.data.slice(9, -1)));
+                    let status = e.data.slice(8, 9)
+                    let message = soma_sysex_to_binary(e.data.slice(9, -1))
+                    active_calls.get(soma_sysex_cmd_str)?.cb(message, status);
                     active_calls.delete(soma_sysex_cmd_str);
                 }
             });
         }
     }
+
+
 
     let ps: { [key: string]: string } = {
         oooo:'P1',
@@ -206,7 +251,7 @@
         'Locrian bb7':'1221213',
     }
     let base_note = 'C';
-    let base_note_octave = 4;
+    let base_note_octave = '4';
     let scale = 'Major';
 
     function calc_scale_12_notes(base_note:string, base_note_octave:number, scale:string){
@@ -225,11 +270,14 @@
 
 
     function set_tuning(){
+        logstring += `tuning live preset to ${base_note}${base_note_octave} ${scale} ...   `;
+
         // set pitches
-        let scale_coords = calc_scale_12_notes(base_note, base_note_octave, scale);
+        let scale_coords = calc_scale_12_notes(base_note, Number(base_note_octave), scale);
         for (let i = 0; i < 12; i++) {
             let note = scale_coords[i];
-            let freq = grid.filter((e:any)=>e.d==note[0] && e.s==note[1])[0].freq;
+            let gridnote = grid.filter((e:any)=>e.d==note[0] && e.s==note[1])[0]
+            let freq = gridnote.freq;
             let midi_note = Math.log2(freq / 440) * 12 + 69;
             let terra_cents = Math.round((midi_note - Math.round(midi_note)) * 128);
             if (terra_cents < 0) {
@@ -242,12 +290,16 @@
                 soma_terra_live_preset[16 +12 +i]=terra_cents;
             }
 
-            //let midi_note_exact = midi_note + (terra_cents-(terra_cents>127?256:0)) / 128;
-            //let mapped_freq = Math.pow(2, (midi_note_exact - 69) / 12) * 440;
+            let note_name = gridnote.note;
+            let midi_note_exact = midi_note + (terra_cents-(terra_cents>127?256:0)) / 128;
+            let mapped_freq = Math.pow(2, (midi_note_exact - 69) / 12) * 440;
+            logstring += `${i+1}=${note_name}(${Math.round(mapped_freq*10)/10}Hz) `;
             //let mapped_freq_error_cents = 1200 * Math.log2(mapped_freq / freq);
            //console.log('note', note, freq, midi_note, terra_cents,mapped_freq, mapped_freq_error_cents);
         }
 
+
+        logstring += 'done\n';
         // set pitch shifter preset to be used 
         soma_terra_live_preset[16] += pitch_shifter_preset & 0x01 ? 128 : 0;
         soma_terra_live_preset[17] += pitch_shifter_preset & 0x02 ? 128 : 0;
@@ -283,28 +335,12 @@
         crc = crc32(soma_terra_pitch_shifter_preset.slice(16,48))
         soma_terra_pitch_shifter_preset.set(crc, 12);
 
+        logstring += 'done\n';
+
+        call_terra_function(transmit_live_state)
+
     }
 
-    
-
-    function write_live_preset(){
-        if (soma_terra_midi_out && soma_terra_live_preset) {
-            
-            let sysex_msg = [...sysex_head, 0x0B, 0x00, 0x7F, 0x0B, ...soma_binary_to_sysex(soma_terra_live_preset), ...sysex_tail];
-            console.log('sending data:', soma_terra_live_preset);
-            console.log('sending sysex:', sysex_msg);
-            soma_terra_midi_out.send(sysex_msg);
-        }
-    }
-    function write_pitch_shifter_preset(){
-        if (soma_terra_midi_out && soma_terra_pitch_shifter_preset) {
-            
-            let sysex_msg = [...sysex_head, 0x05, pitch_shifter_bank, pitch_shifter_preset, 0x05, ...soma_binary_to_sysex(soma_terra_pitch_shifter_preset), ...sysex_tail];
-            console.log('sending data:', soma_terra_live_preset);
-            console.log('sending sysex:', sysex_msg);
-            soma_terra_midi_out.send(sysex_msg);
-        }
-    }
 
     const default_intervals=['P22','P15','P12',
         'P8','P5', 'P4', 'M3','m3','M2','m2', 'A1', 
@@ -312,8 +348,6 @@
         '-A1','-m2','-M2','-m3','-M3','-P4','-P5','-P8',
         '-P12','-P15','-P22']
 
-    let pitch_shifter_bank = 2;
-    let pitch_shifter_preset = 7;
     let pitchshifter_select_value = ['B3', 'P1', 'P2', 'P4'];
 
     function update_pitch_shifter_preset_select(){
@@ -329,10 +363,30 @@
         pitch_shifter_preset = pitchshifter_select_value.filter(e=>e.slice(0,1)=='P').map(e=>Number(e.slice(1))).reduce((a,v)=>a+v,0);        
     }
 
+
 </script>
 
-<Modal {opened} on:close={() => opened = false}>
-
+<Modal {opened} on:close={() => opened = false} size="lg">
+    <Stack>
+    <Title order={1}>SOMA Terra Tuner</Title>
+    <Text>
+        Fellow SOMA Terra owner. This tool allows you to tune your Terra according to  
+        the temperament configured in the PitchGrid. The note keys are always tuned 
+        to the diatonic notes of the selected scale, 
+        starting with the base note of the scale at key 1 and in ascending order. 
+        The tuning is only applied to the live set and is not persistent, you have to save it yourself
+        to the preset you want.
+    </Text>
+    <Text>
+        The Terra pitch shifter frequencies must fit the temperament, therefore you can't 
+        skip configuring it here. Due to Terra limitation, it is not possible to 
+        load a pitch shifter preset into a live state. It has to be persistent. 
+        The selected pitch shifter
+        preset will be overwritten and the live state configured to link to it.
+    </Text>
+    <Text>
+        Kudos to SOMA for building such an ingenious device! And now, tuning your Terra is a breeze! Enjoy!
+    </Text>
     <NativeSelect
         size="xs"
         label="Select the MIDI device name of your SOMA Terra"
@@ -341,7 +395,7 @@
         data = {WebMidi.outputs.map(output => ({value: output.id, label: `${output.name} (${output.manufacturer})`}))}
     />
 
-    <Button size="xs" on:click={()=>{call_terra_function(fetch_live_state)}}>Fetch SOMA Terra Live State</Button>
+    <!--<Button size="xs" on:click={()=>{call_terra_function(fetch_live_state)}}>Fetch SOMA Terra Live State</Button>-->
     <!--<div>{soma_terra_live_preset.slice(0,12)}</div>         -->
     <!--<div>{soma_terra_live_preset.slice(12,16)}</div>            -->
     <!--<div>{soma_terra_live_preset.slice(16,16+12)}</div>         -->
@@ -349,12 +403,11 @@
     <!--<div>{soma_terra_live_preset.slice(16+24,48)}</div>         -->
     <!--<div>{crc32(soma_terra_live_preset.slice(16,48))}</div>         -->
 
-    <Button size="xs" on:click={()=>{call_terra_function(fetch_pitch_shifter_preset)}}>Fetch SOMA Terra Pitch Shifter Preset B{pitch_shifter_bank+1} P{pitch_shifter_preset+1}</Button>
-    
-    <!--<div>{soma_terra_pitch_shifter_preset.slice(0,12)}</div>        -->
+    <!--<Button size="xs" on:click={()=>{call_terra_function(fetch_pitch_shifter_preset)}}>Fetch SOMA Terra Pitch Shifter Preset B{pitch_shifter_bank+1} P{pitch_shifter_preset+1}</Button>-->
+    <!--<div>{soma_terra_pitch_shifter_preset.slice(0,16)}</div>   -->     
     <!--<div>{soma_terra_pitch_shifter_preset.slice(12,16)}</div>       -->
-    <!--<div>{soma_terra_pitch_shifter_preset.slice(16,16+16)}</div>        -->
-    <!--<div>{soma_terra_pitch_shifter_preset.slice(16+16,16+32)}</div>     -->
+    <!--<div>{soma_terra_pitch_shifter_preset.slice(16,16+16)}</div>    -->    
+    <!--<div>{soma_terra_pitch_shifter_preset.slice(16+16,16+32)}</div>    --> 
     <!--<div>{crc32(soma_terra_pitch_shifter_preset.slice(16,48))}</div>        -->
     <!--<div>{(new Int8Array(soma_terra_pitch_shifter_preset.slice(16,16+16)))}</div>       -->
 
@@ -380,7 +433,7 @@
     </Grid>
 
     <CheckboxGroup
-        label="Which Pitch Shifter Slot to use?"
+        label={`Select pitch shifter slot to save to. (Set to B${pitch_shifter_bank+1}P${pitch_shifter_preset+1})`}
         size="xs"
         items={terra_pitchshifter_select_items}
         bind:value={pitchshifter_select_value}
@@ -410,12 +463,24 @@
         <Grid.Col span={8}> <NativeSelect label="OOOO" size="xs" data={default_intervals} bind:value={ps.OOOO} /></Grid.Col>
     </Grid>
     <Space h="lg"/>
-    <Flex>
+    <!--<Flex>
         <Button size="xs" on:click={set_tuning}>Set Tuning</Button>
         <Space w="sm"/>
-        <Button size="xs" on:click={write_live_preset}>Set Live Preset</Button>
+        <Button size="xs" on:click={()=>{call_terra_function(transmit_live_state)}}>Set Live Preset</Button>
         <Space w="sm"/>
         <Button size="xs" on:click={write_pitch_shifter_preset}>Set Pitch Shifter Preset</Button>
-    </Flex>
+    </Flex>-->
 
+    <Button on:click={()=>{
+        logstring = '';
+        call_terra_function(fetch_live_state)}
+    }>Tune It!</Button>
+
+    <Textarea
+        size="xs"
+        label = "Logs"
+        rows = {10}
+        bind:value={logstring}
+    />
+</Stack>
 </Modal>
