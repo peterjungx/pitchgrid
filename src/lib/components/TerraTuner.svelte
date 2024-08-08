@@ -119,13 +119,14 @@
     const transmit_live_state:TerraFunction = {
         prepare_sysex_cmd: () => {
             logstring += 'transmitting live preset ...   ';
+            logstring += '\n' + Array.from(soma_terra_live_preset).map(e=>toHex(e)).join(' ') + '\n';
             return new Uint8Array([0x0B, 0x00, 0x7F, 0x0B, ...soma_binary_to_sysex(soma_terra_live_preset)])
         },
         cb: (response:Uint8Array, status:number) => {
             console.log('live preset transmitted', response);
 
             logstring += `done with status=${status}\n`;
-            call_terra_function(transmit_pitch_shifter_preset);
+            
         }
     }
 
@@ -146,15 +147,22 @@
         }
     }
 
+    function toHex(d:number) {
+        return  ("0"+(Number(d).toString(16))).slice(-2).toUpperCase()
+    }
     const transmit_pitch_shifter_preset:TerraFunction = {
         prepare_sysex_cmd: () => {
             logstring += `transmitting pitch shifter preset B${pitch_shifter_bank+1}P${pitch_shifter_preset+1} ...   `;
+            // print hex reperesentation of pitch shifter preset data to log
+            logstring += '\n' + Array.from(soma_terra_pitch_shifter_preset).map(e=>toHex(e)).join(' ') + '\n';
             console.log('pitch shifter data', soma_terra_pitch_shifter_preset);
             return new Uint8Array([0x05, pitch_shifter_bank, pitch_shifter_preset, 0x05, ...soma_binary_to_sysex(soma_terra_pitch_shifter_preset)])
         },
         cb: (response:Uint8Array, status:number) => {
             console.log('pitch shifter preset transmitted');
             logstring += `done with status=${status}\n`;
+
+            call_terra_function(transmit_live_state);
         }
     }
 
@@ -337,7 +345,7 @@
 
         logstring += 'done\n';
 
-        call_terra_function(transmit_live_state)
+        call_terra_function(transmit_pitch_shifter_preset)
 
     }
 
