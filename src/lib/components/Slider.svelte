@@ -29,7 +29,6 @@
     }
     function mousemove(event:any){
         if (track){
-            console.log(event)
             let x = event.clientX
             value = step*Math.round(Math.max(min, Math.min( (x-left)/(right-left)*(max-min)+min, max))/step)
         }
