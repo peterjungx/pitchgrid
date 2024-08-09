@@ -17,6 +17,7 @@
 	export let path = 'M 0 0 L 60 30 L 0 60 L -60 30 Z';
 	export let pressed = true;
 	$: bordercolor = d===0&&s===0?'#808080':'#FFB319'
+	let activecolor = '#FFE194';
 	//$: console.log('pressed', pressed, d, s);
 
 	
@@ -176,7 +177,6 @@
 		cursor: pointer;
 		outline: none;
 		pointer-events:all;
-		stroke-width: 3px;
 		stroke:var(--color-bordercolor);
 		/*opacity: 0.5;*/
 	}
@@ -186,7 +186,7 @@
 	}
 	.button-svg-path:active {
 		stroke-width: 5px;
-		fill:var(--color-bordercolor);
+		fill:var(--color-activecolor);
 	}
 	.button-svg-text {
 		pointer-events: none;
@@ -198,7 +198,7 @@
 
 </style>
 
-<section style="left: {left-200}px; top: {top-200}px; --color-bordercolor:{bordercolor}" class="draggable">
+<section style="left: {left-200}px; top: {top-200}px; --color-bordercolor:{bordercolor}; --color-activecolor:{activecolor}" class="draggable">
 	<button class="button">
 		<svg class="button-svg" viewBox="-200 -200 400 400">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -207,6 +207,7 @@
 				d="{path}" 
 				stroke-linejoin="round"
 				stroke-linecap="round"
+				stroke-width="{pressed?5:3}"
 				fill="{pressed?'#FFE194':color}"
 			/>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
