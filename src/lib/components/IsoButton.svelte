@@ -16,12 +16,12 @@
 	export let display_center_point:boolean = false;
 	export let path = 'M 0 0 L 60 30 L 0 60 L -60 30 Z';
 	export let pressed = true;
-	$: bordercolor = d===0&&s===0?'red':'orange'
+	$: bordercolor = d===0&&s===0?'#808080':'#FFB319'
 	//$: console.log('pressed', pressed, d, s);
 
 	
     // Color setup
-	let color = 'darkgreen'
+	let color = '#B8DFD8'
     function setGridColors(col_scheme: string){
 		// octave is last character of e.note string, as integer
 		if (col_scheme === 'cleantone'){
@@ -32,11 +32,11 @@
 				color = (octave + ( (note==='A' || note==='B') ? 1 : 0 )) % 2 === 0 ? 'white' : 'grey'
 			}else{
 				if (accidental==='#' && (note==='C' || note==='D' || note==='F' || note==='G' || note==='A')){
-					color = (octave + ( (note==='A' || note==='G') ? 1 : 0 )) % 2 === 0 ? 'lightgrey' : 'black'
+					color = (octave + ( (note==='A' || note==='G') ? 1 : 0 )) % 2 === 0 ? 'lightgrey' : 'darkgrey'
 				}else if(accidental==='b' && (note==='B' || note==='D' || note==='E' || note==='G' || note==='A')){
-					color = (octave + ( (note==='B') ? 1 : 0 )) % 2 === 0 ? 'lightgrey' : 'black'
+					color = (octave + ( (note==='B') ? 1 : 0 )) % 2 === 0 ? 'lightgrey' : 'darkgrey'
 				}else{
-					color = 'darkgreen'
+					color = '#B8DFD8'
 				}
 			}
 		} else if (col_scheme === 'piano'){
@@ -46,11 +46,11 @@
 				color = 'white' 
 			}else{
 				if (accidental==='#' && (note==='C' || note==='D' || note==='F' || note==='G' || note==='A')){
-					color = 'black'
+					color = '#303030'
 				}else if(accidental==='b' && (note==='B' || note==='D' || note==='E' || note==='G' || note==='A')){
-					color = 'black'
+					color = '#303030'
 				}else{
-					color = 'darkgreen'
+					color = "#B8DFD8"
 				}
 			}
 		} else if (col_scheme === 'rainbow'){
@@ -176,7 +176,7 @@
 		cursor: pointer;
 		outline: none;
 		pointer-events:all;
-		stroke-width: 2px;
+		stroke-width: 3px;
 		stroke:var(--color-bordercolor);
 		/*opacity: 0.5;*/
 	}
@@ -207,7 +207,7 @@
 				d="{path}" 
 				stroke-linejoin="round"
 				stroke-linecap="round"
-				fill="{pressed?'yellow':color}"
+				fill="{pressed?'#FFE194':color}"
 			/>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<text 

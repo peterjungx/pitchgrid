@@ -28,7 +28,7 @@
 			<Tooltip
 				wrapLines
 				width={400}
-				color='indigo'
+				color='cyan'
 				position='bottom'
                 withArrow
                 openDelay={400}

@@ -276,7 +276,7 @@
         top:68px;
         bottom:0px;
         /*border: 1px solid red;*/
-        background-color: #404040;
+        background-color: #FFB319;
     }
 </style>
 
@@ -296,7 +296,7 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="Select the information the keys show. You can show frequencies or deviation from equal temperament in cents, etc."
             >
                 <NativeSelect 
@@ -320,7 +320,7 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="Select preconfigured isomorphic layout. Default is diatonic steps (d) along y-axis and chormatic steps (semitones s) along x-axis. This is the (d,s)-lattice. Other options include historic layouts like Wicki, Bosanquet or Fokker. You can also drag C3, C#3 or Dbb3 to create your own isomorphic layout."
             >
                 <NativeSelect
@@ -338,7 +338,7 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="Select the temperament applied to the 2-d layout. In the common 12-TET (twelve tone equal temperament) pitch does not change along the d-axis. In principle, any rank-2 regular temperament (or consistent tuning) is supported, with the Pythagorean and all Meantone temperaments being among them. Here we have some temperaments preconfigured."
             >
                 <NativeSelect
@@ -359,7 +359,7 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="Select the coloring scheme to apply to the keys."
                 >            
                 <NativeSelect 
@@ -380,10 +380,11 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="A piano keyboard is 1-dimensional, hence it only can play a subset of the notes from the two dimensions of Western musical scales presented here. Whatever keys happen to fall inside the piano strip will be available. You can use your PC keyboard to play a piano keyboard configuration."
             >    
                 <Button 
+                    color="cyan"
                     on:click={()=>{show_piano_strip = !show_piano_strip}}
                 >
                     Piano Strip ({#if show_piano_strip}on{:else}off{/if})
@@ -397,7 +398,7 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="Apply an offset to the strip to change the area playable on the keyboard. Offset=1 means all black keys are b's, 6 means all black keys are #'s. This setting depends on which key you want to play in. For example, A-major has three accidentals, F#, C# and G#. If you want to play a piece in that key on the piano, the offset should be at least 4, so these notes are available."
                 >               
                 
@@ -418,10 +419,11 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="The lines in the pitch grid show along the direction of constant pitch. We display lines for the twelve pitches of 12-TET, and the generator frequencies of the selected temperament."
             >    
                 <Button 
+                    color="cyan"
                     on:click={()=>{show_pitch_grid = !show_pitch_grid}}
                 >
                     Pitch Grid ({#if show_pitch_grid}on{:else}off{/if})
@@ -435,10 +437,11 @@
                 openDelay={400}
                 closeDelay={400}
                 position="right"
-                color="indigo"
+                color="cyan"
                 label="The DS Grid shows lines along the diatonic and chromatic directions."
             >                
                 <Button 
+                    color="cyan"
                     on:click={()=>{show_ds_grid = !show_ds_grid}}
                 >
                     DS Grid ({#if show_ds_grid}on{:else}off{/if})

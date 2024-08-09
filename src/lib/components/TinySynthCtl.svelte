@@ -47,16 +47,59 @@
         let [mpe, pressed_notes] = note_to_mpe.noteToMPE(note_to_mpe, note, velocity, freq_A4)
         pressed_note_coords = pressed_notes
         //console.log('note', note, 'velocity', velocity, 'mpe', mpe)
-        mpe.forEach((msg) => {
+        mpe.forEach((msg:any) => {
             synth.send(msg);
         })
     }
     onMount(() => {
-        keyboard_piano = new KeyboardPiano(handleNote)
+        keyboard_piano = new KeyboardPiano(handleNote);
     })
     export let freq_A4 = 440.0
 
+
 </script>
+
+<style>
+/*Chrome*/
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+            input[type='range'] {
+            overflow: hidden;
+            -webkit-appearance: none;
+            background-color: #FFE194;
+        }
+        
+        input[type='range']::-webkit-slider-runnable-track {
+            height: 20px;
+            -webkit-appearance: none;
+            color: '#B8DFD8';
+            margin-top: -1px;
+        }
+        
+        input[type='range']::-webkit-slider-thumb {
+            width: 10px;
+            -webkit-appearance: none;
+            height: 20px;
+            cursor: ew-resize;
+            background: #434343;
+            box-shadow: -80px 0 0 80px #43e5f7;
+        }
+
+    }
+    /** FF*/
+    input[type="range"]::-moz-range-progress {
+        background-color: #B8DFD8; 
+    }
+    input[type="range"]::-moz-range-track {  
+        background-color: #FFE194;
+    }
+    /* IE*/
+    input[type="range"]::-ms-fill-lower {
+        background-color: #B8DFD8; 
+    }
+    input[type="range"]::-ms-fill-upper {  
+        background-color: #FFE194;
+    }
+</style>
 
 <Stack>
     <Space/>
@@ -67,7 +110,7 @@
         openDelay={400}
         closeDelay={400}
         position="right"
-        color="indigo"
+        color="cyan"
         label="Adjust the concert pitch of the tuning. The note you adjust is always A4, which has the coordinates (5,9) in (d,s) space. (We set C4 as the origin, (0,0), in (d,s) space."
     >    
         <Text size='sm'>Concert pitch {freq_A4} Hz</Text>
@@ -86,7 +129,7 @@
         openDelay={400}
         closeDelay={400}
         position="right"
-        color="indigo"
+        color="cyan"
         label="Select a preset for the YZZ Tiny Synth that is included in this app (128 presets available)."
     >   
         <Text size='sm'>Tiny Synth No. {selected_synth_engine_id}</Text>
