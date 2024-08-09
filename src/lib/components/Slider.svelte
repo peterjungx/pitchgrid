@@ -25,6 +25,7 @@
     }
     function mouseup(event:any){
         track=false
+        dispatch('change', event.target.value)
     }
     function mousemove(event:any){
         if (track){
