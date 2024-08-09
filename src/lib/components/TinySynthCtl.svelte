@@ -6,6 +6,7 @@
     import { NoteToMPE } from '$lib/note_to_mpe';
 
     import { Text, Stack, Space, Tooltip } from '@svelteuidev/core';
+    import Slider from './Slider.svelte';
 
     import JZZ from 'jzz';
     import Tiny from 'jzz-synth-tiny';
@@ -113,8 +114,8 @@
         color="cyan"
         label="Adjust the concert pitch of the tuning. The note you adjust is always A4, which has the coordinates (5,9) in (d,s) space. (We set C4 as the origin, (0,0), in (d,s) space."
     >    
-        <Text size='sm'>Concert pitch {freq_A4} Hz</Text>
-        <input type="range" 
+        <Text size='sm'>Concert pitch {freq_A4.toFixed(1)} Hz</Text>
+        <Slider
             bind:value={freq_A4} 
             min={420}
             max={460}
@@ -133,7 +134,7 @@
         label="Select a preset for the YZZ Tiny Synth that is included in this app (128 presets available)."
     >   
         <Text size='sm'>Tiny Synth No. {selected_synth_engine_id}</Text>
-        <input type="range" 
+        <Slider
             bind:value={selected_synth_engine_id} 
             min={0}
             max={127}
