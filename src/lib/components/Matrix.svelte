@@ -77,8 +77,9 @@
         'Pythagorean':new ConsistentTuning(7, 12, 2, 4, 7, 3/2),
         '1/4-Comma Meantone':new ConsistentTuning(2, 4, 5/4, 7, 12, 2),
         '1/3-Comma Meantone':new ConsistentTuning(2, 3, 6/5, 7, 12, 2),
-        'Cleantone':new ConsistentTuning(2, 4, 5/4, 4, 7, 3/2),
-        'Cleantone-7':new ConsistentTuning(2, 3, 7/6, 4, 7, 3/2)
+        'Cleantone (5-limit)':new ConsistentTuning(2, 4, 5/4, 4, 7, 3/2),
+        'm3=7/6 P5=3/2':new ConsistentTuning(2, 3, 7/6, 4, 7, 3/2),
+        //'Pythagorean2':new ConsistentTuning(7, 12, Math.pow(2.0,(1200+5)/1200), 4, 7, Math.pow(2.0,(Math.log2(3/2)*1200+10)/1200)),
     }
     temperament = temperaments['12-TET']
 
@@ -127,18 +128,19 @@
         },
         'bosanquet':{
             scale: 40,
-            transform: [[-12*0.8, 7*0.8], [0, -0.355], ],
-            label:'Bosanquet'
-        },
-        'bosanquet2':{
-            scale: 40,
             transform: [[0, Math.sqrt(2)/6], [12, -7]],
-            label:'Bosanquet 2'
+            label:'Bosanquet'
         },
         'fokker':{
             scale: 120,
             transform: [[0, 0.3], [-1, 0.5]],
             label:'Fokker'
+        },
+        'striso':{
+            scale: 35,
+            //transform: [[-12*0.8, 7*0.8], [0, -0.355], ],
+            transform: [[-10.,   5.83333333],[  0.        ,  - 0.3125    ]],
+            label:'Striso'
         },
         'wicki':{
             scale: 50,
