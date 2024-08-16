@@ -1,5 +1,4 @@
 <script lang='ts'>
-    import { onMount } from 'svelte';
     import Lattice from './Lattice.svelte';
     import LatticePath from './LatticePath.svelte';
     import { Grid, NativeSelect, Checkbox, Space, NumberInput,ActionIcon, Group } from '@svelteuidev/core';
@@ -9,10 +8,6 @@
     import { coprime_tree, calc_scale } from './lattice_math';
     import type {system} from './lattice_math';
     let coprime_tree_str = coprime_tree.map(e=>`${e.a},${e.b}`);
-
-    onMount(() => {
-        console.log('mos')
-    })
 
     let w=0, h=0;
     $: centerX = w/2;
@@ -87,7 +82,7 @@
     <Grid.Col span={1}>
         <Group>
         <ActionIcon variant="default">
-            <a href="MOS Revisited.pdf" download><QuestionMark /></a>
+            <a href="MOS_Revisited.pdf" download><QuestionMark /></a>
         </ActionIcon>
         </Group>
     </Grid.Col>

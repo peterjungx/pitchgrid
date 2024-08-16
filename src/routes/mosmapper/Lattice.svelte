@@ -8,7 +8,6 @@
     export let s:system = {a:1,b:1};
     export let edge_length=50;
     export let show_rects = false;
-    //export let transform:number[] = [];
 
     export let color = 'lightgray';
     export let areacolor = 'white';

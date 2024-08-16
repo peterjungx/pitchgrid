@@ -106,7 +106,6 @@ export function get_transform_sequence(s:system, t:system, dual:boolean=false):a
     let from = index_of(coprime_tree, s);
     let to = index_of(coprime_tree, t);
     // find common ancestor
-    console.log(from, to);
 
     let from_path = [];
     while(from>0){
@@ -120,9 +119,6 @@ export function get_transform_sequence(s:system, t:system, dual:boolean=false):a
         to = to >> 1;
     }
     to_path.unshift(0);
-
-    console.log(from_path, to_path);
-
 
     let common = 0;
     if (!dual){ 
@@ -138,8 +134,6 @@ export function get_transform_sequence(s:system, t:system, dual:boolean=false):a
     from_path = from_path.slice(common+1).reverse();
     to_path = to_path.slice(common+1);
     
-    console.log(common, from_path, to_path);
-
     let sequence = [];
     for (let t of from_path){
         sequence.push(t%2 ? g_inv : f_inv);
@@ -150,7 +144,6 @@ export function get_transform_sequence(s:system, t:system, dual:boolean=false):a
     for (let t of to_path){
         sequence.push(t%2 ? g : f);
     }
-    console.log(sequence);
     return sequence;
 }
 
@@ -163,7 +156,6 @@ export function apply_lattice_transform(elems:node[]|edge[]|rect[], from:system,
     for (let e of elems){
         if ('c' in e){
             e.c = apply_transform(e.c, transform_sequence);
-            console.log(e.c);
             e.p = node_pos(e.c, to, scale);
         }else if ('c3' in e){
             e.c1 = apply_transform(e.c1, transform_sequence);
