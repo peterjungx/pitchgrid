@@ -29,6 +29,7 @@ export type node = {
     p:nodepos;
     col:string;
     text:string;
+    alt_text?:string;
 }
 export type edge = {
     c1:nodecoord;
@@ -258,6 +259,24 @@ export function calc_scale(s:system, mode:number):nodecoord[]{
     return scale;
 }
 
+
+export function calc_scale_target_labels(scale_nodes:node[], s_target:system){
+    let majorscale = calc_scale(s_target, 1);
+    let labels = s_target.a==2 && s_target.b==5 ? ['C','D','E','F','G','A','B'] : [...Array(s_target.a+s_target.b).keys()].map(i => `${i+1}`);
+    scale_nodes.forEach((n:node) => {
+        let {aa, bb} = n.c;
+        console.log(aa, bb);
+
+        //let i = (aa==s_target.a && bb==s_target.b)?(aa+bb):(aa+bb + 5*(s_target.a + s_target.b)) % (s_target.a + s_target.b);
+        //let i = (aa==s_target.a && bb==s_target.b)?(aa+bb):(aa+bb + 5*(s_target.a + s_target.b)) % (s_target.a + s_target.b);
+        let i = (aa+bb + 5*(s_target.a + s_target.b)) % (s_target.a + s_target.b);
+        let octave = Math.floor((aa+bb) / (s_target.a + s_target.b));
+        let accidental = majorscale[i].aa - aa + s_target.a*octave;
+        
+        n.alt_text = `${labels[i]}` + `${accidental>0?'#'.repeat(accidental):accidental<0?'b'.repeat(-accidental):''}`;
+    });
+}
+
 export function prepare_scale(scale:nodecoord[], s:system, edge_length:number, color:string, labels:string[]|undefined){
     let nodes:node[] = [];
     let edges:edge[] = [];
@@ -266,7 +285,7 @@ export function prepare_scale(scale:nodecoord[], s:system, edge_length:number, c
 
     nodes = scale.map((c:nodecoord, i:number) => {
         let accidental = majorscale[i].aa - c.aa;
-        let label = (labels ? labels[i] : `${i%(s.a+s.b)+1}`) + `${accidental>0?'#':accidental<0?'b':''}`;
+        let label = (labels ? labels[i] : `${i%(s.a+s.b)+1}`) + `${accidental>0?'#'.repeat(accidental):accidental<0?'b'.repeat(-accidental):''}`;
         return {
             c:c, 
             p:{

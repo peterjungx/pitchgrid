@@ -47,7 +47,7 @@ export class NoteToMPE {
         return it.noteCoordsToMPE(it, coords, velocity, base_freq_A4);
     }
 
-    noteCoordsToMPE(it:NoteToMPE, coords:NoteCoords, velocity:number, base_freq_A4:number) : [any[], any[]] {
+    noteCoordsToMPE(it:NoteToMPE, coords:NoteCoords, velocity:number, base_freq_A4:number=440) : [any[], any[]] {
         let mpe:any[] = [];
         let channel:number|undefined = undefined;
 

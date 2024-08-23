@@ -2,6 +2,7 @@
     import Lattice from './Lattice.svelte';
     import LatticePath from './LatticePath.svelte';
     import ConstantPitchLine from './ConstantPitchLine.svelte';
+    import ContextMenu from './ContextMenu.svelte';
     import { Grid, NativeSelect, Checkbox, Space, NumberInput,ActionIcon, Group, Button } from '@svelteuidev/core';
     import {  QuestionMark, Play, Stop } from 'radix-icons-svelte';
     import Slider from '$lib/components/Slider.svelte';
@@ -10,6 +11,7 @@
     import type {system} from './lattice_math';
 
     import {ConsistentTuning} from '$lib/consistent_tuning';
+
 
     let coprime_tree_str = coprime_tree.map(e=>`${e.a},${e.b}`);
 
@@ -102,6 +104,8 @@
     $: update_on_tuning_param_change(octave, constant_pitch_angle, s_tune);
 
     let play = false;
+
+    $: target_major_scale = calc_scale(s_target, 1);
     
 </script>
 
@@ -172,9 +176,9 @@
 <div class="container" bind:clientWidth={w} bind:clientHeight={h}>
     <svg width="100%" height="100%" viewBox="{-centerX} {-centerY} {w} {h}" xmlns="http://www.w3.org/2000/svg">
         <Lattice bind:s={s_target} edge_length={50} show_rects={false}/>
-        {#if s_target.a===2 && s_target.b===5}
-            <LatticePath bind:s={s_target} edge_length={50} path={cmajor_scale} color="#A0A0A0"/>
-        {/if}
+        
+        <LatticePath bind:s={s_target} edge_length={50} path={target_major_scale} color="#B0B0B0"/>
+        
 
         <ConstantPitchLine
         bind:s
@@ -214,3 +218,4 @@
 
     </svg>
 </div>
+<!--<ContextMenu />-->

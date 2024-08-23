@@ -1,7 +1,7 @@
 <script lang='ts'>
     import {onMount} from 'svelte';
     import type { system, node, edge } from './lattice_math';
-    import {prepare_scale, apply_lattice_transform} from './lattice_math';
+    import {prepare_scale, apply_lattice_transform, calc_scale_target_labels} from './lattice_math';
     import Node from './Node.svelte';
     import {ConsistentTuning} from '$lib/consistent_tuning';
     import {LatticeSynth} from '$lib/lattice_synth';
@@ -33,6 +33,7 @@
         let {nodes, edges} = prepare_scale(path, s, edge_length, color, labels);
         if (s_target) {
             apply_lattice_transform(nodes, s, s_target, edge_length, dual);
+            calc_scale_target_labels(nodes,s_target);
             apply_lattice_transform(edges, s, s_target, edge_length, dual);
         }
         _nodes = nodes;
@@ -41,7 +42,7 @@
     $: update(s, edge_length, path, s_target, color, dual);
 
 
-    let play_interval:number = 200; // ms
+    let play_interval:number = 300; // ms
     $: playing_sequence = [...Array(_nodes.length).keys()].concat([...Array(_nodes.length).keys()].slice(1,-1).reverse());
     let playing_idx = 0;
 
@@ -96,5 +97,6 @@
         y={n.p.y} 
         bind:color="{n.col}" 
         text="{n.text}"
+        alt_text="{n.alt_text}"
     />
 {/each}
