@@ -26,10 +26,10 @@
     $: [s_target.a,s_target.b] = sys_target.split(',').map(e=>parseInt(e));
 
     let dual = false
-    let mode = 1;
+    let mode = 2;
 
 
-    const cmajor_scale = calc_scale({a:2,b:5}, 5);
+    const cmajor_scale = calc_scale({a:2,b:5}, 1);
     $: scale = calc_scale(s, mode-1);
     let tune_target = false;
     let current_tuning = '<3,5>-1:2-ET'
@@ -85,6 +85,8 @@
         //console.log(sys.a, sys.b, next_et_str, constant_pitch_angle);
     }
     
+    let base_freq = 440;
+    let octave_freq = base_freq * temperament.coord_to_freq(s_tune.a, s_tune.b);
     function update_on_tuning_param_change(octave:number, constant_pitch_angle:number, s_tune:system) {
         let large_to_small = -1/Math.tan((angle(0,1,s_tune.b,s_tune.a) + constant_pitch_angle)/180*Math.PI);
         console.log('constant_pitch_angle', constant_pitch_angle)
@@ -92,6 +94,8 @@
         let a_cent = 1200 / (s_tune.a+large_to_small*s_tune.b);
         let a_freq_ratio = octave**(a_cent/1200);
         temperament.setup(s_tune.a, s_tune.b, octave, 1, 0, a_freq_ratio);
+        base_freq = base_freq
+        octave_freq = base_freq * temperament.coord_to_freq(s_tune.a, s_tune.b)
         
         console.log(1200*Math.log2(temperament.coord_to_freq(1,0)), 1200*Math.log2(temperament.coord_to_freq(0,1)));
     }
@@ -169,9 +173,30 @@
     <svg width="100%" height="100%" viewBox="{-centerX} {-centerY} {w} {h}" xmlns="http://www.w3.org/2000/svg">
         <Lattice bind:s={s_target} edge_length={50} show_rects={false}/>
         {#if s_target.a===2 && s_target.b===5}
-            <LatticePath bind:s={s_target} edge_length={50} path={cmajor_scale} color="black"/>
+            <LatticePath bind:s={s_target} edge_length={50} path={cmajor_scale} color="#A0A0A0"/>
         {/if}
 
+        <ConstantPitchLine
+        bind:s
+        bind:s_target
+        bind:s_tune
+        bind:dual
+        bind:constant_pitch_angle
+        bind:tune_target
+        bind:freq={base_freq}
+        edge_length={50}
+    />
+    <ConstantPitchLine
+        bind:s
+        bind:s_target
+        bind:s_tune
+        bind:s_offset={s_tune}
+        bind:freq={octave_freq}
+        bind:dual
+        bind:constant_pitch_angle
+        bind:tune_target
+        edge_length={50}
+    />
         <!--<Lattice bind:s edge_length={50} show_rects color="blue" bind:s_target bind:dual/>-->
         <LatticePath 
             bind:s 
@@ -179,32 +204,13 @@
             bind:path={scale} 
             bind:s_target
             bind:dual 
-            color="blue" 
+            color="#303030" 
             bind:temperament
             bind:play
             bind:tune_target
         />
 
-        <ConstantPitchLine
-            bind:s
-            bind:s_target
-            bind:s_tune
-            bind:dual
-            bind:constant_pitch_angle
-            bind:tune_target
-            edge_length={50}
-        />
-        <ConstantPitchLine
-            bind:s
-            bind:s_target
-            bind:s_tune
-            s_offset={s_tune}
-            label="880Hz"
-            bind:dual
-            bind:constant_pitch_angle
-            bind:tune_target
-            edge_length={50}
-        />
+
 
     </svg>
 </div>

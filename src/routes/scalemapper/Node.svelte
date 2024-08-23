@@ -3,7 +3,7 @@
     export let y=0;
     export let color='gray';
     export let text='';
-    let r = 6;
+    let r = 9;
 </script>
 
 <circle cx="{x}" cy="{y}" r="{r}" fill="{color}" />

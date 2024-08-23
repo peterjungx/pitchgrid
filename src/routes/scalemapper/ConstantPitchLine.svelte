@@ -11,11 +11,10 @@
     export let constant_pitch_angle:number
     export let edge_length:number
     export let s_offset:system = {a:0,b:0}
-    export let label:string = '440Hz'
+    export let freq:number = 440
     
     $: lts = -1/Math.tan((angle(0,1,s_tune.b,s_tune.a) + constant_pitch_angle)/180*Math.PI);
     /// export function edge_at_coords(c1:nodecoord, c2:nodecoord, s:system, scale:number, col:string):edge{
-
 
     let line:edge
     // = edge_at_coords({aa:-lts, bb:-1}, {aa:lts, bb:1}, s_tune, 50, 'black');
@@ -38,14 +37,21 @@
 
 </script>
 
-<line x1={midx+dx} y1={midy+dy} x2={midx-dx} y2={midy-dy} stroke="{line.col}" stroke-width="2"/>
+<line 
+    x1={midx+dx} 
+    y1={midy+dy} 
+    x2={midx-dx} 
+    y2={midy-dy} 
+    stroke="#FFE194" 
+    stroke-width="2"
+/>
 <text 
     x={midx-1.2*(dx)} 
     y={midy-1.2*(dy)} 
-    fill="black" 
+    fill="#FFE194" 
     font-size="16" 
     text-anchor="middle" 
     dominant-baseline="middle"
 >
-    {label}
+    {freq.toFixed(1)+'Hz'}
 </text>

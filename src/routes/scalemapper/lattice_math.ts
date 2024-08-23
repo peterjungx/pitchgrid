@@ -239,14 +239,14 @@ export function calc_scale(s:system, mode:number):nodecoord[]{
     if (mode > s.a+s.b-1){
         mode = s.a+s.b-1;
     }
-    for (let acc=0; acc<mode; acc++){
+    for (let acc=0; acc<scale.length-mode-2; acc++){
         // find note farthest from b/a line
         let max_dist = 0;
         let max_note = 0;
         for (let i=1; i<scale.length; i++){
             let note = scale[i];
-            let dist = note.aa*s.b - note.bb*s.a;
-            if (dist>max_dist){
+            let dist = (note.aa*s.b - note.bb*s.a);
+            if (dist > max_dist){
                 max_dist = dist;
                 max_note = i;
             }
@@ -262,8 +262,11 @@ export function prepare_scale(scale:nodecoord[], s:system, edge_length:number, c
     let nodes:node[] = [];
     let edges:edge[] = [];
 
+    let majorscale = calc_scale(s, 1);
+
     nodes = scale.map((c:nodecoord, i:number) => {
-        let label = labels ? labels[i] : `${i%(s.a+s.b)+1}`;
+        let accidental = majorscale[i].aa - c.aa;
+        let label = (labels ? labels[i] : `${i%(s.a+s.b)+1}`) + `${accidental>0?'#':accidental<0?'b':''}`;
         return {
             c:c, 
             p:{
