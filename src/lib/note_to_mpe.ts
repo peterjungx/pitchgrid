@@ -51,7 +51,10 @@ export class NoteToMPE {
         let mpe:any[] = [];
         let channel:number|undefined = undefined;
 
-        let note = it.baseNoteMidiNumber + coords.s;
+        let freq = base_freq_A4/440 * it.temperament.coord_to_freq(coords.d, coords.s);
+        let exact_midi_note_number = it.baseNoteMidiNumber + 12*Math.log2(freq);
+        let note = Math.round(exact_midi_note_number);
+
         if (velocity === 0){
             if (it.playingNotes.has(str(coords))){
                 channel = it.playingNotes.get(str(coords))!.channel;
@@ -75,11 +78,11 @@ export class NoteToMPE {
             it.playingChannels.add(channel);
             it.playingNotes.set(str(coords), {channel:channel, coords:coords});
         }
-        
-        let freq = base_freq_A4/440 * it.temperament.coord_to_freq(coords.d, coords.s);
-        let exact_midi_note_number = it.baseNoteMidiNumber + 12*Math.log2(freq);
+
         //console.log(note, exact_midi_note_number, freq);
         let pitchBend = Math.min(Math.round(8192*(exact_midi_note_number - note)/it.pitchBendRange) + 8192, 16383);
+
+        //console.log('xx', it.temperament.coord_to_freq(coords.d, coords.s), note, exact_midi_note_number, pitchBend)
 
         let noteOn = 0x90 + channel;
         let pitchBendLSB = pitchBend % 128;

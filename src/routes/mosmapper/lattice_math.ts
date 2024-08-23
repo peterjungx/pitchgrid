@@ -1,5 +1,8 @@
-import { object_equals, index_of } from '$lib//util';
+import { index_of } from '$lib//util';
 
+export function angle(v1_x:number, v1_y:number, v2_x:number, v2_y:number):number {
+    return Math.acos( (v1_x*v2_x + v1_y*v2_y) / Math.sqrt(v1_x**2+v1_y**2) / Math.sqrt(v2_x**2+v2_y**2) ) * 180 / Math.PI;
+}
 
 export type system = {
     a:number;
@@ -22,6 +25,7 @@ type nodepos = {
 }
 export type node = {
     c:nodecoord;
+    c_orig?:nodecoord;
     p:nodepos;
     col:string;
     text:string;
@@ -147,7 +151,7 @@ export function get_transform_sequence(s:system, t:system, dual:boolean=false):a
     return sequence;
 }
 
-function apply_transform(c:nodecoord, transform_sequence:any[]){
+export function apply_transform(c:nodecoord, transform_sequence:any[]){
     return transform_sequence.reduce((acc, f) => f(acc), c);
 }
 
@@ -155,6 +159,9 @@ export function apply_lattice_transform(elems:node[]|edge[]|rect[], from:system,
     let transform_sequence = get_transform_sequence(from, to, dual);
     for (let e of elems){
         if ('c' in e){
+            if (!e.c_orig){
+                e.c_orig = e.c;
+            }
             e.c = apply_transform(e.c, transform_sequence);
             e.p = node_pos(e.c, to, scale);
         }else if ('c3' in e){
