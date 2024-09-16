@@ -89,7 +89,8 @@ export function interval_to_coord(interval: string){
     let decl = sign == -1 ? interval.slice(1) : interval
 
     // AA12 -> 12
-    let d = parseInt(decl.match(/\d+/)[0])
+    let matchResult = decl.match(/\d+/);
+    let d = matchResult ? parseInt(matchResult[0]) : 0;
     d = d>0 ? d-1 : d
     let s = 0
     for (let i=0; i<d; i++){
@@ -100,9 +101,15 @@ export function interval_to_coord(interval: string){
             s -= 1
         }else if (decl[0] === 'A'){
             // for each A, add 1 (i.e. AAA23 -> +3)
-            s += decl.match(/A+/g)[0].length
+            const matchResult = decl.match(/A+/g);
+            if (matchResult) {
+                s += matchResult[0].length;
+            }
         }else if (decl[0] === 'd'){
-            s -= decl.match(/d+/g)[0].length + ([0,3,4].includes(d%7) ? 0 : 1)
+            const matchResult = decl.match(/d+/g);
+            if (matchResult) {
+                s -= matchResult[0].length + ([0,3,4].includes(d%7) ? 0 : 1);
+            }
         }
     }
     return [sign*d, sign*s]
@@ -126,4 +133,38 @@ export function note_to_coord_C4_eq_00(note: string){
     s += octave_shift*12
 
     return [d,s]
+}
+
+interface FractionWithError{
+    num: number;
+    den: number;
+    err: number;
+}
+
+// function to calculate  the continued fraction representation of a number up to a maximum error
+export function cont_frac(x: number, max_error: number): FractionWithError{
+    let a = Math.floor(x)
+    let f = x - a
+    let num = [1, a]
+    let den = [0, 1]
+    //console.log('cf', x, 0, a, f, num, den)
+    let i = 1
+    //console.log('cf', x, i, a, f, num[num.length-2], den[den.length-2], num[num.length-1], den[den.length-1])
+    while (Math.abs(x-num[num.length-1]/den[den.length-1]) > max_error && i < 100){
+        i++
+        a = Math.floor(1/f)
+        f = 1/f - a
+        let nu = a*num[i-1] + num[i-2]
+        let de = a*den[i-1] + den[i-2]
+        num.push(a*num[i-1] + num[i-2])
+        den.push(a*den[i-1] + den[i-2])
+        //console.log('cf', x, i, a, f, nu, de, num[num.length-2], den[den.length-2], num[num.length-1], den[den.length-1])
+    }
+    return {num: num[num.length-1], den: den[den.length-1], err: num[num.length-1]/den[den.length-1]-x}
+}
+
+
+export type TuningData = {
+    tuning:ConsistentTuning,
+    base_freq:number,
 }

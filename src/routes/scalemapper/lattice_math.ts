@@ -8,7 +8,7 @@ export type system = {
     a:number;
     b:number;
 }
-type nodecoord ={
+export type nodecoord ={
     aa:number;
     bb:number;
 }
@@ -48,6 +48,15 @@ export type rect = {
     p3:nodepos;
     p4:nodepos;
     col:string;
+}
+
+export type MappedScaleDisplayData = { 
+    s: system,
+    s_target: system,
+    s_tune: system,
+    tune_target: boolean,
+    dual: boolean,
+    edge_length: number,
 }
 
 function node_pos(c:nodecoord, s:system, scale:number):nodepos{
@@ -265,7 +274,6 @@ export function calc_scale_target_labels(scale_nodes:node[], s_target:system){
     let labels = s_target.a==2 && s_target.b==5 ? ['C','D','E','F','G','A','B'] : [...Array(s_target.a+s_target.b).keys()].map(i => `${i+1}`);
     scale_nodes.forEach((n:node) => {
         let {aa, bb} = n.c;
-        console.log(aa, bb);
 
         //let i = (aa==s_target.a && bb==s_target.b)?(aa+bb):(aa+bb + 5*(s_target.a + s_target.b)) % (s_target.a + s_target.b);
         //let i = (aa==s_target.a && bb==s_target.b)?(aa+bb):(aa+bb + 5*(s_target.a + s_target.b)) % (s_target.a + s_target.b);

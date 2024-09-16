@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import Node from './Node.svelte';
+    import LatticeNode from './LatticeNode.svelte';
 
     import type { node, edge, rect, system } from './lattice_math';
     //import {prepare_default_lattice} from './lattice_math';
@@ -60,9 +60,8 @@
 {/each}
 
 {#each _nodes as n}
-    <Node 
-        x={n.p.x} 
-        y={n.p.y} 
+    <LatticeNode 
+        node={n}
         color="{n.col}" 
         text="{n.text}"
     />

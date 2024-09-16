@@ -2,16 +2,17 @@
     import Lattice from './Lattice.svelte';
     import LatticePath from './LatticePath.svelte';
     import ConstantPitchLine from './ConstantPitchLine.svelte';
-    import ContextMenu from './ContextMenu.svelte';
+    //import ContextMenu from './ContextMenu.svelte';
     import { Grid, NativeSelect, Checkbox, Space, NumberInput,ActionIcon, Group, Button } from '@svelteuidev/core';
     import {  QuestionMark, Play, Stop } from 'radix-icons-svelte';
     import Slider from '$lib/components/Slider.svelte';
 
     import { angle, coprime_tree, calc_scale } from './lattice_math';
-    import type {system} from './lattice_math';
+    import type {system, MappedScaleDisplayData} from './lattice_math';
 
-    import {ConsistentTuning} from '$lib/consistent_tuning';
-
+    import {ConsistentTuning, cont_frac} from '$lib/consistent_tuning';
+    //import { applyAction } from '$app/forms';
+    import type {TuningData} from '$lib/consistent_tuning';
 
     let coprime_tree_str = coprime_tree.map(e=>`${e.a},${e.b}`);
 
@@ -19,38 +20,44 @@
     $: centerX = w/2;
     $: centerY = h/2;
 
-    let s:system = {a:3,b:5};
-    let s_target:system = {a:2,b:5};
+    let display_data:MappedScaleDisplayData = {
+        s: {a:3,b:5},
+        s_target: {a:2,b:5},
+        s_tune: {a:3,b:5},
+        tune_target: false,
+        dual: false,
+        edge_length: 70,
+    }
+    let octave = 2;
+
+    let tuning_data:TuningData = {
+        base_freq: 440/2**(9/12),
+        tuning: new ConsistentTuning(display_data.s_tune.a, display_data.s_tune.b, octave, 1, 0, octave**(1/(display_data.s_tune.a+2*display_data.s_tune.b))),
+    }
 
     let sys_orig='3,5';
-    $: [s.a, s.b] = sys_orig.split(',').map(e=>parseInt(e));
+    $: [display_data.s.a, display_data.s.b] = sys_orig.split(',').map(e=>parseInt(e));
     let sys_target='2,5';
-    $: [s_target.a,s_target.b] = sys_target.split(',').map(e=>parseInt(e));
+    $: [display_data.s_target.a, display_data.s_target.b] = sys_target.split(',').map(e=>parseInt(e));
 
-    let dual = false
     let mode = 2;
 
 
     const cmajor_scale = calc_scale({a:2,b:5}, 1);
-    $: scale = calc_scale(s, mode-1);
-    let tune_target = false;
+    $: scale = calc_scale(display_data.s, mode-1);
     let current_tuning = '<3,5>-1:2-ET'
-    let s_tune:system = tune_target?s_target:s;
-    let octave = 2;
-    let constant_pitch_angle = angle(s_tune.a, s_tune.b, -2, 1); // degrees relative to octave direction in the tuning system used.
+    let constant_pitch_angle = angle(display_data.s_tune.a, display_data.s_tune.b, -2, 1); // degrees relative to octave direction in the tuning system used.
 
     function update_s_tune(s:system, s_target:system, tune_target:boolean) {
-        s_tune = tune_target?s_target:s;
-        current_tuning = `<${s_tune.a},${s_tune.b}>` + current_tuning.slice(current_tuning.indexOf('-'));
+        display_data.s_tune = tune_target?s_target:s;
+        current_tuning = `<${display_data.s_tune.a},${display_data.s_tune.b}>` + current_tuning.slice(current_tuning.indexOf('-'));
         let [ra, rb] = current_tuning.split('-')[1].split(':').map(e=>parseFloat(e));
-        constant_pitch_angle = angle(s_tune.a, s_tune.b, -rb, ra);
+        constant_pitch_angle = angle(display_data.s_tune.a, display_data.s_tune.b, -rb, ra);
         console.log('current_tuning', current_tuning);
+
+        tuning_data = tuning_data;
     }
-    $: update_s_tune(s, s_target, tune_target);
-
-
-
-    let temperament = new ConsistentTuning(s_tune.a, s_tune.b, octave, 1, 0, octave**(1/(s_tune.a+2*s_tune.b)));
+    $: update_s_tune(display_data.s, display_data.s_target, display_data.tune_target);
 
 
     function parse_tuning(tuning:string) {
@@ -84,28 +91,33 @@
         
         let [ra, rb] = next_et_str.split(':').map(e=>parseFloat(e));
         constant_pitch_angle = angle(sys.a, sys.b, -rb, ra);
-        //console.log(sys.a, sys.b, next_et_str, constant_pitch_angle);
     }
     
-    let base_freq = 440;
-    let octave_freq = base_freq * temperament.coord_to_freq(s_tune.a, s_tune.b);
+    //let base_freq = 440/2**(9/12);
+    let octave_freq = tuning_data.base_freq * tuning_data.tuning.coord_to_freq(display_data.s_tune.a, display_data.s_tune.b);
+    let calcdfreq = tuning_data.base_freq * tuning_data.tuning.coord_to_freq(1,0);
+
     function update_on_tuning_param_change(octave:number, constant_pitch_angle:number, s_tune:system) {
         let large_to_small = -1/Math.tan((angle(0,1,s_tune.b,s_tune.a) + constant_pitch_angle)/180*Math.PI);
-        console.log('constant_pitch_angle', constant_pitch_angle)
-        console.log('large_to_small', large_to_small, );
+        //console.log('constant_pitch_angle', constant_pitch_angle)
+        //console.log('large_to_small', large_to_small, );
         let a_cent = 1200 / (s_tune.a+large_to_small*s_tune.b);
         let a_freq_ratio = octave**(a_cent/1200);
-        temperament.setup(s_tune.a, s_tune.b, octave, 1, 0, a_freq_ratio);
-        base_freq = base_freq
-        octave_freq = base_freq * temperament.coord_to_freq(s_tune.a, s_tune.b)
+        tuning_data.tuning.setup(s_tune.a, s_tune.b, octave, 1, 0, a_freq_ratio);
+        tuning_data = tuning_data;
+        octave_freq = tuning_data.base_freq * tuning_data.tuning.coord_to_freq(s_tune.a, s_tune.b)
         
-        console.log(1200*Math.log2(temperament.coord_to_freq(1,0)), 1200*Math.log2(temperament.coord_to_freq(0,1)));
+        //console.log(1200*Math.log2(tuning_data.tuning.coord_to_freq(1,0)), 1200*Math.log2(tuning_data.tuning.coord_to_freq(0,1)));
+
+        scale = scale;
+        calcdfreq = tuning_data.base_freq * tuning_data.tuning.coord_to_freq(0,1);
+
     }
-    $: update_on_tuning_param_change(octave, constant_pitch_angle, s_tune);
+    $: update_on_tuning_param_change(octave, constant_pitch_angle, display_data.s_tune);
 
     let play = false;
 
-    $: target_major_scale = calc_scale(s_target, 1);
+    $: target_major_scale = calc_scale(display_data.s_target, 1);
     
 </script>
 
@@ -115,10 +127,11 @@
         overflow:hidden;
         left:0px;
         right:0px;
-        top:68px;
+        top:69px;
         bottom:0px;
         /*border: 1px solid red;*/
-        background-color: #FFB319;
+        /*background-color: #FFB319;*/
+        background-color: #FFFFFF;
     }
 </style>
 
@@ -138,13 +151,13 @@
         />
     </Grid.Col>
     <Grid.Col span={2}>
-        <NumberInput bind:value={mode} min={1} max={s.a+s.b} label="Mode" />
+        <NumberInput bind:value={mode} min={1} max={display_data.s.a+display_data.s.b} label="Mode" />
     </Grid.Col>
     <Grid.Col span={3}>
         <Space h={5}/>
-        <Checkbox bind:checked={dual} label="Dual Lattice" />
+        <Checkbox bind:checked={display_data.dual} label="Dual Lattice" />
         <Space h={5}/>
-        <Checkbox bind:checked={tune_target} label="Tune Target" />
+        <Checkbox bind:checked={display_data.tune_target} label="Tune Target" />
     </Grid.Col>
     <Grid.Col span={3}>
         <Space h={5}/>
@@ -169,49 +182,36 @@
             </ActionIcon>
         </Group>
     </Grid.Col>
-
 </Grid>
-
 
 <div class="container" bind:clientWidth={w} bind:clientHeight={h}>
     <svg width="100%" height="100%" viewBox="{-centerX} {-centerY} {w} {h}" xmlns="http://www.w3.org/2000/svg">
-        <Lattice bind:s={s_target} edge_length={50} show_rects={false}/>
+        <Lattice 
+            bind:s={display_data.s_target} 
+            edge_length={display_data.edge_length} 
+            show_rects={false}
+        />
         
-        <LatticePath bind:s={s_target} edge_length={50} path={target_major_scale} color="#B0B0B0"/>
-        
+        <LatticePath 
+            bind:display_data
+            bind:tuning_data
+            bind:path={target_major_scale} 
+            within_target={true}
+            color="#B0B0B0"
+            showConstantPitchLines={false}
 
-        <ConstantPitchLine
-        bind:s
-        bind:s_target
-        bind:s_tune
-        bind:dual
-        bind:constant_pitch_angle
-        bind:tune_target
-        bind:freq={base_freq}
-        edge_length={50}
-    />
-    <ConstantPitchLine
-        bind:s
-        bind:s_target
-        bind:s_tune
-        bind:s_offset={s_tune}
-        bind:freq={octave_freq}
-        bind:dual
-        bind:constant_pitch_angle
-        bind:tune_target
-        edge_length={50}
-    />
+        />
+        
         <!--<Lattice bind:s edge_length={50} show_rects color="blue" bind:s_target bind:dual/>-->
         <LatticePath 
-            bind:s 
-            edge_length={50} 
+            bind:display_data
+            bind:tuning_data
             bind:path={scale} 
-            bind:s_target
-            bind:dual 
             color="#303030" 
-            bind:temperament
             bind:play
-            bind:tune_target
+            showConstantPitchLines={true}
+            variant={2}
+            show_alt_text={false}
         />
 
 

@@ -16,6 +16,8 @@
 	export let display_center_point:boolean = false;
 	export let path = 'M 0 0 L 60 30 L 0 60 L -60 30 Z';
 	export let pressed = true;
+	let displaymode = 'play'
+
 	$: bordercolor = d===0&&s===0?'#808080':'#FFB319'
 	let activecolor = '#FFE194';
 	//$: console.log('pressed', pressed, d, s);
@@ -201,30 +203,40 @@
 <section style="left: {left-200}px; top: {top-200}px; --color-bordercolor:{bordercolor}; --color-activecolor:{activecolor}" class="draggable">
 	<button class="button">
 		<svg class="button-svg" viewBox="-200 -200 400 400">
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<path on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
-				class="button-svg-path"
-				d="{path}" 
-				stroke-linejoin="round"
-				stroke-linecap="round"
-				stroke-width="{pressed?5:3}"
-				fill="{pressed?'#FFE194':color}"
-			/>
+			
+			 {#if displaymode=='play'}
+			 	<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<path on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
+					class="button-svg-path"
+					d="{path}" 
+					stroke-linejoin="round"
+					stroke-linecap="round"
+					stroke-width="{pressed?5:3}"
+					fill="{pressed?'#FFE194':color}"
+				/>
+			{/if}
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<text 
 				on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
 				class="button-svg-text"
-				x="0%"
-				y="0%" 
-				dominant-baseline="middle" 
-				text-anchor="middle" 
+				x={displaymode=='play'?"0%" :'1%'}
+				y={displaymode=='play'?"0%" :'-1%'}
+				dominant-baseline={displaymode=='play'?"middle" :'bottom'}
+				text-anchor={displaymode=='play'?"middle" :'left'}
 				fill="{fontcolor}"
 			>
 				{label}
 			</text>
 			<!-- if display_center_point is set, display a dot in the center -->
-			{#if display_center_point}
-				<circle cx="0" cy="0" r="3" fill="{bordercolor}" />
+			{#if display_center_point||displaymode!='play'}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<circle 
+					on:click={handleClick} on:mousedown={onMouseDown} on:touchstart={onMouseDown} role="button" tabindex="0"
+					cx="0" 
+					cy="0" 
+					r="4" 
+					fill="#1e777f" 
+				/>
 			{/if}
 		</svg>
 	</button>
