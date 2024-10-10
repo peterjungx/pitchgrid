@@ -26,7 +26,7 @@
         s_tune: {a:3,b:5},
         tune_target: false,
         dual: false,
-        edge_length: 70,
+        edge_length: 50,
     }
     let octave = 2;
 
@@ -161,7 +161,7 @@
     </Grid.Col>
     <Grid.Col span={3}>
         <Space h={5}/>
-        <Slider bind:value={octave} min={0.5} max={2.5} step={0.0001} />
+        <Slider bind:value={octave} min={0.2} max={4.5} step={0.0001} />
         <Space h={5}/>
         <Slider bind:value={constant_pitch_angle} min={0} max={180} step={0.01} />
     </Grid.Col>
