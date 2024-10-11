@@ -1,9 +1,3 @@
-[Download as PDF](/docs/PitchGrid_MicroExquis.pdf)
-
-[Download QuickStart Patch for VCV Rack](/docs/MicroExquis_Quickstart.vcv)
-
-# ![](favicon.png "50") PitchGrid MicroExquis
-
 _Author: Peter Jung (mail@peter-jung.net)_ 
 _Version: 2024-10-08_
 

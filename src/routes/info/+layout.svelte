@@ -10,14 +10,14 @@
 
     let menuitems:string[] = ['PitchGrid', 'ScaleMapper', 'MicroExquis'];
     function loadTab(event: CustomEvent) {
-        goto(`/docs/${menuitems[event.detail.index]}`);
+        goto(`/info/${menuitems[event.detail.index]}`);
     }
 
     onMount(async () => {
         if (!data.page || data.page === ''|| data.page === '/') {
             await tick();
             activeTab = 0;
-            goto(`/docs/PitchGrid`);
+            goto(`/info/PitchGrid`);
             return;
         }
         let pageIndex = menuitems.findIndex((item) => item === data.page);
@@ -27,7 +27,7 @@
         }
         await tick();
         activeTab = pageIndex;
-        goto(`/docs/${data.page}`);
+        goto(`/info/${data.page}`);
     });
 </script>
 
