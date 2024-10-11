@@ -14,6 +14,12 @@
     }
 
     onMount(async () => {
+        if (!data.page || data.page === ''|| data.page === '/') {
+            await tick();
+            activeTab = 0;
+            goto(`/docs/PitchGrid`);
+            return;
+        }
         let pageIndex = menuitems.findIndex((item) => item === data.page);
         if(pageIndex === -1) {
             valid = false;
@@ -21,6 +27,7 @@
         }
         await tick();
         activeTab = pageIndex;
+        goto(`/docs/${data.page}`);
     });
 </script>
 
