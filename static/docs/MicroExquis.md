@@ -2,12 +2,12 @@
 
 [Download QuickStart Patch for VCV Rack](docs/MicroExquis_Quickstart.vcv)
 
-# ![](docs/favicon.png "50") PitchGrid MicroExquis
+# ![](favicon.png "50") PitchGrid MicroExquis
 
 _Author: Peter Jung (mail@peter-jung.net)_ 
 _Version: 2024-10-08_
 
-![Screenshot_2024-10-04_at_21.44.34.png](docs/images/Screenshot_2024-10-04_at_21.44.34.png "500")
+![Screenshot_2024-10-04_at_21.44.34.png](images/Screenshot_2024-10-04_at_21.44.34.png "500")
 
 
 # Documentation
@@ -16,18 +16,18 @@ The PitchGrid Microtonal Exquis (or MicroExquis for short) is a module in the  [
 
 ## Quickstart
 
-Step 1: Connect the [Exquis](https://dualo.com/exquis/?utm_source=VCVplugin) (tested with firmware v1.2.0)
+**Step 1:** Connect the [Exquis](https://dualo.com/exquis/?utm_source=VCVplugin) (tested with firmware v1.2.0)
 
-Step 2: Load the MicroExquis Quickstart patch. 
+**Step 2:** Load the [MicroExquis Quickstart patch](https://pitchgrid.io/docs/MicroExquis_Quickstart.vcv). 
 
-![Screenshot_2024-10-04_at_21.46.32.png](docs/images/Screenshot_2024-10-04_at_21.46.32.png "700")
+![Screenshot_2024-10-04_at_21.46.32.png](images/Screenshot_2024-10-04_at_21.46.32.png "700")
 
 
-Step 3: Right click on the MicroExquis and load the first factory preset. 
+**Step 3:** Right click on the MicroExquis and load the first factory preset. 
 
-Step 4: Configure the MIDI▶︎CV and the MIDI CC▶︎CV modules to receive MIDI signals from the Exquis and the Audio module to your output device.
+**Step 4:** Configure the MIDI▶︎CV and the MIDI CC▶︎CV modules to receive MIDI signals from the Exquis and the Audio module to your output device.
 
-![IMG_4098_2.jpg](docs/images/IMG_4098_2.jpg "300")
+![IMG_4098_2.jpg](images/IMG_4098_2.jpg "300")
 
 If your Exquis keys light up in the same pattern as shown on the MicroExquis module, you are all set and can start playing.
 
@@ -36,42 +36,42 @@ In MicroExquis, the note layout and features are different from the official Exq
 
 In the following we introduce the features of the MicroExquis.
 
-![Screenshot_2024-10-01_at_13.28.37.png](docs/images/Screenshot_2024-10-01_at_13.28.37.png "400")
+![Screenshot_2024-10-01_at_13.28.37.png](images/Screenshot_2024-10-01_at_13.28.37.png "400")
 
 Press the third controller at the top of your Exquis to change the coloring scheme. There are two coloring schemes available. 
 
-![Screenshot_2024-10-01_at_10.58.23.png](docs/images/Screenshot_2024-10-01_at_10.58.23.png "200")
+![Screenshot_2024-10-01_at_10.58.23.png](images/Screenshot_2024-10-01_at_10.58.23.png "200")
 
 The bright blue note in the middle is the base note, C. The darker blue keys are octaves below and above. The yellow keys in between are notes of the selected scale. Their brighness decreases with increasing position in the scale. In the current layout, a whole step is one key up-left and a half step is a key right and a key down-right. 
 
-![Screenshot_2024-10-04_at_22.06.45.png](docs/images/Screenshot_2024-10-04_at_22.06.45.png "350")
+![Screenshot_2024-10-04_at_22.06.45.png](images/Screenshot_2024-10-04_at_22.06.45.png "350")
 
 Each key has a scale coordinate on the hexagonal lattice. The Western scale has 5 steps of one size and 2 steps of another, thus it has scale system $(5,2)$, as shown in the 1st row of the info display. The C one octave above the base, which is at the scale coordinate $(5,2)$, is tuned to $1200ct$ (corresponding to a frequency ratio $2/1$). This is the first tuning vector. The G, at $(3,1)$, is used as the second tuning vector and is tuned to $700ct$ (or $2ct$ below the just $3/2$ ratio). The base note is tuned to the standard C of $261.63Hz$, which corresponds to a 0V signal at the microtonally adjusted V/OCT output. The two intervals together with the base note frequency define the tuning of the complete keyboard. The selected tuning corresponds to the standard 12-TET in C Major.
 
-![Screenshot_2024-10-04_at_22.05.47.png](docs/images/Screenshot_2024-10-04_at_22.05.47.png "200")
+![Screenshot_2024-10-04_at_22.05.47.png](images/Screenshot_2024-10-04_at_22.05.47.png "200")
 
 You can always change the labels to show the scale coordinates of each key.
 
 ### Changing Modes
-![Screenshot_2024-10-01_at_13.09.10.png](docs/images/Screenshot_2024-10-01_at_13.09.10.png "400")
+![Screenshot_2024-10-01_at_13.09.10.png](images/Screenshot_2024-10-01_at_13.09.10.png "400")
 
 Rotate the rightmost controller to change the mode. All 7 church modes associated with the base note are available. They are numbered in sequential order (as accidentals are added). C Lydian is mode c1 (the c stands for "church". Future versions of the module might introduce other scales, like double-harmonic.)
 
-![Screenshot_2024-10-01_at_13.15.22.png](docs/images/Screenshot_2024-10-01_at_13.15.22.png "400")
+![Screenshot_2024-10-01_at_13.15.22.png](images/Screenshot_2024-10-01_at_13.15.22.png "400")
 
 F# and Gb are different notes. You will find them on different keys on the keyboard. In tunings other than 12-TET they have different pitches.
 
-![Screenshot_2024-10-01_at_13.24.22.png](docs/images/Screenshot_2024-10-01_at_13.24.22.png "200")
+![Screenshot_2024-10-01_at_13.24.22.png](images/Screenshot_2024-10-01_at_13.24.22.png "200")
 
 Mode changes correspond to key changes.
 
 ### Tuning
 Press and hold the second key on the bottom row of the Exquis. In MicroExquis, this is the tuning selection button. 
-![Screenshot_2024-10-01_at_13.32.08.png](docs/images/Screenshot_2024-10-01_at_13.32.08.png "200")
+![Screenshot_2024-10-01_at_13.32.08.png](images/Screenshot_2024-10-01_at_13.32.08.png "200")
 
 You are now in the tuning selection view. Only the first octave above the base note is displayed. You can now select which interval you want to tune.
 
-![Screenshot_2024-10-01_at_14.01.07.png](docs/images/Screenshot_2024-10-01_at_14.01.07.png "500")
+![Screenshot_2024-10-01_at_14.01.07.png](images/Screenshot_2024-10-01_at_14.01.07.png "500")
 
 With the tuning selection button being pressed, select the interval you want to tune. The selected key start pulsating. Now you can release the tuning selection button. You are in tuning mode. In tuning mode you can rotate the first (coarse tuning) or the second (fine tuning) controller at the top of the Exquis. This will  change the tuning in real time. 
 
@@ -92,18 +92,18 @@ The note layout in the MicroExquis always has transpositional _and_ tuning invar
 
 Press and hold the fourth key on the bottom row of the Exquis. In MicroExquis, this is the layout button. 
 
-![Screenshot_2024-10-01_at_14.13.36.png](docs/images/Screenshot_2024-10-01_at_14.13.36.png "500")
+![Screenshot_2024-10-01_at_14.13.36.png](images/Screenshot_2024-10-01_at_14.13.36.png "500")
 
 Pressing a key in tuning selection button will re-position the base note's location. Turning the 1st controller will rotate the pattern around the base note. Turning the 2nd controller will skew the pattern horizontally, keeping the row with the base note unchanged. Pressing the 1st controller will flip the pattern horizontally, while pressing the 2nd controller will flip it vertically.
 
 By changing the layout it is possible to arrange the keys to your liking. Some possible arrangements for the Major scale:
-![Screenshot_2024-10-01_at_14.33.10.png](docs/images/Screenshot_2024-10-01_at_14.33.10.png "600")
+![Screenshot_2024-10-01_at_14.33.10.png](images/Screenshot_2024-10-01_at_14.33.10.png "600")
 
 On the MicroExquis display, with the _Labels_ setting set to _notes_, you see the diatonic steps being numbered sequentially.
 ### Scale System Selection
 Press and hold the 5th button in the bottom row of the Exquis. This is the **scale system selection button**. 
 
-![Screenshot_2024-10-04_at_23.47.57.png](docs/images/Screenshot_2024-10-04_at_23.47.57.png "200")
+![Screenshot_2024-10-04_at_23.47.57.png](images/Screenshot_2024-10-04_at_23.47.57.png "200")
 
 A pattern appears. You can select a different scale system, corresponding to the pair of numbers of steps of each of the two sizes in the scale. Count the number of steps along each axis to determine the number of steps of size $A$ and size $B$ for the scale. Allowed selections are displayed.
 
@@ -129,11 +129,11 @@ MicroHammond is a sound module that allows you to do just that. It is also part 
 ### MicroExquis & MicroHammond
 You can use the MicroExquis module to reverse tune the MicroHammond. When the TDAT (Tuning DATa) signal is connected between the two modules, the MicroExquis transmits information about the tuning and the scale to the MicroHammond module. 
 
-![Screenshot_2024-10-04_at_22.45.37.png](docs/images/Screenshot_2024-10-04_at_22.45.37.png "600")
+![Screenshot_2024-10-04_at_22.45.37.png](images/Screenshot_2024-10-04_at_22.45.37.png "600")
 
 The MicroHammond's oscillators associated with the octave, (sub-harmonic at half the frequency 1/2', second harmonic 2', fourth harmonic 4' and eight harmonic 8') are tuned according to the frequency ratio of the scale system. This corresponds to the frequency ratio between the (generalized) octave ( which always has the coordinates of the scale system) and the base note.
 
-![Screenshot_2024-10-04_at_22.45.52.png](docs/images/Screenshot_2024-10-04_at_22.45.52.png "600")
+![Screenshot_2024-10-04_at_22.45.52.png](images/Screenshot_2024-10-04_at_22.45.52.png "600")
 
 The MicroHammond's oscillators associated with the perfect 5th (third harmonic 3' and sixth harmonic 6') are tuned based on the first tuning vector. In the shown configuration, the first tuning vector is set to have a frequency ratio $700ct$ above the base note. The oscillators associated with the major 3rd (fifth harmonic 5') is tuned based on the second tuning vector. In the shown configuration, the first tuning vector is set to have a frequency ratio $400ct$ above the base note. In this configuration the tuning of the MicroHammond corresponds to the original Hammond organ's tuning.
 
