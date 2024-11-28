@@ -460,7 +460,7 @@
 
         <Stack justify="flex-end">
             <Space h="xl" />
-            <Anchor href="/about">About</Anchor>
+            <Anchor href="/info">About</Anchor>
         </Stack>
     </Container>
 </Navbar>
