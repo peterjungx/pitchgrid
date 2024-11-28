@@ -1,4 +1,5 @@
-# ![](favicon.png "50") PitchGrid concept
+_Peter Jung_
+_2024-08-15_
 
 What is the essence of the tonal structure of Western music? How does it relate to scales used all over the world and why? And what tonal possibilities are hidden in plain sight?
 
@@ -573,7 +574,6 @@ Here we only scratched the surface of what hidden structures and new insights an
 The [PitchGrid](https://pitchgrid.io/) web app implements some of the discussed concepts, albeit not all of them. It is a fantastic resource 
 
 There is no perfect harmony. Scales, tunings and timbre are matters of expression of emotion, and can be significant part of the story the musician tells. Understanding the foundations of tonal structure and sound allows to make conscious choices and will reflect in the quality of compositions. I hope I can contribute toward making different scales and an understanding of the unifying principle between them more accessible for the practitioner. 
-
 
 
 

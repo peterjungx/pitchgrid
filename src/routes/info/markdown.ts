@@ -40,9 +40,10 @@ export function parseMarkdown(md: string) {
     let tokens = marked.lexer(md);
     // walk through the tokens and identify code blocks with lang="abc". parse them with abcjs parser
     for (let i = 0; i < tokens.length; i++) {
-        if (tokens[i].type === "code" && tokens[i].lang === "abc") {
-            var abc = tokens[i].text;
+        if (tokens[i].type === "code" && tokens[i].lang === "music-abc") {
+            
             (async () => {
+                var abc = tokens[i].text;
                 await tick();
                 ABCJS.renderAbc(`abcjs-${i}`, abc);
             })();
