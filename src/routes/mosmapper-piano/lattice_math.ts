@@ -256,40 +256,126 @@ export function prepare_default_lattice(s:system, edge_length:number, lattice_ba
     return {nodes, edges, rects};
 }
 
-export function calc_scale(s:system, mode:number, oct_below:number = 0, oct_above:number = 0):nodecoord[]{
-    let scale:nodecoord[] = [{aa:0,bb:0}];
-    let note = 1;
-    let aa = - oct_below * s.a;
-    for (let bb = - oct_below * s.b; bb < s.b * (1 + oct_above); bb++) {
-        while ((aa+1)*s.b/s.a<bb+1){
-            scale.push({aa:aa+1,bb});
-            aa++;
-            note++;
+export function prepare_full_lattice(s:system, edge_length:number, nodecolor:string, edgecolor:string, affine_t:affine_transform, xmin:number, xmax:number, ymin:number, ymax:number):{nodes:node[], edges:edge[]} {
+    
+    // determine lattice that covers the window in a coordinate system given by affine_t
+    // strategy: 
+    // 1. find inverse affine transform
+    // 3. determine min/max x/y values for nodes
+    let nodes:node[] = [];
+    let edges:edge[] = [];
+
+
+    let det = (affine_t.m11*affine_t.m22-affine_t.m12*affine_t.m21);
+    let inverse_affine_t = {
+        m11: affine_t.m22/det,
+        m12: -affine_t.m12/det,
+        m21: -affine_t.m21/det,
+        m22: affine_t.m11/det,
+        dx: -affine_t.dx*affine_t.m22/det + affine_t.dy*affine_t.m12/det,
+        dy: affine_t.dx*affine_t.m21/det - affine_t.dy*affine_t.m11/det
+    };
+
+    //let test = {x:4.2346, y:3.2346};
+    //console.log(test,  apply_affine(inverse_affine_t, apply_affine(affine_t, test)), apply_affine(affine_t, apply_affine(inverse_affine_t, test)));
+
+    let zeronode = node_pos({aa:0, bb:0}, s, edge_length, affine_t)
+    let ul = apply_affine(inverse_affine_t, {x:xmin - zeronode.x, y:ymin });
+    let ur = apply_affine(inverse_affine_t, {x:xmin - zeronode.x, y:ymax });
+    let ll = apply_affine(inverse_affine_t, {x:xmax - zeronode.x, y:ymin });
+    let lr = apply_affine(inverse_affine_t, {x:xmax - zeronode.x, y:ymax });  
+    
+    let min_a = Math.ceil (Math.min(ul.x, ur.x, ll.x, lr.x)/edge_length );
+    let max_a = Math.floor  (Math.max(ul.x, ur.x, ll.x, lr.x)/edge_length );
+    let min_b = Math.ceil (Math.min(-ul.y, -ur.y, -ll.y, -lr.y)/edge_length );
+    let max_b = Math.floor  (Math.max(-ul.y, -ur.y, -ll.y, -lr.y)/edge_length );
+
+
+
+    console.log('coords', min_a, max_a, min_b, max_b);
+
+    // nodes
+    for (let aa = min_a; aa <= max_a; aa++) {
+        for (let bb = min_b; bb <= max_b; bb++) {
+            let mapped = node_pos({aa, bb}, s, edge_length, affine_t);
+            if (mapped.x > xmin  && mapped.x < xmax  && mapped.y > ymin && mapped.y < ymax ){
+                nodes.push(node_at_coord({aa,bb}, s, edge_length, nodecolor, affine_t));
+            }
+            
         }
-        scale.push({aa:aa+1,bb});
-        note++;
     }
-    scale.push({aa:s.a*(1 + oct_above),bb:s.b*(1 + oct_above)});
+    
+    // edges
+
+    const map = new Map();
+    nodes.forEach((n:node) => {map.set(`${n.c.aa},${n.c.bb}`, n)});
+
+    nodes.forEach((n:node) => {
+        if (map.has( `${n.c.aa-1},${n.c.bb}`)){
+            edges.push(edge_at_coords({aa:n.c.aa,bb:n.c.bb}, {aa:n.c.aa-1,bb:n.c.bb}, s, edge_length, edgecolor, affine_t));
+        }
+        if (map.has( `${n.c.aa},${n.c.bb-1}`)){
+            edges.push(edge_at_coords({aa:n.c.aa,bb:n.c.bb}, {aa:n.c.aa,bb:n.c.bb-1}, s, edge_length, edgecolor, affine_t));
+        }
+    });
+
+    //for (let aa = min_x; aa <= max_x; aa++) {
+    //    for (let bb = min_y; bb <= max_y; bb++) {
+    //        if (aa < s.a) {
+    //            edges.push(edge_at_coords({aa:aa,bb:bb}, {aa:aa+1,bb:bb}, s, edge_length, edgecolor, affine_t));
+    //        }
+    //        if (bb < s.b) {
+    //            edges.push(edge_at_coords({aa:aa,bb:bb}, {aa:aa,bb:bb+1}, s, edge_length, edgecolor, affine_t));
+    //        }
+    //    }
+    //}
+
+    return {nodes, edges};
+}
+
+
+export function calc_scale(s:system, mode:number, oct_below:number = 0, oct_above:number = 0):nodecoord[]{
+    let scale_base:nodecoord[] = [{aa:0,bb:0}];
+    let aa = 0;
+    for (let bb = 0; bb < s.b; bb++) {
+        while ((aa+1)*s.b/s.a<bb+1){
+            scale_base.push({aa:aa+1,bb});
+            aa++;
+        }
+        scale_base.push({aa:aa+1,bb});
+    }
 
     if (mode > s.a+s.b-1){
         mode = s.a+s.b-1;
     }
-    for (let acc=0; acc<scale.length-mode-2; acc++){
+    for (let acc=0; acc<scale_base.length-mode-1; acc++){
         // find note farthest from b/a line
         let max_dist = 0;
         let max_note = 0;
-        for (let i=1; i<scale.length; i++){
-            let note = scale[i];
+        for (let i=1; i<scale_base.length; i++){
+            let note = scale_base[i];
             let dist = (note.aa*s.b - note.bb*s.a);
             if (dist > max_dist){
                 max_dist = dist;
                 max_note = i;
             }
         }
-        let note = scale[max_note];
+        let note = scale_base[max_note];
         note.aa = note.aa-1;
         note.bb = note.bb+1;
     }
+
+    let scale:nodecoord[] = [];
+    for (let i=1; i<oct_below+1; i++){
+        let scale_below = scale_base.map((c:nodecoord) => {return {aa:c.aa-s.a*i,bb:c.bb-s.b*i}});
+        scale = scale_below.concat(scale);
+    }
+    scale = scale.concat(scale_base);
+    for (let i=1; i<oct_above+1; i++){
+        let scale_above = scale_base.map((c:nodecoord) => {return {aa:c.aa+s.a*i,bb:c.bb+s.b*i}});
+        scale = scale.concat(scale_above);
+    }
+    scale.push({aa:s.a*(1 + oct_above),bb:s.b*(1 + oct_above)});
     return scale;
 }
 
@@ -328,6 +414,7 @@ export function prepare_scale(scale:nodecoord[], s:system, edge_length:number, c
             text:label
         };
     });
+    
     edges = [];
     for (let i = 0; i < nodes.length-1; i++) {
         let n1=nodes[i];
@@ -339,4 +426,71 @@ export function prepare_scale(scale:nodecoord[], s:system, edge_length:number, c
         });
     }
     return {nodes, edges};
+}
+
+
+export function calc_generator_coord(s:system):nodecoord{
+    let a = s.a;
+    let b = s.b;
+    let transform_invs = [];
+    while (a!=1 || b!=1){
+        if (a>b){
+            a=a-b;
+            transform_invs.push('g');
+        }else{
+            b=b-a;
+            transform_invs.push('f');
+        }
+    }
+    a=0;
+    b=1;
+    while(transform_invs.length>0){
+        let t = transform_invs.pop();
+        if (t=='g'){
+            a=a+b;
+        }else{
+            b=a+b;
+        }
+    }
+    return {aa:a, bb:b};
+}
+
+import {ConsistentTuning} from '$lib/consistent_tuning';
+export function get_nodes_for_midi_in_strip(s:system, tuning:ConsistentTuning, min_det:number=-5, max_det:number=6, midi_offset:number=60){
+    let generator_node = calc_generator_coord(s);
+    let representants = [];
+    let base_f = tuning.coord_to_freq(0,0);
+    let oct_f = tuning.coord_to_freq(s.a, s.b);
+
+    for (let det = min_det; det <= max_det; det++){
+        let c = {aa:generator_node.aa*det, bb:generator_node.bb*det};
+        while (tuning.coord_to_freq(c.aa, c.bb) <= base_f){
+            c.aa += s.a;
+            c.bb += s.b;
+        }
+        while (tuning.coord_to_freq(c.aa, c.bb) > oct_f){
+            c.aa -= s.a;
+            c.bb -= s.b;
+        }
+        representants.push(c);
+    }
+    // sort representants by pitch. Pitch is given by x coordinate of transformed value
+
+    representants = representants.map(c => {return {c:c, f: tuning.coord_to_freq(c.aa, c.bb)}});
+    representants.sort((a,b) => a.f - b.f);
+    
+    let nodes:any[] = [];
+    let index_of_zero = representants.findIndex(r => r.c.aa==0 && r.c.bb==0);
+    for (let midi=0; midi<128; midi++){
+        let index = (index_of_zero + midi - midi_offset + 128*representants.length) % representants.length;
+        let octave = Math.floor((index_of_zero + midi - midi_offset)/representants.length);
+        let c = representants[index].c;
+        let n = {
+            aa: c.aa + octave * s.a,
+            bb: c.bb + octave * s.b
+        }
+        nodes.push({c:n, f:tuning.coord_to_freq(n.aa, n.bb), midi:midi});
+    }
+    return nodes;
+
 }

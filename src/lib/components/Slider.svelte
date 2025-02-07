@@ -5,6 +5,7 @@
     export let max=100
     export let value=50
     export let step=1
+    export let disabled=false
 
     let track=false
     let input:any
@@ -34,6 +35,8 @@
         }
         
     }
+    $: slidercolor = disabled?'#d3d3d3':'rgb(97,168,189)'
+    $: cssVarStyles = `--slider-color:${slidercolor};`
 </script>
 
 <style>
@@ -65,7 +68,7 @@
         width: 20px;
         height: 20px;
         border-radius: 50%; 
-        background: rgb(97,168,189);
+        background: var(--slider-color);
         cursor: pointer;
     }
 
@@ -73,12 +76,12 @@
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        background: rgb(97,168,189);
+        background: var(--slider-color);
         cursor: pointer;
     }
 </style>
 
-<div class="slidecontainer">
+<div class="slidecontainer" style="{cssVarStyles}">
     <input 
         bind:this={input}
         type="range" 
@@ -94,6 +97,7 @@
         on:touchstart={mousedown}
         on:touchend={mouseup}
         on:touchmove={mousemove}
+        disabled={disabled}
     >
 </div>
 
