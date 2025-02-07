@@ -292,7 +292,7 @@ export function prepare_full_lattice(s:system, edge_length:number, nodecolor:str
 
 
 
-    console.log('coords', min_a, max_a, min_b, max_b);
+    //console.log('coords', min_a, max_a, min_b, max_b);
 
     // nodes
     for (let aa = min_a; aa <= max_a; aa++) {

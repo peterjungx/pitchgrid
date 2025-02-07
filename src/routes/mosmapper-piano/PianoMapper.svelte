@@ -62,7 +62,7 @@
     let window_width = 12;
     let window_offset = 4;
     let y_scale_factor = 15;
-    let x_scale_factor = 6;
+    let x_scale_factor = 7.5;
 
 
     //function check_node_in_window(s:system, node:nodecoord){
@@ -160,7 +160,8 @@
         dy:a_dy
     };
 
-    let octave = 2;
+    let octave_exp = 1;
+    $: octave = 2**octave_exp;
     let base_tune = 0;
     function update_base_tune(base_tune:number){
         tuning_data.base_freq = 440/2**(9/12+base_tune);
@@ -309,14 +310,14 @@
         <Space h={5}/>
         base {base_tune.toFixed(3)}
         <Slider bind:value={base_tune} min={-1} max={1} step={0.0001} />
-        stretch {octave.toFixed(3)}
-        <Slider bind:value={octave} min={0.2} max={4.5} step={0.0001} />
+        stretch {octave_exp.toFixed(3)}
+        <Slider bind:value={octave_exp} min={0.1} max={2.2} step={0.0001} />
     </Grid.Col>
     <Grid.Col span={2}>
         <Space h={5}/>
-        angle coarse {G.toFixed(3)}
-        <Slider bind:value={G} min={0} max={1} step={0.0001}/>
-        angle fine {G_s.toFixed(3)}
+        angle coarse <!--{G.toFixed(3)}-->
+        <Slider bind:value={G} min={0.5} max={1} step={0.0001}/>
+        angle fine <!--{G_s.toFixed(3)}-->
         <Slider bind:value={G_s} bind:min={cpa_slider_min} bind:max={cpa_slider_max} step={0.001} />
         <Space h={5}/>
     </Grid.Col>
@@ -328,19 +329,20 @@
         <Slider bind:value={window_offset} min={1} bind:max={window_width} step={0.1} disabled={freeze_mapping} />
     </Grid.Col>
     <Grid.Col span={2}>
+        zoom {x_scale_factor.toFixed(2)}
+        <Slider bind:value={x_scale_factor} min={1} max={20} step={0.0001} />
+        <!--y_scale_factor {y_scale_factor.toFixed(2)}
+        <Slider bind:value={y_scale_factor} min={2} max={36} step={0.0001} />
+        <Space h={5}/>-->
+    </Grid.Col>
+    <Grid.Col span={2}>
         <!--start midi {start_midi}
         <Slider bind:value={start_midi} min={30} max={90} step={1}/>
         <Space h={15}/>
         <Checkbox bind:checked={freeze_mapping} label="freeze mapping" />-->
     </Grid.Col>
 
-    <Grid.Col span={2}>
-        <!--x_scale_factor {x_scale_factor.toFixed(2)}
-        <Slider bind:value={x_scale_factor} min={1} max={20} step={0.0001} />
-        y_scale_factor {y_scale_factor.toFixed(2)}
-        <Slider bind:value={y_scale_factor} min={2} max={36} step={0.0001} />
-        <Space h={5}/>-->
-    </Grid.Col>
+
     <Grid.Col span={1}></Grid.Col>
 </Grid>
 <Grid cols={12}>
@@ -433,6 +435,7 @@
                 bind:scale
                 bind:oct_above
                 bind:oct_below
+                octave={octave}
             />
             
             <!--

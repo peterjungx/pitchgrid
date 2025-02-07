@@ -1,6 +1,7 @@
 <script lang='ts'>
     import LatticeNode from './LatticeNode.svelte';
     import PianoKeyboard from './PianoKeyboard.svelte';
+    import PitchIndicator from './PitchIndicator.svelte';
 
     import type { nodecoord, node, system, affine_transform } from './lattice_math';
     //import {prepare_default_lattice} from './lattice_math';
@@ -19,8 +20,9 @@
     export let scale:nodecoord[] = [];
     export let oct_above = 1;
     export let oct_below = 1;
+    export let octave = 1;
     
-
+    export let pitch_label_cents = true;
 
     let generator_coord = {aa:1, bb:3};
     function update_generator_coord(s:system){
@@ -126,9 +128,10 @@
             let note_label = (note_labels_letters?note_label_letter(diatonic_step, s):(diatonic_step+1).toString()) + accidental;
             let midi_label = midi>=0&&midi<128?midi.toString():'';
             let pitch_freq = base_freq * tuning_data.tuning.coord_to_freq(n.c.aa, n.c.bb);
-            let pitch_label = `${pitch_freq.toFixed(1)}Hz`;
+            let pitch_ct = 1200*Math.log2(pitch_freq/base_freq);
+            let pitch_label = pitch_label_cents?`${pitch_ct.toFixed(1)}ct` :  `${(pitch_freq).toFixed(1)}Hz`;
             let is_root = n.c.aa%s.a==0 && n.c.bb%s.b==0 && n.c.aa/s.a == n.c.bb/s.b;
-            return {n, midi, key_color, note_label, midi_label, pitch_freq, pitch_label, on_scale:n.on_scale, is_root};
+            return {n, midi, key_color, note_label, midi_label, pitch_freq, pitch_ct, pitch_label, on_scale:n.on_scale, is_root};
         });
         
     }
@@ -138,7 +141,7 @@
 </script>
 
 <PianoKeyboard 
-    tuning_data={tuning_data}
+    
     nodeinfos={_nodeinfos}
     y_offset={60}
     root_midi={root_midi}
@@ -153,4 +156,14 @@
         text="{ni.n.text}"
     />
 {/each}
+
+
+<PitchIndicator 
+    window_width={window_width}
+    affine_t={affine_t}
+    tuning_data={tuning_data}
+    s={s}
+    nodeinfos={_nodeinfos}
+    octave={octave} 
+/>
 

@@ -1,16 +1,15 @@
 <script lang='ts'>
     import PianoKey from './PianoKey.svelte';
     import type { nodeinfo } from './types';
-    import type {TuningData} from '$lib/consistent_tuning';
+    //import type {TuningData} from '$lib/consistent_tuning';
     
-
 
     //export let s:system;
     export let nodeinfos:nodeinfo[];
     export let y_offset = 200;
     export let root_midi:number = 60;
     export let height = 100;
-    export let tuning_data:TuningData;
+    //export let tuning_data:TuningData;
 
     let margin = 0.3;
 
@@ -36,7 +35,7 @@
         let x_max = nodeinfos[nodeinfos.length-1].n.p.x;
 
         scale = (x_max - x_min)/(nodeinfos.length-1)*12/84;
-        height_factor = height/68/scale;
+        height_factor = 1.3 * height/68/scale;
         
         for (let i=0; i<nodeinfos.length; i++) {
             let ni = nodeinfos[i];
@@ -50,9 +49,6 @@
 
     }
     $: update_keys(nodeinfos, height, root_midi);
-
-
-
     // stroke={k.on_scale?"#FFB319":'#404040'} 
 </script>
 

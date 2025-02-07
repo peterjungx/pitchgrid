@@ -24,7 +24,6 @@
         let {nodes,edges} = prepare_full_lattice(s, edge_length, lattice_basecolor, lattice_basecolor, affine_t, xmin, xmax, ymin, ymax);
         _nodes = nodes;
         _edges = edges;
-        console.log(`updated fullsize lattice with ${nodes.length} nodes and ${edges.length} edges`);
     }
 
     $: update(s, edge_length, color, affine_t, xmin, xmax, ymin, ymax);
