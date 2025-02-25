@@ -36,7 +36,7 @@
     "jzz-synth-tiny": "^1.4.0",
     "marked": "^14.1.2",
     "marked-katex-extension": "^5.1.2",
-    "mathjs": "^13.0.1",
+    "mathjs": "^13.2.3",
     "radix-icons-svelte": "^1.2.1",
     "svelte-system-info": "^1.0.2",
     "svg-round-corners": "^0.4.3",

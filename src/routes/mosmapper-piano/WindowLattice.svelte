@@ -109,6 +109,8 @@
         base_freq:number
     
     ) {
+
+        console.log('UPDATE bf', base_freq);
         let nodes = prepare_window_nodes(s, edge_length, affine_t);
         //if (s_target) {
         //    apply_lattice_transform(nodes, s, s_target, edge_length, false, affine_t);

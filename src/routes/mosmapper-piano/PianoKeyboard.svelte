@@ -29,6 +29,8 @@
 
 
     function update_keys(nodeinfos:nodeinfo[], height:number, root_midi:number) {
+
+        console.log('update_keys');
         let keys:PianoKey[] = [];
         
         let x_min = nodeinfos[0].n.p.x;

@@ -17,16 +17,22 @@
 
     const pitches = [
         {limit:2, pitch:1/2, label:'1:2'},
+
         {limit:1, pitch:1, label:'1:1'},
         {limit:2, pitch:2, label:'2:1'},
         {limit:2, pitch:4, label:'4:1'},
+        {limit:3, pitch:4/3, label:'4:3'},
         {limit:3, pitch:3/2, label:'3:2'},
         //{limit:3, pitch:3, label:'3:1'},
         {limit:5, pitch:5/4, label:'5:4'},
         //{limit:5, pitch:10/4, label:'10:4'},
         {limit:5, pitch:6/5, label:'6:5'},
         {limit:5, pitch:8/5, label:'8:5'},
+        {limit:5, pitch:5/3, label:'5:3'},
         {limit:3, pitch:9/8, label:'9:8'},
+        {limit:5, pitch:9/5, label:'9:5'},
+        {limit:5, pitch:16/15, label:'16:15'},
+        {limit:5, pitch:15/8, label:'15:8'},
         //{limit:3, pitch:9/4, label:'9:4'},
         //{limit:5, pitch:16/15, label:'16:15'},
         //{limit:3, pitch:16/9, label:'16:9'},

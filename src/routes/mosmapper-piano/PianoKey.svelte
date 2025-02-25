@@ -64,12 +64,12 @@
 
 <g transform="scale({scale})">
     <path d="{d}" fill="{color}" opacity="{opacity}" stroke={is_root?"#FFB319":"none"} stroke-width={2*margin}/>
-</g>
-<g transform="scale({4.4})">
     <text x="{wcx}" y="{color=='white'?wh-3:bh-3}" fill="{color=="white"?"black":"white"}" font-size="{20/scale}" text-anchor="middle" alignment-baseline="middle" opacity="{opacity}">{note_label}</text>
     <text x="{wcx}" y="{color=='white'?wh-9:bh-9}" fill="{color=="white"?"black":"white"}" font-size="{20/scale}" text-anchor="middle" alignment-baseline="middle" opacity="{opacity}">{midi_label}</text>
     <g transform="rotate(-90)">
         <text x="{color=='white'?24-wh:24-bh}" y="0" fill="{color=="white"?"black":"white"}" font-size="{16/scale}" text-anchor="middle" alignment-baseline="middle" opacity="{opacity}">{pitch_label}</text>
     </g>
+</g>
+<g transform="scale({4.4})">
 
 </g>
