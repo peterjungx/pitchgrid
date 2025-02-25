@@ -127,8 +127,8 @@
             label:'(d,s)-Lattice'
         },
         'bosanquet':{
-            scale: 40,
-            transform: [[0, Math.sqrt(2)/6], [12, -7]],
+            scale: 16,
+            transform: [[0, 2], [9, -5.25]],
             label:'Bosanquet'
         },
         'fokker':{
@@ -151,6 +151,11 @@
             scale: 80,
             transform: [[- 1/2, 1/2], [5/Math.sqrt(2), - 3/Math.sqrt(2)]],
             label:'Cleantone'
+        },
+        'vertical':{
+            scale: 40,
+            transform: [[0, Math.sqrt(2)/6], [12, -7]],
+            label:'Vertical'
         },
     }
     function setLayout(layout: string){
