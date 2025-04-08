@@ -55,7 +55,7 @@
     const normValue = (newValue - minValue) / (maxValue - minValue);
     value = newValue;
 
-    console.log('Sending parameter value:', paramId, normValue);
+    //console.log('Sending parameter value:', paramId, normValue);
     //SPVFUI(paramId, normValue);
   }
 
@@ -67,7 +67,7 @@
   function startDrag(e: MouseEvent | TouchEvent) {
     if ('button' in e && e.button === 2) return; // right click
 
-    console.log('Begin parameter change:', paramId);
+    //console.log('Begin parameter change:', paramId);
     //BPCFUI(paramId);
 
     e.preventDefault();
@@ -90,7 +90,7 @@
       document.body.classList.remove('hidden-cursor');
       document.body.style.cursor = '';
 
-      console.log('End parameter change:', paramId);
+      //console.log('End parameter change:', paramId);
       //EPCFUI(paramId);
     }
 

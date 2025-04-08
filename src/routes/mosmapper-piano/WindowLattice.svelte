@@ -83,7 +83,7 @@
         node_coords_for_window.forEach (c => {
             // determine if node is on scale
             let on_scale = scale.some(e=>e.aa==c.aa && e.bb==c.bb);
-            let n:node = node_at_coord(c, s, edge_length, on_scale? '#FFB319':'gray', affine_t);
+            let n:node = node_at_coord(c, s, edge_length, on_scale? '#FFB319':'grey', affine_t);
             n.on_scale = on_scale;
             nodes.push(n);
         });
@@ -150,6 +150,7 @@
     height={200}
 
 />
+
 
 {#each _nodeinfos as ni}
     <LatticeNode 
