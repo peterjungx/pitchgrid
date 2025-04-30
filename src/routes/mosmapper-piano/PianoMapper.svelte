@@ -5,7 +5,6 @@
     import FullsizeLattice from './FullsizeLattice.svelte';
     import StripLattice from './StripLattice.svelte';
     import PianoMapperControls from './PianoMapperControls.svelte';
-    //import { Grid, Space,  Button } from '@svelteuidev/core';
     //import Slider from '$lib/components/Slider.svelte';
 
     import { angle, calc_scale } from './lattice_math';

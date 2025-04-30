@@ -39,8 +39,8 @@
     });
 
     console.log('primeList', primeList.size());
-    //let pitchSet = sx.generateJIPitchSet(primeList, 50, -1.0, 2.0);
-    let pitchSet = sx.generateHarmonicSeriesPitchSet(primeList, 32, 1.0001);
+    let pitchSet = sx.generateJIPitchSet(primeList, 50, -1.0, 2.0);
+    //let pitchSet = sx.generateHarmonicSeriesPitchSet(primeList, 32, 1.0001);
 
 
     type pitchLine = {x:number, y:number, len:number, stroke:string, label:string};

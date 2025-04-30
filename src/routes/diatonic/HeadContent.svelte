@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Logo from './_Logo.svelte';
+	import Logo from '$lib/components/_Logo.svelte';
 	import { Group, ActionIcon, Text, Anchor, Burger, Tooltip } from '@svelteuidev/core';
 	import { Sun, Moon, GithubLogo, LightningBolt } from 'radix-icons-svelte';
 	import { hotkey, useOs } from '@svelteuidev/composables';

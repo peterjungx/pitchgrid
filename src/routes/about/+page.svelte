@@ -1,6 +1,6 @@
 <script>
     import DsGrid from '$lib/components/DSGrid.svelte';
-import Logo from '../_Logo.svelte';
+import Logo from '$lib/components/_Logo.svelte';
     import { Anchor } from '@svelteuidev/core';
 </script>
 

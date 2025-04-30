@@ -55,7 +55,7 @@
     {/if}
     {#if !valid}
         <div style="margin: 20px">
-            <h1><img src="favicon.png" alt="" style="width:60px"/> 404 Not Found</h1>
+            <h1><img src="/favicon.svg" alt="" style="width:60px"/> 404 Not Found</h1>
         </div>
     {/if}
 

@@ -1,30 +1,10 @@
-<script lang="ts">
-	import { SvelteUIProvider } from '@svelteuidev/core';
-	//import {  useSvelteUITheme, createTheme } from '@svelteuidev/core';
-    //const defaultTheme = useSvelteUITheme();
-    //const newTheme = {
-    //    ...useSvelteUITheme(),
-    //    ...(createTheme('new-theme', {
-    //        backgroundColor: '#FFB319',
-    //        }) as object)
-    //    }
-    //console.log(newTheme);
-    //theme={newTheme}
-    //override={{
-    //    backgroundColor:'#FFB319',
-    //    
-    //}}
 
-</script>
+<svelte:head>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="mask-icon" type="image/svg+xml" href="/favicon.svg" color="#000000"/>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="mask-icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</svelte:head>
 
-<SvelteUIProvider 
-    withNormalizeCSS 
-    withGlobalStyles
-    override={{
-        backgroundColor:'#FFB319',  
-    }}
-    
->
-    
-	<slot />
-</SvelteUIProvider>
+<slot />
