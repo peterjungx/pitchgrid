@@ -108,22 +108,10 @@
     stroke-linecap="round"
   />
 
-  <!-- Center circle for ratio display -->
-  <circle
-    cx={centerX}
-    cy={centerY}
-    r={R / 2}
-    fill="none"
-    stroke="#CCCCCC"
-    stroke-width="1"
-  />
+
 </svg>
 
 <style>
-  .spiral-canvas {
-    background-color: #F0F0F0;
-    border-radius: 50%;
-  }
 
   .active {
     fill: #F20000 !important;

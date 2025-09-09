@@ -19,7 +19,15 @@ class SynthEngine {
     this.audioContext = audioContext;
     this.masterGain = masterGain;
 
-    // Pre-configure oscillator
+    // Store configuration
+    this.frequency = config.frequency;
+    this.oscillatorType = config.type;
+    this.attack = config.attack;
+    this.decay = config.decay;
+    this.release = config.release;
+    this.duration = config.duration;
+
+    // Pre-configure oscillator (for reference)
     this.oscillator = audioContext.createOscillator();
     this.oscillator.type = config.type;
     this.oscillator.frequency.setValueAtTime(config.frequency, audioContext.currentTime);
@@ -31,18 +39,14 @@ class SynthEngine {
     // Connect: oscillator -> envelope -> masterGain
     this.oscillator.connect(this.envelope);
     this.envelope.connect(masterGain);
-
-    // Store envelope configuration
-    this.attack = config.attack;
-    this.decay = config.decay;
-    this.release = config.release;
-    this.duration = config.duration;
   }
 
   private attack: number;
   private decay: number;
   private release: number;
   private duration: number;
+  private frequency: number;
+  private oscillatorType: OscillatorType;
 
   play(volume: number = 0.5) {
     if (!this.audioContext || !this.masterGain) return;
@@ -54,8 +58,8 @@ class SynthEngine {
     const envelope = this.audioContext.createGain();
 
     // Configure oscillator with stored settings
-    oscillator.type = this.oscillator!.type;
-    oscillator.frequency.setValueAtTime(this.oscillator!.frequency.value, startTime);
+    oscillator.type = this.oscillatorType;
+    oscillator.frequency.setValueAtTime(this.frequency, startTime);
 
     // Configure envelope (simple attack-decay-release)
     envelope.gain.setValueAtTime(0, startTime);
@@ -126,11 +130,11 @@ export class AudioEngine {
 
     // Configuration for each of the 6 synth engines
     const configs = [
-      { type: 'sine' as OscillatorType, frequency: 1200, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
+      { type: 'sine' as OscillatorType, frequency: 2000, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
       { type: 'triangle' as OscillatorType, frequency: 1000, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
-      { type: 'sine' as OscillatorType, frequency: 800, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
+      { type: 'sine' as OscillatorType, frequency: 600, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
       { type: 'triangle' as OscillatorType, frequency: 700, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
-      { type: 'sine' as OscillatorType, frequency: 1100, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
+      { type: 'sine' as OscillatorType, frequency: 1500, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 },
       { type: 'triangle' as OscillatorType, frequency: 900, attack: 0.005, decay: 0.01, release: 0.005, duration: 0.05 }
     ];
 
