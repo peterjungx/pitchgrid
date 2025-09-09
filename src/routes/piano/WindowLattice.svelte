@@ -9,7 +9,9 @@
     //import type {TuningData} from '$lib/consistent_tuning';
     import type { node, nodeinfo, edge } from './types';
 
-    import {sx, type AffineTransform, type MOS} from 'scalatrix';
+    import {type AffineTransform, type MOS} from '$lib/scalatrix';
+
+    export let sx: any;
 
     export let mos:MOS;
     export let affine_t:AffineTransform;

@@ -5,8 +5,9 @@
     import FullsizeLattice from './FullsizeLattice.svelte';
     import PianoMapperControls from './PianoMapperControls.svelte';
 
-    import {sx} from 'scalatrix';
-    import type {MOS, AffineTransform, Vector2i} from 'scalatrix';
+    import type {MOS, AffineTransform, Vector2i} from '$lib/scalatrix';
+
+    export let sx: any;
 
     import {onMount} from 'svelte';
 
@@ -170,7 +171,8 @@
     <svg width="100%" height="100%" viewBox="{0} {0} {w} {h}" xmlns="http://www.w3.org/2000/svg">
             
 
-            <FullsizeLattice 
+            <FullsizeLattice
+                {sx}
                 G_s={G_s}
                 mos={mos}
                 affine_t={scale_to_screen_affine_t}
@@ -181,13 +183,15 @@
                 offset={offset}
             />
 
-            <StandardLattice 
+            <StandardLattice
+                {sx}
                 bind:s={system}
                 affine_t = {scale_to_screen_affine_t}
                 show_rects={true}
-            /> 
+            />
 
-            <LatticePath 
+            <LatticePath
+                {sx}
                 mos={mos}
                 color="#404040"
                 affine_t = {scale_to_screen_affine_t}
@@ -197,7 +201,8 @@
             <rect x={0} y={0} width={w} height={100} fill="black" opacity="0.4"/>
             <rect x={0} y={100+window_width_y} width={w} height={h-(100+window_width_y)} fill="black" opacity="0.4"/>
             
-            <WindowLattice 
+            <WindowLattice
+                {sx}
                 mos={mos}
                 affine_t={scale_to_screen_affine_t}
                 display_width={w}

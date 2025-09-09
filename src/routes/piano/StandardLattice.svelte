@@ -1,7 +1,9 @@
 <script lang='ts'>
     import LatticeNode from './LatticeNode.svelte';
 
-    import {type AffineTransform, type Vector2i, type Vector2d} from 'scalatrix';
+    import {type AffineTransform, type Vector2i, type Vector2d} from '$lib/scalatrix';
+
+    export let sx: any;
 
     export let s:Vector2i = {x:1,y:1};
     export let show_rects = false;

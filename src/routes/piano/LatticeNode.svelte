@@ -1,7 +1,7 @@
 <script lang='ts'>
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
-    import type {Vector2i, Vector2d} from 'scalatrix';
+    import type {Vector2i, Vector2d} from '$lib/scalatrix';
 
     type node = {
         c: Vector2i,

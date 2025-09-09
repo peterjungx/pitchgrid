@@ -1,7 +1,8 @@
 <script lang='ts'>
     import LatticeNode from './LatticeNode.svelte';
-    import {sx} from 'scalatrix';
-    import type {MOS, AffineTransform, Vector2i} from 'scalatrix';  
+    import type {MOS, AffineTransform, Vector2i} from '$lib/scalatrix';
+
+    export let sx: any;
     import type {node, edge} from './types';
 
     //import type { node, edge, rect, system, affine_transform } from './lattice_math';

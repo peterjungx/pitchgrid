@@ -9,6 +9,7 @@
 
 	export let isDark: boolean;
 	export let opened: boolean;
+	// @ts-ignore - unused export for external use
 	export let toggle: () => void;
 	export let toggleOpen: () => void;
 	export let show_terra_tuner = false;

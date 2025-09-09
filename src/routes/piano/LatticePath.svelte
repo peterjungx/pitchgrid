@@ -1,5 +1,7 @@
 <script lang='ts'>
-    import {sx, type AffineTransform, type MOS} from 'scalatrix';
+    import {type AffineTransform, type MOS} from '$lib/scalatrix';
+
+    export let sx: any;
     import type {node, edge} from './types';
 
     export let color = 'cyan';
