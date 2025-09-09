@@ -26,22 +26,16 @@
 		<Group>
 			<Logo size={50} />
 			<Tooltip
+				label="Welcome to the Pitch Grid! Explore consistent tunings for isomorphic layouts of the western tonal system. Anything you do here, all chords look the same and sound the same (i.e. involve the same frequency ratios) in any particular setting, which is kind of remarkable... Have fun! And if you think you've learned something, you can buy me a coffee."
 				wrapLines
 				width={400}
 				color='cyan'
 				position='bottom'
-                withArrow
-                openDelay={400}
-                closeDelay={400}
+			             withArrow
+			             openDelay={400}
+			             closeDelay={400}
 				allowPointerEvents
 			>
-				<Text 
-					slot="label"
-					color={isDark?'black':'white'}
-				>
-					Welcome to the Pitch Grid! Explore consistent tunings for isomorphic layouts of the western tonal system. Anything you do here, all chords look the same and sound the same (i.e. involve the same frequency ratios) in any particular setting, which is kind of remarkable... Have fun! And if you think you've learned something, you can 
-					<Anchor href="https://www.buymeacoffee.com/peterjungx">buy me a coffee</Anchor>.
-				</Text>
 				<Text style="font-family:Futura" color={isDark?'white':'black'}  size="xl" override={{ d: 'none', '@sm': { d: 'block' } }}>
 					PITCH GRID [alpha]
 				</Text>
@@ -52,7 +46,7 @@
     <Group>
 		<ActionIcon variant="default" on:click={()=>{show_terra_tuner=!show_terra_tuner}}>
 			<!--<img src='/somasynths_fav.png'/>-->
-			<img src='/somalogo_navbar_proper.svg' width="16"/>
+			<img src='/somalogo_navbar_proper.svg' width="16" alt="Terra Tuner"/>
 		</ActionIcon>
         <!--<Tooltip label={`${mod} + J`}>
             <ActionIcon variant="default" on:click={toggle} size={30} use={[[hotkey, [['mod+J', toggle]]]]}>
