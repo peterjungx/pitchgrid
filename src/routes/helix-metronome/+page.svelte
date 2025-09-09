@@ -10,6 +10,13 @@
     let canvasHeight = 400;
     let animationFrame: number;
     let audioEngine: AudioEngine;
+    let scheduledTicks: Set<string> = new Set(); // Track scheduled ticks by unique ID
+    let scheduledTimeouts: Set<ReturnType<typeof setTimeout>> = new Set(); // Track timeout IDs for cleanup
+
+    // Clear scheduled ticks when playback stops
+    $: if (!$metronomeStore.isPlaying) {
+        clearScheduledTicks();
+    }
 
     // Initialize audio engine
     onMount(() => {
@@ -25,18 +32,21 @@
                 const seqNr = Math.floor(state.N_C * elapsed / state.period);
                 metronomeActions.updateTime(newTime);
 
-                // Check for tick hits and play audio
+                // Schedule upcoming ticks for all local playheads
                 const ticks = calculateTickPositions(state.num, state.den, state.N_C);
                 const normalizedTime = newTime / state.period;
+                const currentTimeSec = Date.now() / 1000;
 
-                // Check each local playhead position
+                // Look ahead 1 second for each local playhead
                 for (let p = 0; p < state.N_C; p++) {
                     const currentPosition = p + normalizedTime;
 
                     ticks.forEach(tick => {
-                        if (Math.abs(tick.t - currentPosition) < 0.01) { // Close enough
-                            console.log(`Tick hit at segment ${tick.segment}, playhead ${p}`);
-                            audioEngine.playTick((p + seqNr + 4) % 4, 0);
+                        // Check if tick is upcoming (within next 1 second of this playhead)
+                        const timeToTick = (tick.t - currentPosition) * state.period;
+                        if (timeToTick > 0 && timeToTick < 1) {
+                            const triggerTime = now + timeToTick;
+                            scheduleTick(tick, p, triggerTime);
                         }
                     });
                 }
@@ -49,6 +59,7 @@
             if (animationFrame) {
                 cancelAnimationFrame(animationFrame);
             }
+            clearScheduledTicks();
         };
     });
 
@@ -68,6 +79,37 @@
     function handleUserInteraction() {
         if (audioEngine) {
             audioEngine.resume();
+        }
+    }
+
+    // Clear all scheduled ticks
+    function clearScheduledTicks() {
+        scheduledTimeouts.forEach(timeoutId => {
+            clearTimeout(timeoutId);
+        });
+        scheduledTimeouts.clear();
+        scheduledTicks.clear();
+    }
+
+    // Schedule a tick for a specific time
+    function scheduleTick(tick: any, playheadIndex: number, triggerTime: number) {
+        const tickId = `${tick.segment}-${tick.t}-${playheadIndex}`;
+        if (scheduledTicks.has(tickId)) return; // Already scheduled
+
+        const currentTimeSec2 = Date.now() / 1000;
+        const delay = Math.max(0, triggerTime - currentTimeSec2);
+
+        if (delay < 2) { // Only schedule ticks within 2 seconds
+            const timeoutId = setTimeout(() => {
+                if (audioEngine) {
+                    audioEngine.playTick(playheadIndex % 4, 0);
+                }
+                scheduledTicks.delete(tickId);
+                scheduledTimeouts.delete(timeoutId);
+            }, delay * 1000);
+
+            scheduledTicks.add(tickId);
+            scheduledTimeouts.add(timeoutId);
         }
     }
 
