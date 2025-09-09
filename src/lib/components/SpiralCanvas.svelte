@@ -48,22 +48,39 @@
     return `M ${points.join(' L ')}`;
   });
 
-  // Find active ticks (those near the playhead)
+  // Find active ticks (those near any local playhead)
   $: activeTicks = ticks.filter(tick => {
-    const tickAngle = (tick.t / N_C) * 2 * Math.PI;
-    const angleDiff = Math.min(
-      Math.abs(playheadAngle - tickAngle),
-      Math.abs(playheadAngle - tickAngle + 2 * Math.PI),
-      Math.abs(playheadAngle - tickAngle - 2 * Math.PI)
-    );
-    return angleDiff < 0.1; // Within small angle threshold
+    const normalizedTime = currentTime / period;
+
+    // Check if tick is near any local playhead
+    for (let p = 0; p < N_C; p++) {
+      const localPlayheadPosition = p + normalizedTime;
+      if (Math.abs(tick.t - localPlayheadPosition+0.005) < 0.005) {
+        return true;
+      }
+    }
+    return false;
   });
 </script>
 
 <svg {width} {height} class="spiral-canvas">
+  <!-- Spiral area background -->
+  <circle
+    cx={centerX}
+    cy={centerY}
+    r={R}
+    fill="#CCCCCC"
+  />
+  <circle
+    cx={centerX}
+    cy={centerY}
+    r={R / 2}
+    fill="#F0F0F0"
+  />
+
   <!-- Draw spiral segments -->
   {#each spiralPaths as path, i}
-    <path d={path} fill="none" stroke="#0000FF" stroke-width="2" opacity="0.7" />
+    <path d={path} fill="none" stroke="#9C52F2" stroke-width="4" opacity="0.7" />
   {/each}
 
   <!-- Draw tick marks -->
@@ -71,25 +88,25 @@
     <circle
       cx={tick.x}
       cy={tick.y}
-      r="3"
-      fill="#FF0000"
+      r="5"
+      fill="#FFAB00"
+      stroke="#9C52F2"
+      stroke-width="3"
       opacity="0.8"
       class:active={activeTicks.includes(tick)}
     />
   {/each}
 
   <!-- Draw playhead -->
-  {#if isPlaying}
-    <line
-      x1={centerX}
-      y1={centerY}
-      x2={centerX + R * Math.cos(playheadAngle)}
-      y2={centerY + R * Math.sin(playheadAngle)}
-      stroke="#00FF00"
-      stroke-width="3"
-      stroke-linecap="round"
-    />
-  {/if}
+  <line
+    x1={centerX + (R / 2) * Math.cos(playheadAngle)}
+    y1={centerY + (R / 2) * Math.sin(playheadAngle)}
+    x2={centerX + R * Math.cos(playheadAngle)}
+    y2={centerY + R * Math.sin(playheadAngle)}
+    stroke="#0D75FF"
+    stroke-width="3"
+    stroke-linecap="round"
+  />
 
   <!-- Center circle for ratio display -->
   <circle
@@ -109,7 +126,7 @@
   }
 
   .active {
-    fill: #FFFF00 !important;
+    fill: #F20000 !important;
     r: 5 !important;
   }
 </style>

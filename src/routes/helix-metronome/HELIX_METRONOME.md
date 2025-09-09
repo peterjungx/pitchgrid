@@ -46,17 +46,45 @@ The display area for the spiral is between two circles, an inner circle (radius 
 
 For ritardando, the spiral reverses and runs to the inside. The formula then reads $d_s(\alpha, n)=R - (n + 0.5 + \alpha/(2 \pi))*(R-R/2)/(N_C+1)$.
 
+## Time coordinate system on Spiral, global and local playhead positions.
+
+The time coordinate system (coordinate t) serves to determine both points on the spiral where ticks are being displayed and moments in time where the corresponding ticks are being played. This coordinate system is normalized such that every spiral segment has lenght 1, and during playback this unit corresponds to one full period. (Measured in angles, the angle corresponding to t is always $2 \pi t$.) Playheads move on this axis so that they linearly increase position by exactly 1 after one period. Example: if the period is say 10 seconds, then, when the metronome is stopped and the global playhead is at 0, and N_C = 3, we have three local playheads, with t=0, t=1 and t=2. When hitting play, the three playheads start moving with a speed of 1 per period (1/10s) on the t axis. After 10 seconds, the global playhead is 1, corresponding to the angle $2 \pi$. The local playhead's position t_p, (p denotes the playhead number, 0 to N_C-1), also move with the same speed 1 per period. At t=1, p_0 jumps from segment 0 to segment 1 at t=1, p_1 jumps from segment 1 to segment 2 at t=2, p_2 vanishes at t=3, gets assigned a new tick sound and reappears at t=0. That is, local playheads jump from segment to segment, and it is local playheads that have different sounds associated with them, not segments. 
+
 ## Positions of tick mark beats
 
 Positions of tick mark beats are given in units of $\alpha/(2 \pi)$. For numbers $0 \leq t < 1$, ticks belong to the first spiral segment (n=0), for $1 \leq t < 2$ to the next spiral segment etc. The displayed tick marks thus have allowed values $0 \leq t < N_C$, tick marks outside this range are not displayed. These are the tick marks on the time axis that are represented on the spiral in the helix metronome.
 
-In the middle area (i.e. the area covered by the inner circle with radius R/2) the ratio is displayed and the user can adjust it. Two integers: Numerator num and Denominator den. If $num>den$, the helix is accelerando, if $num<den$, the helix is ritardando. To determine the positions of the tick marks, we can use the formula $t_i = N_C * (log(i)-log(den^N_C))/(log(num^N_C)-log(den^N_C))$ where i takes on values between $den^N_C$ and $num^N_C$, for accelerando, and $t_i = N_C * (log(num^N_C)-log(i))/(log(num^N_C)-log(den^N_C))$ where i takes on values between $num^N_C$ and $den^N_C$. 
+In the middle area (i.e. the area covered by the inner circle with radius R/2) the ratio is displayed and the user can adjust it. Two integers: Numerator num and Denominator den. If $num>den$, the helix is accelerando, if $num<den$, the helix is ritardando. To determine the positions of the tick marks, we can use the formula $t_i = N_C * (log(i)-log(den^N_C))/(log(num^N_C)-log(den^N_C))$ where i takes on values between $den^N_C$ and $num^N_C$, for accelerando, and $t_i = N_C * (log(num^N_C)-log(i))/(log(num^N_C)-log(den^N_C))$ where i takes on values between $num^N_C$ and $den^N_C$.
 
-## Additional controls
+The tick marks appear as small circles on the displayed spiral. 
 
-- Play/pause button
-- Stop/rewind button 
+## Controls
+
+- One Play/pause button. Changes state from play to pause during playback, and to play when paused or stopped
+- Stop/rewind button. Stops playback (when playing) and rewinds playhead to 0. 
 - Length of period. We need a slider and a coupled numerical value display. Allowed values are 1 second to 60 seconds, continuous. This parameter controls how long it takes for the playhead to go full circle once.
+- Ratio: Two integers, numerator and denominator, in the range 1 to 12. Positioned at the center of the circle.
+- FadeIn and FadeOut checkboxes. When FadeIn is checked, loudness builds up from 0 to 1 during the first segment. When FadeOut is checked, loudness decreases from 1 to 0 during the last segment.
+
+## Colors
+
+- The app's background color is light gray.
+- The spiral area (between R/2 and R in the circle) background color is medium gray. 
+- The spiral color is violet #9C52F2
+- The tickmark circle fill color is orange yellow #FFAB00 and the border is the same as the spiral color (violet #9C52F2)
+- The playhead color is blue #0D75FF
+- When a tickmark is playing, it's fill color changes to Spectrum Red #F20000 (and the tickmark circle radius increases) for a short period.
 
 
+## Visual display of Global playhead
+
+The global playhead is shown as a line that, at the current angle, runs from the inner circle at R/2 to the outer circle R. During playback, the angle changes and the global playhead runs around. When hitting tick marks displayed on the spiral, the metronome clicks are played. At any given moment, the global playhead cuts the spiral at exactly N_C locations, on every spiral segment once.
+
+## Notes on local playheads
+
+There are N_C local playheads, each moving at the same time, each having a different sound associated with them. They do not have visual representations, but determine the timing of triggering playback of click sounds during playback, when they hit a tick on the time axis.
+
+## Visual display of Helix and Tick Marks
+
+The Helix is always visible, and the tick marks, represented as small circles are also always visible. When triggered, the tick mark circles change visual appearance for a short period of time.
 

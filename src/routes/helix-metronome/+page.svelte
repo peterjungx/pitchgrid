@@ -22,17 +22,24 @@
                 const now = Date.now() / 1000;
                 const elapsed = now - state.startTime;
                 const newTime = elapsed % state.period;
+                const seqNr = Math.floor(state.N_C * elapsed / state.period);
                 metronomeActions.updateTime(newTime);
 
                 // Check for tick hits and play audio
                 const ticks = calculateTickPositions(state.num, state.den, state.N_C);
-                const currentPosition = (newTime / state.period) * state.N_C;
+                const normalizedTime = newTime / state.period;
 
-                ticks.forEach(tick => {
-                    if (Math.abs(tick.t - currentPosition) < 0.01) { // Close enough
-                        audioEngine.playTick(tick.segment % 4, 0);
-                    }
-                });
+                // Check each local playhead position
+                for (let p = 0; p < state.N_C; p++) {
+                    const currentPosition = p + normalizedTime;
+
+                    ticks.forEach(tick => {
+                        if (Math.abs(tick.t - currentPosition) < 0.01) { // Close enough
+                            console.log(`Tick hit at segment ${tick.segment}, playhead ${p}`);
+                            audioEngine.playTick((p + seqNr + 4) % 4, 0);
+                        }
+                    });
+                }
             }
             animationFrame = requestAnimationFrame(animate);
         }
