@@ -55,7 +55,7 @@
     // Check if tick is near any local playhead
     for (let p = 0; p < N_C; p++) {
       const localPlayheadPosition = p + normalizedTime;
-      if (Math.abs(tick.t - localPlayheadPosition+0.005) < 0.005) {
+      if (Math.abs(tick.t - localPlayheadPosition+0.003) < 0.003) {
         return true;
       }
     }
@@ -88,7 +88,7 @@
     <circle
       cx={tick.x}
       cy={tick.y}
-      r="5"
+      r="{activeTicks.includes(tick) ? 10 : 6}"
       fill="#FFAB00"
       stroke="#9C52F2"
       stroke-width="3"
@@ -127,6 +127,6 @@
 
   .active {
     fill: #F20000 !important;
-    r: 5 !important;
+    r: 10 !important;
   }
 </style>

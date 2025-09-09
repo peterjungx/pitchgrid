@@ -37,34 +37,34 @@ export class AudioEngine {
    * @param soundIndex Index of the sound (0-3)
    * @param delay Delay in seconds before playing
    */
-  playTick(soundIndex: number, delay: number = 0) {
+  playTick(soundIndex: number, delay: number = 0, volume: number = 0.5) {
     if (!this.isInitialized || !this.audioContext || !this.gainNode) return;
 
     const startTime = this.audioContext.currentTime + delay;
 
     switch (soundIndex % 6) {
       case 0:
-        this.playSineTick(startTime);
+        this.playSineTick(startTime, 1200, volume);
         break;
       case 1:
-        this.playSquareTick(startTime);
+        this.playTriangleTick(startTime, 1000, volume);
         break;
       case 2:
-        this.playTriangleTick(startTime);
+        this.playSineTick(startTime, 800, volume);
         break;
       case 3:
-        this.playNoiseTick(startTime);
+        this.playTriangleTick(startTime, 700, volume);
         break;
       case 4:
-        this.playSquareTick(startTime, 1100);
+        this.playSineTick(startTime, 1100, volume);
         break;
       case 5:
-        this.playSquareTick(startTime, 900);
+        this.playTriangleTick(startTime, 900, volume);
         break;
     }
   }
 
-  private playSineTick(startTime: number) {
+  private playSineTick(startTime: number, freq: number = 1000, volume: number = 0.5) {
     if (!this.audioContext || !this.gainNode) return;
 
     const oscillator = this.audioContext.createOscillator();
@@ -74,8 +74,9 @@ export class AudioEngine {
     oscillator.frequency.setValueAtTime(1000, startTime); // 1kHz
 
     envelope.gain.setValueAtTime(0, startTime);
-    envelope.gain.linearRampToValueAtTime(0.5, startTime + 0.005);
+    envelope.gain.linearRampToValueAtTime(volume + 0.001, startTime + 0.005);
     envelope.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+    envelope.gain.linearRampToValueAtTime(0, startTime + 0.055);
 
     oscillator.connect(envelope);
     envelope.connect(this.gainNode);
@@ -96,6 +97,7 @@ export class AudioEngine {
     envelope.gain.setValueAtTime(0, startTime);
     envelope.gain.linearRampToValueAtTime(0.4, startTime + 0.005);
     envelope.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+    envelope.gain.linearRampToValueAtTime(0, startTime + 0.055);
 
     oscillator.connect(envelope);
     envelope.connect(this.gainNode);
@@ -104,67 +106,25 @@ export class AudioEngine {
     oscillator.stop(startTime + 0.08);
   }
 
-  private playTriangleTick(startTime: number) {
+  private playTriangleTick(startTime: number, freq: number = 1200, volume: number = 0.6) {
     if (!this.audioContext || !this.gainNode) return;
 
     const oscillator = this.audioContext.createOscillator();
     const envelope = this.audioContext.createGain();
 
     oscillator.type = 'triangle';
-    oscillator.frequency.setValueAtTime(1200, startTime); // 1.2kHz
+    oscillator.frequency.setValueAtTime(freq, startTime);
 
     envelope.gain.setValueAtTime(0, startTime);
-    envelope.gain.linearRampToValueAtTime(0.6, startTime + 0.005);
+    envelope.gain.linearRampToValueAtTime(volume, startTime + 0.005);
     envelope.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
+    envelope.gain.linearRampToValueAtTime(0, startTime + 0.055);
 
     oscillator.connect(envelope);
     envelope.connect(this.gainNode);
 
     oscillator.start(startTime);
     oscillator.stop(startTime + 0.12);
-  }
-
-  private playNoiseTick(startTime: number) {
-    if (!this.audioContext || !this.gainNode) return;
-
-    const bufferSize = this.audioContext.sampleRate * 0.05; // 50ms
-    const buffer = this.audioContext.createBuffer(1, bufferSize, this.audioContext.sampleRate);
-    const data = buffer.getChannelData(0);
-
-    // Generate white noise
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = (Math.random() * 2 - 1) * 0.5;
-    }
-
-    const source = this.audioContext.createBufferSource();
-    const envelope = this.audioContext.createGain();
-
-    source.buffer = buffer;
-
-    envelope.gain.setValueAtTime(0, startTime);
-    envelope.gain.linearRampToValueAtTime(0.3, startTime + 0.005);
-    envelope.gain.exponentialRampToValueAtTime(0.001, startTime + 0.05);
-
-    source.connect(envelope);
-    envelope.connect(this.gainNode);
-
-    source.start(startTime);
-  }
-
-  /**
-   * Schedule multiple ticks for local playheads
-   * @param tickTimes Array of {time: number, playheadIndex: number} for each tick to play
-   * @param currentTime Current audio time
-   */
-  scheduleTicks(tickTimes: { time: number; playheadIndex: number }[], currentTime: number) {
-    if (!this.isInitialized) return;
-
-    tickTimes.forEach(({ time, playheadIndex }) => {
-      const delay = Math.max(0, time - currentTime);
-      if (delay < 1) { // Only schedule ticks within 1 second
-        this.playTick(playheadIndex % 6, delay);
-      }
-    });
   }
 
   /**

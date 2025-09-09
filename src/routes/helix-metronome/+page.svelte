@@ -5,6 +5,7 @@
     import { AudioEngine } from '$lib/audio_engine';
     import { calculateTickPositions } from '$lib/helix_math';
     import { onMount } from 'svelte';
+    import type { note_to_coord_C4_eq_00 } from '$lib/consistent_tuning';
 
     let canvasWidth = 400;
     let canvasHeight = 400;
@@ -18,7 +19,6 @@
         clearScheduledTicks();
     }
 
-    let lastSeqNr = -1;
     // Initialize audio engine
     onMount(() => {
         audioEngine = new AudioEngine();
@@ -31,10 +31,6 @@
                 const elapsed = now - state.startTime;
                 const newTime = elapsed % state.period;
                 const seqNr = Math.floor( elapsed / state.period ) % 6;
-                if (seqNr !== lastSeqNr) {
-                    console.log(`New sequence cycle: seqNr=${seqNr}`);
-                    lastSeqNr = seqNr;
-                }
                 metronomeActions.updateTime(newTime);
 
                 // Schedule upcoming ticks for all local playheads
@@ -51,7 +47,8 @@
                         const timeToTick = (tick.t - currentPosition) * state.period;
                         if (timeToTick > -0.03 && timeToTick < 0.5) {
                             const triggerTime = now + timeToTick;
-                            scheduleTick(tick, (p + 6 - seqNr) % 6, triggerTime);
+                            const volume = Math.sin(Math.PI*tick.t/state.N_C);
+                            scheduleTick(tick, (p + 6 - seqNr) % 6, triggerTime, volume);
                         }
                     });
                 }
@@ -97,7 +94,7 @@
     }
 
     // Schedule a tick for a specific time
-    function scheduleTick(tick: any, playheadIndex: number, triggerTime: number) {
+    function scheduleTick(tick: any, playheadIndex: number, triggerTime: number, volume:number=0.5) {
         const tickId = `${tick.idx}-${playheadIndex}`;
         if (scheduledTicks.has(tickId)) return; // Already scheduled
 
@@ -107,8 +104,7 @@
         if (delay < 2) { // Only schedule ticks within 2 seconds
             const timeoutId = setTimeout(() => {
                 if (audioEngine) {
-                    console.log(`Playing tick tickId=${tickId}`);
-                    audioEngine.playTick(playheadIndex, 0);
+                    audioEngine.playTick(playheadIndex, 0, volume);
                 }
                 setTimeout(() => {
                     scheduledTicks.delete(tickId);
