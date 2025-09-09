@@ -59,6 +59,21 @@
             Online exploration tool that maps the PitchGrid to the piano keyboard.
         </li>
     </ul>
+    <h2>PitchGrid for Rhythm</h2>
+    <p>
+        Extending the PitchGrid concept to rhythm generation, PGRhythm is a parametric MIDI sequencer that creates complex rhythmic patterns using mathematical principles.
+    </p>
+    <ul>
+        <li>
+            <a href="https://github.com/peterjungx/pgrhythm">PGRhythm on GitHub</a>
+        </li>
+        <li>
+            <a href="https://youtu.be/dhIEhQWGUYo">Demo Video</a>
+        </li>
+        <li>
+            <a href="/helix-metronome">Helix Metronome</a> A special metronome view inspired by <a href="https://sebastiangramss.de/helix/" target="_blank">Sebastian Gramss' Helix</a>.
+        </li>
+    </ul>
     <h2>Videos</h2>
     <ul>
         <li>
