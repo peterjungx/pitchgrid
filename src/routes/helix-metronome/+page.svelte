@@ -62,6 +62,9 @@
                 cancelAnimationFrame(animationFrame);
             }
             clearScheduledTicks();
+            if (audioEngine) {
+                audioEngine.dispose();
+            }
         };
     });
 
