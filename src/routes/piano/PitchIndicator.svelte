@@ -1,8 +1,9 @@
 <script lang='ts'>
-
-    import {sx, type AffineTransform, type MOS, type PrimeList} from 'scalatrix';
+    import { browser } from '$app/environment';
+    import {getSx, type AffineTransform, type MOS, type PrimeList} from '$lib/scalatrix';
     import type { nodeinfo } from './types';
     import { base } from '$app/paths';
+
     export let mos:MOS;
     export let affine_t:AffineTransform;
     export let nodeinfos:nodeinfo[];
@@ -10,37 +11,66 @@
     export let steps;
     export let base_freq:number;
 
-    //let pitchSet = sx.generateETPitchSet(12, 1.0);
-    //let primeList = sx.generateDefaultPrimeList(5);
-    //console.log('primeList', primeList.size());
-    //let e = primeList.get(3);
-    //if (e) primeList.push_back(e);
-    //primeList.
-    let primeList:PrimeList = new sx.PrimeList();
-    primeList.push_back({
-        number: 2,
-        log2fr: Math.log2(2),
-        label: '2',
-    });
-    primeList.push_back({
-        number: 3,
-        log2fr: Math.log2(3),//-.00162,
-        label: '3',
-    });
-    primeList.push_back({
-        number: 5,
-        log2fr: Math.log2(5),//+.0114,
-        label: '5',
-    });
-    primeList.push_back({
-        number: 7,
-        log2fr: Math.log2(7),//-.058,
-        label: '7',
-    });
+    let sx: any = null;
+    let loading = true;
+    let error: string | null = null;
 
-    console.log('primeList', primeList.size());
-    let pitchSet = sx.generateJIPitchSet(primeList, 50, -1.0, 2.0);
-    //let pitchSet = sx.generateHarmonicSeriesPitchSet(primeList, 32, 1.0001);
+    async function loadScalatrix() {
+        if (!browser) return;
+
+        try {
+            const module = await getSx();
+            sx = module;
+            loading = false;
+        } catch (err) {
+            console.error('Failed to load scalatrix:', err);
+            error = 'Failed to load scalatrix module';
+            loading = false;
+        }
+    }
+
+    // Load scalatrix when component mounts in browser
+    $: if (browser && loading && !sx) {
+        loadScalatrix();
+    }
+
+    // Initialize scalatrix data structures only when module is loaded
+    let primeList:PrimeList | null = null;
+    let pitchSet: any = null;
+
+    $: if (sx && !primeList) {
+        try {
+            primeList = new sx.PrimeList();
+            if (primeList) {
+                primeList.push_back({
+                    number: 2,
+                    log2fr: Math.log2(2),
+                    label: '2',
+                });
+                primeList.push_back({
+                    number: 3,
+                    log2fr: Math.log2(3),//-.00162,
+                    label: '3',
+                });
+                primeList.push_back({
+                    number: 5,
+                    log2fr: Math.log2(5),//+.0114,
+                    label: '5',
+                });
+                primeList.push_back({
+                    number: 7,
+                    log2fr: Math.log2(7),//-.058,
+                    label: '7',
+                });
+
+                console.log('primeList', primeList.size());
+                pitchSet = sx.generateJIPitchSet(primeList, 50, -1.0, 2.0);
+            }
+        } catch (err) {
+            console.error('Failed to initialize scalatrix data:', err);
+            error = 'Failed to initialize scalatrix data';
+        }
+    }
 
 
     type pitchLine = {x:number, y:number, len:number, stroke:string, label:string};
@@ -78,54 +108,53 @@
     function update(steps:number, affine_t:AffineTransform, octave:number, base_freq:number) {
         console.log('update pitch indicator', steps, affine_t, octave, base_freq);
         pitch_lines = [];
-        
-        let base_scale_nodes = mos.base_scale.getNodes();
-        let octave_node = base_scale_nodes.get(mos.n);
-        if (octave_node == undefined) return;
-        let octave_freq = base_freq * octave_node.pitch;
-        let octave_pos = affine_t.apply(octave_node.natural_coord).x;
-        base_scale_nodes.delete();
 
-        let base_pos = affine_t.apply({x:0,y:0}).x;
+        // Only update if scalatrix is loaded and data is available
+        if (!sx || !pitchSet || loading) return;
 
-        for (let i=0; i<pitchSet.size(); i++){
-            let p = pitchSet.get(i);
-            
-            //console.log('pitch', p.pitch, Math.log(p.pitch)/Math.log(2), octave_freq/base_freq);
-            pitch_lines.push({
-                x: p? p.log2fr / Math.log2(octave_freq/base_freq) *(octave_pos-base_pos) + base_pos : 0,
-                y: 75,
-                len: 20 + 15*((i)%2),
-                stroke:'black', 
-                label:p?p.label.toString():'',
-            });
+        try {
+            let base_scale_nodes = mos.base_scale.getNodes();
+            let octave_node = base_scale_nodes.get(mos.n);
+            if (octave_node == undefined) return;
+            let octave_freq = base_freq * octave_node.pitch;
+            let octave_pos = affine_t.apply(octave_node.natural_coord).x;
+            base_scale_nodes.delete();
+
+            let base_pos = affine_t.apply({x:0,y:0}).x;
+
+            for (let i=0; i<pitchSet.size(); i++){
+                let p = pitchSet.get(i);
+
+                //console.log('pitch', p.pitch, Math.log(p.pitch)/Math.log(2), octave_freq/base_freq);
+                pitch_lines.push({
+                    x: p? p.log2fr / Math.log2(octave_freq/base_freq) *(octave_pos-base_pos) + base_pos : 0,
+                    y: 75,
+                    len: 20 + 15*((i)%2),
+                    stroke:'black',
+                    label:p?p.label.toString():'',
+                });
+            }
+        } catch (err) {
+            console.error('Error updating pitch indicator:', err);
         }
-
-        //pitches.forEach(p=>{
-        //    //console.log('pitch', p.pitch, Math.log(p.pitch)/Math.log(2), octave_freq/base_freq);
-        //    pitch_lines.push({
-        //        x: Math.log(p.pitch)/Math.log(octave_freq/base_freq) *(octave_pos-base_pos) + base_pos,
-        //        // wrong, should be:
-        //
-        //        y: 75,
-        //        len: 5+75/p.limit,
-        //        stroke:'black', 
-        //        label:p.label,
-        //    });
-        //})
-
     }
     $: update(steps, affine_t, octave, base_freq);
 
 </script>
 
-{#each pitch_lines as l}
-    <line x1={l.x} y1={l.y-l.len} x2={l.x} y2={l.y} stroke={l.stroke} stroke-width={1}/>
-    <g transform="rotate(-90)">
-        <text x={-l.y+l.len+2} y={l.x} fill={l.stroke} font-size="15" text-anchor="left">{l.label}</text>
-    </g>
-{/each}
-{#each nodeinfos as n}
-    <line x1={n.n.p.x} y1={75} x2={n.n.p.x} y2={100} stroke="white" stroke-width="1"/>
-    <line x1={n.n.p.x} y1={100} x2={n.n.p.x} y2={n.n.p.y} stroke="#FFB319" stroke-width="1"/>
-{/each}
+{#if loading}
+    <text x="50%" y="40" text-anchor="middle" fill="gray" font-size="12">Loading scalatrix...</text>
+{:else if error}
+    <text x="50%" y="40" text-anchor="middle" fill="red" font-size="12">Error: {error}</text>
+{:else if sx && pitchSet}
+    {#each pitch_lines as l}
+        <line x1={l.x} y1={l.y-l.len} x2={l.x} y2={l.y} stroke={l.stroke} stroke-width={1}/>
+        <g transform="rotate(-90)">
+            <text x={-l.y+l.len+2} y={l.x} fill={l.stroke} font-size="15" text-anchor="left">{l.label}</text>
+        </g>
+    {/each}
+    {#each nodeinfos as n}
+        <line x1={n.n.p.x} y1={75} x2={n.n.p.x} y2={100} stroke="white" stroke-width="1"/>
+        <line x1={n.n.p.x} y1={100} x2={n.n.p.x} y2={n.n.p.y} stroke="#FFB319" stroke-width="1"/>
+    {/each}
+{/if}

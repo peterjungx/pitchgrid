@@ -5,8 +5,28 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
   preprocess: vitePreprocess(),
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      runtime: 'nodejs18.x'
+    })
   },
+  vite: {
+    build: {
+      rollupOptions: {
+        external: []
+      }
+    },
+    ssr: {
+      noExternal: ['$lib/scalatrix']
+    },
+    optimizeDeps: {
+      include: ['$lib/scalatrix']
+    },
+    server: {
+      fs: {
+        allow: ['..']
+      }
+    }
+  }
 };
 
 export default config;
