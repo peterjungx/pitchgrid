@@ -7,6 +7,7 @@ export interface TickPosition {
   angle: number; // Angle in radians
   radius: number; // Radius at this position
   segment: number; // Which spiral segment (0 to N_C-1)
+  idx: number; // Index of the tick
 }
 
 /**
@@ -54,7 +55,8 @@ export function calculateTickPositions(num: number, den: number, N_C: number): T
         t,
         angle,
         radius: 0, // Will be calculated later based on spiral
-        segment
+        segment,
+        idx
       });
     }
   }
