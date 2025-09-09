@@ -14,13 +14,7 @@ npm run dev -- --open
 
 ## Hosting
 
-This app is hosted via SST into [pitchgrid.io](https://pitchgrid.io). I am running 
-
-```
-npx sst deploy --stage prod
-```
-
-locally each time I want to deploy.
+This app is hosted via Vercel at [pitchgrid.io](https://pitchgrid.io). Deploy by pushing to the main branch or using the Vercel CLI.
 
 ## Acknowledgements
 
