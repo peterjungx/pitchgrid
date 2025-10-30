@@ -45,12 +45,12 @@
     <h2>Music created with PitchGrid</h2>
     <p>
         Here are some musical pieces created with the PitchGrid plugin:
-        <ul>
-            <li>
-                <a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17">"Tranquil 9&5in17" by Beats Basteln</a> 
-            </li>
-        </ul>
     </p>
+    <ul>
+        <li>
+            <a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17">"Tranquil 9&5in17" by Beats Basteln</a> 
+        </li>
+    </ul>
     <h2>Theory</h2>
     <ul>
         <li>
