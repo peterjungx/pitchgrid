@@ -30,7 +30,26 @@
     </p>
     <h2>Who is behind the PitchGrid?</h2>
     <p>
-        The PitchGrid project is the brainchild of Peter Jung, an independent researcher. Contact me at mail at peter minus jung dot net.
+        The PitchGrid project is the brainchild of Peter Jung, an independent researcher. Contact me at peter at pitchgrid dot io.
+    </p>
+    <h2>The PitchGrid Plugin</h2>
+    <p>
+        Tuning theory and current technology are too complicated and stand in the way of creative exploration. 
+        Tuning should be easy and fun. That's why I created the PitchGrid VST/AU plugin, which allows you to explore
+        a wide range of tunings simply by turning knobs. It soon will be released in collaboration 
+        with <a href="https://node.audio" target="_blank">Node Audio</a>, 
+        but you can already 
+        <a href="https://www.youtube.com/playlist?list=PLY4_jglyyynCPIssKpbC-ZejFcSrjBemR" target="_blank">watch it in action</a>.
+        If you are interested in joining the private beta, please write me an email.
+    </p>
+    <h2>Music created with PitchGrid</h2>
+    <p>
+        Here are some musical pieces created with the PitchGrid plugin:
+        <ul>
+            <li>
+                <a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17">"Tranquil 9&5in17" by Beats Basteln</a> 
+            </li>
+        </ul>
     </p>
     <h2>Theory</h2>
     <ul>
@@ -138,7 +157,6 @@
     </ul>
     <p>
         If you are a builder of tools for musicians and are interested in integrating the PitchGrid into your product, 
-        I would be honored to help you. Please contact me at mail at peter minus jung dot net.
+        I would be happy to support you. Please contact me at peter at pitchgrid dot io.
     </p>
-
 </div>
