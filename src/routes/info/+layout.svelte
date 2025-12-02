@@ -8,7 +8,7 @@
     let activeTab = 0;
     let valid = true;
 
-    let menuitems:string[] = ['PitchGrid', 'ScaleMapper', 'MicroExquis'];
+    let menuitems:string[] = ['PitchGrid', 'ScaleMapper', 'MicroExquis', 'plugin-user-manual'];
     function loadTab(event: CustomEvent) {
         goto(`/info/${menuitems[event.detail.index]}`);
     }
