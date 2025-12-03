@@ -18,7 +18,7 @@ Welcome to PitchGrid, the innovative MIDI plugin that brings the power of microt
 ### Overview
 PitchGrid is a MIDI processing plugin designed specifically for creating and performing with alternative scales and tuning systems. At its core is the PitchGrid — a visual, two dimensional lattice representation of musical intervals that allows you to map a large variety of scales and tunings to your controller. This intuitive interface lets you understand the relationships between the scale degrees and frequency ratios and to intuitively explore a huge space of tuning systems and their structural and harmonic possibilities.
 
-![PitchGrid UI](images/PitchGridPluginUI.png)
+![PitchGridPluginUI](/docs/images/PitchGridPluginUI.png "500")
 
 Unlike traditional microtonal plugins, PitchGrid uses knobs to retune the whole scale, making sure that pitch relationships are structurally consistent. Its flexible lattice system is inspired by meantone and just intonation principles. It generalizes the structure of the Western tonal system, including the familiar sheet music notation logic, and extends it to any MOS scale and Just Intonation "approximations" thereof. The tuning parameter knobs are exposed to the host DAW and thereby allow real-time tuning adjustments during your composition or performance.
 
@@ -64,9 +64,8 @@ It integrates seamlessly as a MIDI effect or instrument plugin in most DAWs. Pla
 - **Operating System**: Windows 10/11 (64-bit) or macOS 10.15+ (Catalina or later).
 - **CPU**: Intel Core i5 or equivalent; Apple M1 or later recommended for macOS.
 - **RAM**: 4 GB minimum (8 GB recommended).
-- **Storage**: 100 MB free space.
+- **Storage**: 30 MB free space.
 - **MIDI Interface**: Standard USB MIDI or built-in DAW MIDI routing.
-- **For MPE**: Hardware controllers like ROLI Seaboard, LinnStrument, or compatible MIDI keyboards.
 
 No additional drivers are needed—PitchGrid uses standard plugin protocols.
 
