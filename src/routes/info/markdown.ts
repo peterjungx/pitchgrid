@@ -13,6 +13,10 @@ marked.use(markedKatex(options));
 
 var renderer = new marked.Renderer();
 renderer.image = function(info) {
+    let href = info.href;
+    if (!href.startsWith('/')) {
+        href = `/docs/${href}`;
+    }
     if (info.title) {
         var size = info.title.split('x');
         if (size[1]) {
@@ -23,7 +27,7 @@ renderer.image = function(info) {
     } else {
         size = ''
     }
-    return `<img src="${info.href}" alt="${info.text}" ${size}>`;
+    return `<img src="${href}" alt="${info.text}" ${size}>`;
 }
 var renderer_link = renderer.link;
 renderer.link = function(options) {

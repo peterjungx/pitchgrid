@@ -13,12 +13,49 @@ PitchGrid is a Trademark of Peter Jung. Windows is a registered trademark of Mic
 
 ## Introduction
 
-Welcome to PitchGrid, the innovative MIDI plugin that brings the power of microtonal music to your digital audio workstation (DAW)! Whether you're a composer exploring alternative tunings, a producer seeking unique sonic landscapes, or a performer wanting precise control over pitch, PitchGrid is your gateway to a world of harmonic possibilities.
+Welcome to PitchGrid, an innovative and powerful tool for the open-minded (or, rather, open-eared) composer who wants to master the art of building scales (and play them).
+
+### The Art of Building Scales
+
+There is a continuum of frequencies. Which of them should we play? 
+
+A scale is a set of frequencies that a musician might want to play, together with a naming convention for the individual frequencies. We call them notes, and the frequencies become the pitches of the notes. 
+
+The Western diatonic scale is just one out of an infinite number of possible scales. PitchGrid aims to make many of them easily accessible for exploration, understanding and music making.
+
+Every scale features its own characteristic set of interval relationships between its notes. This interval structure stronly influencing the sound and taste of the music that is possible within that given scale system. The art of building scales is also called tuning theory. PitchGrid is a tuning theory plugin.
+
+The beauty and richness of tuning theories arises from the fundamental incompatibily between two important aspects of pitch intervals in music:
+
+1. **Justness**: Consonance of an interval is achieved at particular frequency ratios. For tones having a harmonic spectrum, consonance is achieved when the ratio of frequencies is a ratio of small integers. The smaller the integers, the stronger the feeling of consonance. The underlying assumption is that a tone has a harmonic spectrum, that is to say, its partials’ frequencies are integer multiples of its fundamental‘s frequency. The ratio also tells you which of the overtones have the same frequency, i.e. resonate, if the two tone‘s defining fundamental frequencies are at that ratio. This resonance is what is most responsible for the feeling of consonance. You hear that the two tones fit, or hug, when some of the lower overtones match in frequency. The smaller the integers in the ratio, the stronger the feeling of consonance, because it is lower, and thus louder, overtones which paticipate in the resonance. An interval equal to a ratio of integers is called **_just_**. 
+2. **Regularity**: The appeal of tonal music largely derives from recognizing a musical phrase. This makes repetition the most important (and maybe defining)feature of music that most humans enjoy listening to. Since exact repetition becomes boring, a voiced musical phrase is often altered upon repetition, introducing an element of surprise. One such alteration device is transposition (i.e. the shift of the frequency of the phrase pattern as a whole). Thus, having scales that feature note pitches which enable transposition is a feature that composers and musicians naturally desire. A scale which enables transposition naturally becomes **_regular_**.
+
+A scale (any scale) cannot have both properties at the same time, being composed of just intervals only and being maximally regular. Much of tuning theory arises from and adresses this incompatibility. Every scale that has been built to support tonal music is a compromise between justness and regularity. The PitchGrid concept makes this aspect explicit. 
+
+Traditional approaches to tuning theory start with justness, i.e. by selecting a set of just intervals as the foundation of a just intonation (JI) scale, and then finding the ways in which the note's pitches can be tweaked (tempered) in order to achieve regularity. A scale modified in this way is also referred to as a temperament.
+
+PitchGrid breaks with this tradition by turning the process around.
+
+### The PitchGrid Path to Tuning Theory
+
+Start with a regular scale and see which just intervals it can best approximate. 
+
+The big advantage of this (turned-around) approach is that a regular scale can be easily parametrized. The core of the PitchGrid plugin thus is a set of knobs which potentially alter all the pitches at the same time, while always maintaining the desired regularity. You need not have any tuning theory knowledge, just tweak the tuning as you would tweak knobs on a synth, and see what sounds good for you.
+
+Now, the strictest form of regularity is having only one interval size between consecutive scale degrees (step sizes). They are also called rank-1 regular temperaments. As the 2:1 ratio is the strongest consonance of all, the most popular rank-1 scales are equal divisions of the octave (EDOs). These require the biggest sacrifice in terms of justness, but at the same time offer a unique feature, which is the closing of the spiral of fifths into a circle. The most prominent example, of course, is the 12-TET, the twelve note scale which we are culturally most familiar with.
+
+Next in the hierarchy by degree of regularity are so-called rank-2 regular temperaments. These feature scales having two different step sizes (interval sizes between consecutive scale degrees). This is the space that PitchGrid makes accessible. The Western diatonic scale, with its two (equally distributed) step sizes, along with all its structural features such as the church modes and the implied notation system we use in sheet music, serves as a prototype. Historically important regular tunings of the diatonic scale, such as Pythagorean tuning, all Meantone temperaments, but also rank-1 EDOs hosting the diatonic scale such as 19-EDO, 22-EDO, 31-EDO etc., along with all the church modes, can instantly be reproduced in PitchGrid by simply turning knobs. 
+
+But having five large and two small steps distributed equally (the defining feature of the Western diatonic scale) is just one possibility. The tuning theoretician Erv Wilson explored the space of all possible scales which feature two different step sizes distributed equally, and called these scales the Moments of Symmetry (or MOS, for short). MOS-scales, then, is what PitchGrid is mostly about, which is why PitchGrid is devoted to Erv Wilson.
+
+Regularity in two dimensions implies that the best instruments to play PitchGrid scales are two dimensional isomorphic keyboards. But because our frame of reference is the Western musical tradition with its piano keyboard (and since everybody has a piano controller), the PitchGrid maps notes to that type of controller, first and foremost. (It is possible to make the PitchGrid plugin very useful for designated isomorphic controllers, as well. More on that later.)
+
+Let us now give an overview of the PitchGrid Plugins user interface.
 
 ### Overview
 PitchGrid is a MIDI processing plugin designed specifically for creating and performing with alternative scales and tuning systems. At its core is the PitchGrid — a visual, two dimensional lattice representation of musical intervals that allows you to map a large variety of scales and tunings to your controller. This intuitive interface lets you understand the relationships between the scale degrees and frequency ratios and to intuitively explore a huge space of tuning systems and their structural and harmonic possibilities.
 
-![PitchGridPluginUI](/docs/images/PitchGridPluginUI.png "500")
+![PitchGridPluginUI](images/PitchGridPluginUI.png "1100")
 
 Unlike traditional microtonal plugins, PitchGrid uses knobs to retune the whole scale, making sure that pitch relationships are structurally consistent. Its flexible lattice system is inspired by meantone and just intonation principles. It generalizes the structure of the Western tonal system, including the familiar sheet music notation logic, and extends it to any MOS scale and Just Intonation "approximations" thereof. The tuning parameter knobs are exposed to the host DAW and thereby allow real-time tuning adjustments during your composition or performance.
 
@@ -27,7 +64,7 @@ The PitchGrid plugin processes incoming MIDI notes and pitch bend data from your
 PitchGrid is available in VST3 and AU formats, as well as a standalone application, ensuring compatibility with some of the most popular DAWs. (Unfortunately, Bitwig Studio is an exception, as it has a special handling of MPE signals that conflicts with the way PitchGrid works.)
 
 ### Purpose
-The primary goal of PitchGrid is to democratize the use of alternative musical scales. No more struggling with cumbersome retuning or limited preset scales—PitchGrid empowers you to design your own tunings visually and hear them in real-time. It's perfect for genres like ambient, experimental, world music, and contemporary classical where non-standard tunings add emotional depth and harmonic richness. It also makes it easier than ever for you to kick off your own genre based off a scale implying its own music theory and your own harmonic rules.  
+The primary goal of PitchGrid is to democratize the use of alternative musical scales. No more struggling with cumbersome retuning or limited preset scales—PitchGrid empowers you to design your own tunings visually and hear them in real-time. It's perfect for genres like ambient, experimental, world music, and contemporary classical where non-standard tunings add emotional depth and harmonic richness. It also makes it easier than ever for you to kick off your own genre based on a new scale implying its own music theory and your own harmonic rules.  
 
 ### Key Benefits
 - **Visual Tuning Design**: Drag, select, and optimize pitches on an interactive lattice for intuitive scale creation.
