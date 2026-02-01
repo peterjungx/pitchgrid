@@ -1,553 +1,532 @@
-# ![](favicon.png "50") PitchGrid Plugin (BETA) User Manual
+# ![](favicon.png "50") PitchGrid Plugin User Manual
 
-_Author: Peter Jung (peter@pitchgrid.io)_ 
-_Version: 2025-12-02_
+_Version: 2026-02-01_
 
-Information in this manual is subject to change without notice and does not represent a commitment on the part of Node Audio. The software described in this manual is furnished under a license agreement. The software may be used only in accordance with the terms of this license agreement. It is against the law to copy this software on any medium except as specifically allowed in the license agreement. No part of this manual may be copied, photocopied, reproduced, translated, distributed or converted to any electronic or machine-readable form in whole or in part without prior written approval of Node Audio or Peter Jung.
+---
 
-©2025 Node Audio and Peter Jung. All rights reserved. 
+## Quick Start
 
-Program Copyright ©2025 Node Audio and Peter Jung. All rights reserved. 
+Get PitchGrid running in under 5 minutes.
 
-PitchGrid is a Trademark of Peter Jung. Windows is a registered trademark of Microsoft Corporation in the United States and other countries. Mac OS and Audio Units are registered trademarks of Apple Corporation. VST Instruments and ASIO are trademarks of Steinberg Soft Und Hardware GmbH. AAX is a registered trademark of Avid Technology Inc. All other product and company names are either trademarks or registered trademarks of their respective owners. Unauthorized copying, renting or lending of the software is strictly prohibited. Visit Node Audio on the World Wide Web at [node.audio](https://node.audio). Visit PitchGrid on the World Wide Web at [PitchGrid.io](https://pitchgrid.io).
+### 1. Install
 
+- **Download** from [node.audio/products/pitchgrid](https://node.audio/products/pitchgrid)
+- **Run the installer** (Windows: .exe, Mac: .pkg)
+- **Rescan plugins** in your DAW
 
-## Introduction
+### 2. Load in Your DAW
 
-Welcome to PitchGrid, an innovative and powerful tool for the open-minded (or, rather, open-eared) composer who wants to master the art of building scales (and play them). 
+- Create a MIDI track
+- Add PitchGrid as a **MIDI effect** (before your synth)
+- Add any synth after PitchGrid
 
-![PitchGridPluginUI](images/PitchGridPluginUI.png "1100")
+> **[SCREENSHOT NEEDED: PitchGrid in DAW signal chain — Controller → PitchGrid → Synth]**
 
-_Fig 1. Interface of the PitchGrid Plugin_ 
+### 3. Play
 
-This guide starts with an informative section "The Art of Building Scales" which attempts to motivate the existence of PitchGrid. It is followed by a tour through the interface and a description of its mode of operation. The last section deals with setup instructions and useful tips. 
+- Play some notes — you'll hear standard 12-tone tuning (the default)
+- Now turn the **Skew** knob slowly to the left or right
+- Listen: the intervals change. You're now in a different tuning system.
 
-## The Art of Building Scales
+> **[SCREENSHOT NEEDED: Before/after grid comparison — default 12-TET vs. skewed tuning, with Skew knob highlighted]**
 
-There is a continuum of frequencies. Which of them should we play? 
+### 4. Explore
 
-A scale is a set of frequencies that a musician might want to play, together with a naming convention for the individual frequencies. We call them notes, and the frequencies become the pitches of the notes. 
+- Try the **Depth** knob to change how many notes are in your scale
+- Load different **Presets** from the dropdown to hear historical and experimental tunings
+- That's it — you're making microtonal music!
 
-The Western diatonic scale is just one out of an infinite number of possible scales. PitchGrid aims to make many of them easily accessible for exploration, understanding and music making.
+---
 
-Every scale features its own characteristic set of interval relationships between its notes. This interval structure stronly influences the sound and taste of the music that is possible within that given scale system. The art of building scales is also called tuning theory. PitchGrid is a tuning theory plugin.
+## What Is PitchGrid?
 
-The necessity to have tuning theories arises from the fundamental and inherent incompatibily between two important aspects of pitch intervals in music, Justness and Regularity. But considering tuning theories also has richness and beauty to it. So let's explore these two aspects and how they interact.
+PitchGrid is a plugin that lets you **explore tuning systems beyond standard 12-tone equal temperament**.
 
-1. **Justness**: (Sensory) consonance of an interval is achieved at particular frequency ratios. For tones having a harmonic spectrum, consonance is achieved when the ratio of frequencies is a ratio of small integers. The smaller the integers, the stronger the feeling of consonance. The underlying assumption is that a tone has a harmonic spectrum, that is to say, its partials’ frequencies are integer multiples of its fundamental‘s frequency. The ratio also tells us which of the overtones have the same frequency, i.e. resonate, if the two tone‘s defining fundamental frequencies are at that ratio. This resonance is what is most responsible for the sensation of consonance. You hear that the two tones fit, or hug, when some of the lower overtones match in frequency. The smaller the integers in the ratio, the stronger the feeling of consonance, because it is lower, and thus louder, overtones which paticipate in the resonance. An interval equal to a ratio of integers is called **_just_**. 
-2. **Regularity**: The appeal of tonal music largely derives from recognizing a musical phrase. This makes repetition the most important (and maybe defining)feature of music that most humans enjoy listening to. Since exact repetition becomes boring, a voiced musical phrase is often altered upon repetition, introducing an element of surprise. One such alteration device is transposition (i.e. the shift of the frequency of the phrase pattern as a whole). Thus, having scales that feature note pitches which enable transposition is a feature that composers and musicians naturally desire. A scale which enables transposition naturally becomes **_regular_**.
+Instead of the 12 notes per octave you're used to, you can play scales with 5, 7, 8, 10, 19, 31, or any number of notes — each with its own harmonic character.
 
-A scale (any scale) cannot have both properties at the same time, being composed of just intervals only and being maximally regular. Much of tuning theory arises from and adresses this incompatibility. Every scale that has been built to support tonal music is a compromise between justness and regularity. The PitchGrid concept makes this aspect explicit. 
+### What Makes It Different
 
-Traditional approaches to tuning theory start with justness, i.e. by selecting a set of just intervals as the foundation of a just intonation (JI) scale, and then finding the ways in which the note's pitches can be tweaked (tempered) in order to achieve regularity. A scale modified in this way is also referred to as a temperament.
+Most microtonal tools make you pick from a list of predefined scales or edit individual pitches. PitchGrid takes a different approach:
 
-PitchGrid breaks with this tradition by turning the process around.
+- **Turn knobs to explore** — the tuning parameters are continuous, like a synth. Sweep through tuning space and hear what sounds good.
+- **Structure is preserved** — as you change tunings, you keep the musical structure: modes, transposition, and chord relationships still make sense.
+- **Visual feedback** — the grid shows you the pitch relationships, so you can see what you're hearing.
 
-### The PitchGrid Path to Tuning Theory
+### Who Is It For?
 
-Start with a regular scale and see which just intervals it can best approximate. 
+- Composers looking for fresh harmonic territory
+- Electronic musicians who want new sounds
+- Players of isomorphic controllers (LinnStrument, Lumatone, Exquis)
+- Anyone curious what music sounds like outside 12-tone
+- Theorists exploring tuning systems
 
-The big advantage of this (turned-around) approach is that a regular scale can be easily parametrized. The core of the PitchGrid plugin thus is a set of knobs which potentially alter all the pitches at the same time, while always maintaining the desired regularity. You need not have any tuning theory knowledge, just tweak the tuning as you would tweak knobs on a synth, and see what sounds good for you.
+### Key Features
 
-Now, the strictest form of regularity is having only one interval size between consecutive scale degrees (step sizes). They are also called rank-1 regular temperaments. As the 2:1 ratio is the strongest consonance of all, the most popular rank-1 scales are equal divisions of the octave (EDOs). These require the biggest sacrifice in terms of justness, but at the same time offer two handy features: 1. They make the spiral of fifths to close into a circle, and 2. They enable consistently tuned fretted instruments. The most prominent example of a rank-1 regular temperament, of course, is the 12-TET, the twelve note scale which we are culturally most familiar with.
+- **Visual tuning design** — see pitch relationships on an interactive lattice
+- **Real-time control** — change tunings while playing; automate parameters in your DAW
+- **Full MIDI support** — works with regular MIDI, MPE, and MTS-ESP
+- **Preset library** — factory presets for historical and experimental tunings
+- **VST3/AU formats** — works in most major DAWs
 
-Next in the hierarchy by degree of regularity are so-called rank-2 regular temperaments. These feature all scales having two different step sizes. The 1/4-comma Meantone temperament of the diatonic scales is the most prominent example, heavily used in renaissance and early baroque music to tune organs and hapsicords. Rank-2 regular temperaments allow much better approximations of just intervals than rank-1, which is the main motivation for using them. It is a compromise, a middle ground between justness and regularity. They give up the closing of the circle of fifths, but otherwise maintain regularity, while enabling scales in which the intervals are much closer to justness.
+---
 
-This is the space that PitchGrid makes accessible. The Western diatonic scale, with its two (equally distributed) step sizes, along with all its structural features such as the church modes and the implied notation system we use in sheet music, serves as a prototype. Historically important regular tunings of the diatonic scale, such as Pythagorean tuning, all Meantone temperaments, but also rank-1 EDOs hosting the diatonic scale such as 19-EDO, 22-EDO, 31-EDO etc., along with all the church modes, can instantly be reproduced in PitchGrid by simply turning knobs. 
-
-But having five large and two small steps distributed equally (the defining feature of the Western diatonic scale) is just one possibility. The tuning theoretician Erv Wilson explored the space of all possible scales which feature two different step sizes distributed equally, and called these scales the Moments of Symmetry (or MOS, for short). MOS-scales, then, is what PitchGrid is mostly about, which is why PitchGrid is devoted to Erv Wilson.
-
-Regularity in two dimensions implies that the best instruments to play PitchGrid scales are two dimensional isomorphic keyboards. But because our frame of reference is the Western musical tradition with its piano keyboard (and since everybody has a piano controller), the PitchGrid maps notes to that type of controller, first and foremost. (It is possible to make the PitchGrid plugin very useful for designated isomorphic controllers, as well. More on that later.)
-
-Let us now give an overview of the PitchGrid Plugins user interface and describe its basic mode of operation.
-
-## Overview and Operation
-
-At its core is the PitchGrid — a visual, two dimensional lattice representation of musical intervals that allows you to map a large variety of scales and tunings to your controller. This intuitive interface lets you understand the relationships between the scale degrees and frequency ratios and to intuitively explore a huge space of tuning systems and their structural and harmonic possibilities.
-
-
-### Interface Walkthrough
-
-
-![PitchGridPluginUI](images/PG_Interface_12TET.png "1100")
-
-Let us first break down the different areas of the PitchGrid Plugin's interface.
-
-#### Header Area
-
-![PitchGridPluginUI](images/PG_HeaderArea.png "1100")
-
-The header area contains the following components:
-
-- PitchGrid Logo: Clicking on the logo takes you to this guide.
-- MIDI Input Menu: Select the type of input MIDI signal.
-- Presets Menu: Acces factory and user presets. 
-- Preset Management: Create new presets, save changes to the current preset or delete a preset.
-- MIDI Output Menu: Select the type of output MIDI signal.
-- Settings Menu: Some other settings.
-
-#### Control Area
-
-![PG_ControlArea](images/PG_ControlArea.png "1100")
-
-The control area allow you to configure the scale, its tuning and the mapping to the piano keyboard, and to control the pitch ruler:
-
-- Scale & Tuning
-  - Depth: Select the MOS hiearchy level of your scale (does not affect tuning).
-  - Root Freq: Set the frequency of the root note. All frequency ratios relative to the root note are preserved.
-  - Stretch: Proporionally stretch the whole scale. 
-  - Skew: Skew the 2-dimensional lattice which hosts your scale. This is the most important tuning parameter. It may change the scale's structure in significant ways.
-  - Optimize: Allows you to optimize your tuning, i.e. to automatically adjust the tuning parameters Stretch and Skew in order to minimize the distance of selected notes in the lattice to pitches in the ruler area.  
-- Piano Mapping
-  - Mode Offset: Offsets the lattice vertically. Affects both mapping and the scale's mode.
-  - Steps: Number of steps per equave to be mapped onto MIDI note numbers.
-- Pitch Ruler Marks: Control the Marks displayed on the ruler. 
-  - Prime Limit: Ruler shows just intervals of small frequency ratios. Select the small primes that are allowed to appear in a ratio and the maximum integer that should be considered.
-  - Harmonic Series: Ruler shows harmonic overtone freqquency ratios of a deeper pitch, of which the root note is the n-th harmonic.
-  - Equal divisions: Divides the equave into n equal steps. If the equave is set to the 2:1 ratio (octave), which is the default setting, then the marks correspond to equal divisions of the octave (EDOs).
-
-> Info: The pitch ruler marks do not affect the tuning. They serve as an orientation allowing to better judge the harmonic properties of the scale and to find suitable parameters.
-
-#### Info Area
-
-![PG_InfoArea](images/PG_InfoArea.png "1100")
-
-The info area displays some basic properties of the scale:
-- MOS System: Number of large and small steps between consecutive scale degrees, and the mode.
-- Large Step: Size of the large scale step (L) in cents.
-- Small Step: Size of the small scale step (s) in cents.
-- Chroma: Size of a postitive accidental (c), always equal to L-s, in cents.
-- Equave: Size of the equave (E) (interval after which the scale structure repeats) in cents. 
-- Generator: Size of the generator (G) in cents. The generator is always the node closest to the horizontal line connecting the root with the equave up from that line. All nodes in the lattice may be thought of as integer multiplies of the generator modulo the equave.   
-- Step Sequence: The concrete sequence of large and small steps of the chosen scale. The diatonic major scale (Ionian mode) has the cyclically repeating sequence LLsLLLs.
-
-#### Pitch Ruler Area
-
-![PG_RulerArea](images/PG_RulerArea.png "1100")
-
-The pitch ruler area shows ruler marks of interest. What it displays depends on the Pitch Ruler Marks configuration settings (see above). When selecting a node for optimization, that node becomes associated with the closest ruler mark. When the "Snap to Ruler Marks" feature is used, pitches of the mapped nodes within the equave are adjusted to match the closest ruler mark. This allows to easily configure just intonations (JI), harmonic sequence intonations (HEJI) and [equal step tunings](https://en.xen.wiki/w/Equal-step_tuning) (e.g. EDOs).  
-
-#### PitchGrid Area
-
-![PG_GridArea](images/PG_GridArea.png "1100")
-
-The PitchGrid area displays a portion of the rank-2 regular temperament lattice, hosting the chosen scale. In PitchGrid, a scale is a path on a 2d lattice. Small steps in the scale are associated with one direction, large steps with another. The steps are connecting consecutive scale degrees and thereby form a zig-zag pattern. By construction, the number of large and small steps is always coprime. For example, 5 and 2 have no common prime factors. Also, the steps are distributed equally. These constraints give rise to $n_L+n_s$ different modes (or cyclic permutations of the scale sequence pattern), depending on where the pattern starts. At the one extreme, the scale degrees are chosen as sharp as possible: large steps are more to the left and small steps more to the right (e.g. Lydian mode). At the other extreme it's the converse, the scale is flat (e.g. Locrian mode).
-
-Every node is labeled by a scale degree (letter or number) and its accidentals. The naming convention is fully compatible with our sheet music notation system, whatever parameters are chosen. One can think of the PitchGrid area as a window into the lattice of the infinite number of available nodes, i.e. scale degrees and all their accidentals. 
-
-The root note and its equivalents are yellow, other scale degrees are white, and off-scale nodes within the window are grey.
-
-#### Piano Mapping Area
-
-![PG_MappingArea](images/PG_MappingArea.png "1100")
-
-This area shows the mapping of the nodes on the portion of the 2d lattice displayed in the PitchGrid area onto a conventional piano keyboard MIDI controller. Every key is connected to exactly one node. The keys display the input MIDI note number that will trigger a note, its note label (same as the mapped node's label), and its designated pitch according to the tuning parameters. Root notes, scale degrees and mapped off-scale notes are colored as on the lattice. 
-
-When the scale conforms to the diatonic scale structure and the mapping is set to include 12 steps per equave, the mapping nicely matches the piano keyboard layout: On-scale notes are white keys and off-scale notes are black keys. When the tuning paramters are outside the diatonic range, the piano keyboard layout does not fit anymore. Via the coloring scheme, the PitchGrid plugin tries to make it somewhat easier to identifying the keys on a conventional keyboard. 
-
-However, isomorphic controllers might be better suited to allow playability. If you happen to own a LinnStrument, the open source [PitchGrid-Linnstrument-Companion App](https://github.com/peterjungx/pg-linn-companion/releases/tag/v0.1.1) allows to dynamically highlight the pads of the LinnStrument according to the configuration in the PitchGrid.
-
-I am currently working on enabling other isomorphic controllers to be configured in a similar way. Stay tuned. 
-
-
-### Basic Operation Principle
-
-PitchGrid is a MIDI effect plugin designed specifically for creating and playing different scales. The idea is to convert the MIDI signal from a controller and to re-tune it according to the desired settings in a way that a synthesizer then generates the desired pitches:
-
-![PG_Basic_Operation](images/PG_Basic_Operation.png "1100")
-
-_Fig 2. Basic principle of operation of the PitchGrid Plugin_ 
-
-The input is an untuned MIDI or MPE signal, and the output is a tuned MIDI or MPE signal. The PitchGrid Plugin decouples its input from its output, so it is possible to use regular MIDI synths with MPE controllers, or sensibly re-tune an MPE capable synth using a regular MIDI controller.
-
-> FAQ: Why does PitchGrid not support Scala files? Answer: The industry standard for tuning is the use of Scala (.scl) files. In recent years, multiple DAWs started supporting them. The concept is to create scales in a separate scale building software and to export whatever static tuning one has generated as a file to be used by a synth or a DAW. PitchGrid offers scale generation, pitch relationship visualization and mapping to the controller all in one place. The tuning parameters are exposed to the host DAW, which means that the tuning parameters can be dynamically changed in the course of a composition using automation. PitchGrid was born out of a frustration with the static nature of Scala files, and I feel that working with files is not a suitable approach for the future of microtonality in general. 
-
-### Interface Elements for Input and Output
-
-The input and output
-
-
-Configure the input to match the type of the signal for the 
-
-
-
-
-
-Unlike traditional microtonal plugins, PitchGrid uses knobs to retune the whole scale, making sure that pitch relationships are structurally consistent. Its flexible lattice system is inspired by meantone and just intonation principles. It generalizes the structure of the Western tonal system, including the familiar sheet music notation logic, and extends it to any MOS scale and Just Intonation "approximations" thereof. The tuning parameter knobs are exposed to the host DAW and thereby allow real-time tuning adjustments during your composition or performance.
-
-The PitchGrid plugin processes incoming MIDI notes and pitch bend data from your controller (a raw, or untuned MIDI signal) and transforms it into a tuned MIDI MPE signal, making sure that your synth is playing the right pitches. Alternatively, PitchGrid also can serve as an MTS-ESP master, sending out tuning information to other plugins and synths in your DAW.
-
-PitchGrid is available in VST3 and AU formats, as well as a standalone application, ensuring compatibility with some of the most popular DAWs. (Unfortunately, Bitwig Studio is an exception, as it has a special handling of MPE signals that conflicts with the way PitchGrid works.)
-
-### Purpose
-The primary goal of PitchGrid is to democratize the use of alternative musical scales. No more struggling with cumbersome retuning or limited preset scales—PitchGrid empowers you to design your own tunings visually and hear them in real-time. It's perfect for genres like ambient, experimental, world music, and contemporary classical where non-standard tunings add emotional depth and harmonic richness. It also makes it easier than ever for you to kick off your own genre based on a new scale implying its own music theory and your own harmonic rules.  
-
-### Key Benefits
-- **Visual Tuning Design**: Drag, select, and optimize pitches on an interactive lattice for intuitive scale creation.
-- **Seamless DAW Integration**: Supports VST3 and AU formats, working natively in popular DAWs like Ableton Live, Logic Pro, and Reaper.
-- **Advanced MIDI Handling**: Full support for MPE (MIDI Polyphonic Expression), polyphonic aftertouch, and MTS-ESP (Multipitch Tuning Standard - Extended Scale Pricing) for professional workflows.
-- **Real-Time Performance**: Low-latency processing ensures tuning changes are instantly reflected in your playing.
-- **Preset Library**: Start with factory presets for common tunings like 12-TET, Pythagorean, and 31-TET, then save your own.
-- **OSC and Networking**: Control parameters remotely via OSC or share your grid view over the network for collaborative sessions.
-- **Trial-Friendly**: Try it out with full functionality for 15 days before activation.
-
-With PitchGrid, you'll discover new ways to think about music, breaking free from the constraints of 12-tone equal temperament. Let's dive in and start creating!
-
-## Installation and Setup
-
-Getting PitchGrid up and running is straightforward. Follow these steps to install and configure it in your DAW.
-
-### Formats and DAW Integration
-PitchGrid is available in the following plugin formats:
-- **VST3**: Compatible with Windows (64-bit) and macOS (Intel and Apple Silicon).
-- **Audio Units (AU)**: macOS only.
-- **AAX**: For Pro Tools (coming soon).
-
-It integrates seamlessly as a MIDI effect or instrument plugin in most DAWs. Place it on a MIDI track before your synthesizer or sampler to process incoming MIDI data.
-
-**Supported DAWs**:
-- Ableton Live 10+
-- Logic Pro X+
-- Reaper 6+
-- FL Studio 20+
-- Cubase 11+
-- And many more—check the [system requirements](https://pitchgrid.io/requirements) for full compatibility.
+## Installation
 
 ### System Requirements
-- **Operating System**: Windows 10/11 (64-bit) or macOS 10.15+ (Catalina or later).
-- **CPU**: Intel Core i5 or equivalent; Apple M1 or later recommended for macOS.
-- **RAM**: 4 GB minimum (8 GB recommended).
-- **Storage**: 30 MB free space.
-- **MIDI Interface**: Standard USB MIDI or built-in DAW MIDI routing.
 
-No additional drivers are needed—PitchGrid uses standard plugin protocols.
+- **OS**: Windows 10/11 (64-bit) or macOS 10.15+
+- **CPU**: Intel Core i5 or Apple M1 (or equivalent)
+- **RAM**: 4 GB minimum
+- **Storage**: 30 MB
+
+### Supported Formats
+
+- **VST3**: Windows and macOS
+- **Audio Units (AU)**: macOS only
 
 ### Installation Steps
-1. **Download**: Visit [pitchgrid.io/download](https://pitchgrid.io/download) and get the installer for your platform.
-2. **Run Installer**:
-   - **Windows**: Double-click the .exe file and follow the wizard. Install to the default VST3 folder (usually `C:\Program Files\Common Files\VST3`).
-   - **macOS**: Open the .pkg file, agree to the license, and install. It will place files in `/Library/Audio/Plug-Ins/` for AU and VST3.
-3. **Rescan Plugins**: In your DAW, go to Preferences > Plugins and rescan or validate plugins. PitchGrid should appear in the MIDI effects or instruments list.
-4. **Trial Activation**: Launch PitchGrid in your DAW. A trial window will appear—click "Start Trial" to begin your 14-day evaluation. For full activation, see the Licensing section.
 
-**Tip**: If the plugin doesn't appear, check your DAW's plugin paths and ensure no security software is blocking the scan.
+**Windows:**
+1. Run the .exe installer
+2. Install to the default VST3 folder (`C:\Program Files\Common Files\VST3`)
+3. Open your DAW and rescan plugins
+
+**macOS:**
+1. Open the .pkg installer
+2. Follow the prompts — plugins install to `/Library/Audio/Plug-Ins/`
+3. Open your DAW and rescan plugins
 
 ### Authorization
-PitchGrid uses IndieKey for secure licensing. On initial launch, you will be greeted with a licensing dialogue. 
-You can either start a 15-day trial, or enter your email address that you used to purchase the plugin, along with the personal license key you received.  
-If you started a trial, the licensing dialogue will appear again after the trial period ends. 
-Upon entering your email and license key, the key will be validated online, and your plugin will be activated. 
-One license key is limited to 3 activations (3 different computers).
-For offline activation or issues, contact support@node.audio.
 
-**Warning**: Do not share your license key. The license key is tied to one user. Sharing it may result in the key being revoked.
+On first launch, you'll see a licensing dialog:
 
-## Getting Started
+- **Trial**: Click "Start Trial" for 15 days of full functionality
+- **Activate**: Enter your email and license key (from your purchase confirmation)
 
-Congratulations on installing PitchGrid! Let's load it up and explore the basics.
+One license allows 3 activations (3 different computers). For issues, contact support@node.audio.
 
-### Loading the Plugin in Your DAW
-The process of loading the plugin in your DAW depends on the DAW you are using.
+---
 
-#### Logic Pro
-1. Open Logic Pro and create a new MIDI track.
-2. Insert PitchGrid as a MIDI effect (before your instrument plugin). 
-3. If you use an MPE controller, set PitchGrid Input Mode to MPE and set the input pitch bend range to the same value that your controller uses. (Some DAWs do not require the first two steps.)
-4. If your instrument is MPE capable, make sure MPE is enabled on your 
-5. Arm the track for recording or enable MIDI input from your controller.
-6. Play some notes—PitchGrid will process them in real-time using the default 12-TET tuning.
+## DAW Setup
 
-#### Ableton Live
-1. Open your DAW and create a new MIDI track.
-2. Different DAWs have different ways to load the PitchGrid plugin.
-   - In Logic Pro, insert PitchGrid as a MIDI effect (before your instrument plugin). 
-   - In Ableton Live, add it as a MIDI instrument and route your MIDI controller to it, then route the outgoing MIDI signal from PitchGrid to your instrument.  
-3. If you use an MPE controller, make sure your DAW is configured to process your controller's MPE signal, enable MPE mode on the Track and set PitchGrid Input Mode to MPE. (Some DAWs do not require the first two steps.)
-4. If your instrument is MPE capable, make sure MPE is enabled on your 
-5. Arm the track for recording or enable MIDI input from your controller.
-6. Play some notes—PitchGrid will process them in real-time using the default 12-TET tuning.
+### Logic Pro
 
+1. Create a new **Software Instrument** track
+2. In the channel strip, click the **MIDI FX** slot
+3. Select **PitchGrid**
+4. Add your synth in the **Instrument** slot below
+5. If using an MPE controller, set PitchGrid's Input Mode to **MPE**
 
-If you see a black screen or WebView loading, wait a moment for the interface to initialize.
+> **[SCREENSHOT NEEDED: Logic Pro channel strip with PitchGrid in MIDI FX slot]**
 
-### Basic Interface Tour
-The PitchGrid interface is divided into three main areas: the Pitch Grid (center), Controls (sides), and Toolbar (top).
+### Ableton Live
 
-- **Toolbar**:
-  - Preset dropdown: Load/save tunings.
-  - MIDI I/O indicators: Green lights show active input/output.
-  - License status: Shows trial days left or "Activated."
-  - Help button: Access this manual and tooltips.
+1. Create a new **MIDI track**
+2. Add **PitchGrid** as an instrument on that track
+3. Create a second MIDI track with your synth
+4. Set the synth track's **MIDI From** to the PitchGrid track
+5. Arm the PitchGrid track; monitor the synth track
 
-- **Pitch Grid (Central Lattice)**:
-  - A hexagonal or square grid visualizing pitches as nodes.
-  - Horizontal axis: Octaves or generators (e.g., perfect fifths).
-  - Vertical axis: Another generator (e.g., major thirds).
-  - Selected nodes glow blue; play them to hear the tuning.
-  - Zoom/pan with mouse wheel or trackpad.
+> **[SCREENSHOT NEEDED: Ableton routing — PitchGrid track → Synth track]**
 
-- **Left Panel - Tuning Parameters**:
-  - Dials for Steps, Offset, Depth, Skew, Stretch, Base Tune.
-  - Adjust these to shape your scale—changes update the grid instantly.
+### Reaper
 
-- **Right Panel - MIDI Settings**:
-  - Input Mode dropdown: Regular MIDI or MPE.
-  - Output Mode: Choose Mono, Poly, MPE, or MTS.
-  - Channel selectors and pitch bend range sliders.
+1. Create a new track
+2. Add **PitchGrid** to the FX chain
+3. Add your synth after PitchGrid in the same FX chain
+4. Route your MIDI controller to this track
 
-- **Bottom Bar**:
-  - Status messages (e.g., "MTS Connected").
-  - OSC/Network toggle for advanced control.
+### FL Studio
 
-**Step-by-Step First Tune**:
-1. Load the default preset (12-TET).
-2. Play a C major scale on your keyboard—notes should sound in standard tuning.
-3. Turn the "Steps Mapped" dial to 19 (for 19-TET). The grid updates, and your playing now uses 19 equal steps per octave.
-4. Select a few nodes on the grid (click to highlight) to create a custom mode.
-5. Save as "My First Tuning" via the preset menu.
+1. Add **PitchGrid** to the Channel Rack
+2. Use **Patcher** to route MIDI: Controller → PitchGrid → Synth
 
-**Tip**: Hover over any control for a tooltip explaining its function. Use the spacebar to toggle play/pause for testing without your DAW.
+---
 
-**Warning**: High "Depth" values (>5) can create very dense grids—zoom out to navigate.
+## Interface Guide
 
-## The Pitch Grid
+> **[SCREENSHOT NEEDED: Full interface with numbered callouts (1-6) for each area described below]**
 
-The heart of PitchGrid is the Pitch Grid, a visual map of musical intervals that makes tuning design as easy as drawing.
+The PitchGrid interface has six main areas:
 
-### Lattice Visualization
-The grid is a lattice diagram where each node represents a pitch class relative to the root. By default, it's a meantone-style lattice:
-- **Generators**: The horizontal axis uses the "fifth" generator (702 cents in 12-TET), vertical uses the "third" (386 cents).
-- **Nodes**: Small circles or hexagons, colored by interval quality (consonant green, dissonant red).
-- **Lines**: Connect related pitches; thickness shows strength of relationship.
+### 1. Header Area
 
-As you adjust parameters, the lattice morphs—nodes move to reflect the new tuning ratios.
+![PG_HeaderArea](images/PG_HeaderArea.png)
 
-### Node Selection
-Click nodes to select/deselect them for your active scale:
-- **Single Click**: Toggle a node on/off.
-- **Shift+Click**: Select a range (e.g., for a mode).
-- **Ctrl+Click (Cmd on Mac)**: Multi-select non-adjacent nodes.
-- Selected nodes form your playable scale; unselected ones are silent or detuned.
+- **Logo**: Click to open this manual
+- **MIDI Input menu**: Select input type (Regular MIDI or MPE)
+- **Presets menu**: Load and save tunings
+- **Preset controls**: New, Save, Delete
+- **MIDI Output menu**: Select output type
+- **Settings**: Additional options
 
-The grid shows 3-7 octaves by default, but you can scroll to explore more.
+### 2. Control Area
 
-### Optimization
-Once nodes are selected, click the "Optimize" button (magnifying glass icon) to refine the tuning:
-- **What it Does**: Minimizes beating and maximizes consonance within your constraints (e.g., pure fifths).
-- **Options**: Choose "Best Fit" for overall smoothness or "Pure Octaves" to lock 2:1 ratios.
-- **Result**: Nodes snap to optimal positions; a preview plays the scale automatically.
+![PG_ControlArea](images/PG_ControlArea.png)
 
-**Tip**: Start with a simple selection like the Pythagorean comma (7 fifths up) to hear the wolf interval resolve.
+The main tuning controls:
 
-**Warning**: Optimization can alter your manual selections—save a copy first via presets.
+| Knob | What It Does |
+|------|--------------|
+| **Depth** | How many notes in your scale (changes structure) |
+| **Root Freq** | Base frequency (default 440 Hz) |
+| **Stretch** | Expand or compress all intervals proportionally |
+| **Skew** | Tilt the tuning — the most important sound-shaping parameter |
+| **Mode Offset** | Shift which mode of the scale you're playing |
+| **Steps** | How many notes per octave get mapped to your keyboard |
 
-## Tuning Parameters
+### 3. Info Area
 
-PitchGrid's parameters let you fine-tune your lattice with precision. All are accessible via dials in the left panel, with values shown in cents or ratios.
+![PG_InfoArea](images/PG_InfoArea.png)
 
-### Steps Mapped
-- **Range**: 3-36 steps per octave.
-- **Default**: 12 (standard semitones).
-- **How to Adjust**: Turn the dial or type a value. This sets how many divisions fit in an octave.
-- **Effect**: Higher steps create finer microtonal divisions (e.g., 31 for Bohlen-Pierce approximations).
-- **Tip**: For xenharmonic scales, try 19 or 22 steps—listen for smooth melodies.
+Shows properties of your current scale:
 
-### Offset
-- **Range**: 0-1 (fraction of the generator cycle).
-- **Default**: ~0.458 (5/12 for fifth-based).
-- **How to Adjust**: Drag the dial; the grid rotates visually.
-- **Effect**: Shifts the mode's starting point on the lattice, useful for modal interchange.
-- **Example**: Offset 0 starts on the root; 0.5 inverts the scale.
+- **MOS System**: Number of large (L) and small (s) steps
+- **Large Step / Small Step**: Size of each step in cents
+- **Equave**: The interval where the scale repeats (usually octave = 1200 cents)
+- **Step Sequence**: The pattern of large and small steps (e.g., LLsLLLs for major)
 
-### Depth
-- **Range**: 0-7 layers.
-- **Default**: 3.
-- **How to Adjust**: Increase to add more octaves/generators.
-- **Effect**: Expands the lattice depth, revealing higher harmonics or extended modes.
-- **Tip**: Keep at 3-4 for performance; higher for composition exploration.
+### 4. Pitch Ruler
 
-### Skew
-- **Range**: 0.5-1 (asymmetry factor).
-- **Default**: ~0.583.
-- **How to Adjust**: Skew the dial to tilt the lattice.
-- **Effect**: Distorts the grid for asymmetric tunings, like skewed meantone.
-- **Warning**: Extreme skew (>0.9) can make navigation tricky—use zoom.
+![PG_RulerArea](images/PG_RulerArea.png)
 
-### Stretch
-- **Range**: 0.1-2.2 (compression/expansion).
-- **Default**: 1.0 (linear).
-- **How to Adjust**: Stretch the dial outward for expansion.
-- **Effect**: Scales intervals non-linearly, simulating piano stretch or electronic detuning.
-- **Tip**: 1.1-1.2 adds warmth to acoustic simulations.
+The vertical ruler on the right shows reference pitches:
 
-### Base Tune
-- **Range**: A=415-466 Hz (or -100 to +100 cents from 440).
-- **Default**: 440 Hz.
-- **How to Adjust**: Fine-tune the root frequency dial.
-- **Effect**: Sets the reference pitch for the entire tuning.
-- **Example**: 432 Hz for a relaxed, historical feel.
+- **Prime Limit**: Just intervals (simple frequency ratios like 3:2, 5:4)
+- **Harmonic Series**: Overtones of a fundamental
+- **Equal Divisions**: EDO steps (12-TET, 19-TET, etc.)
 
-**Step-by-Step Adjustment**:
-1. Set Steps to your base division (e.g., 12).
-2. Adjust Offset to position your tonic.
-3. Increase Depth for range.
-4. Fine-tune Skew and Stretch for timbre.
-5. Set Base Tune last.
+Use this to see how close your tuning is to pure intervals.
 
-All changes update in real-time—play along to hear!
+### 5. The Grid
 
-## MIDI Input and Output
+![PG_GridArea](images/PG_GridArea.png)
 
-PitchGrid excels at transforming MIDI data for microtonal performance. Configure I/O in the right panel.
+The central visualization:
 
-### Configurations
-- **Input**: Receives standard MIDI notes (0-127) or MPE data.
-- **Output**: Remaps to your tuning, sending note-ons, pitch bends, and poly pressure.
-- **Routing**: Input from DAW/keyboard; output to synths on the same track.
+- **Yellow nodes**: Root note and its octave equivalents
+- **White nodes**: Other notes in your scale
+- **Grey nodes**: Off-scale notes (accidentals)
+- **Zig-zag path**: Your current scale, connecting the nodes
+
+The grid is a map of pitch relationships. Horizontal movement = one type of step; vertical = another. As you adjust Skew and Stretch, the grid morphs to show the new relationships.
+
+### 6. Piano Mapping
+
+![PG_MappingArea](images/PG_MappingArea.png)
+
+Shows how notes map to a standard MIDI keyboard:
+
+- Each key displays its note name and pitch
+- Colors match the grid (yellow = root, white = scale, grey = off-scale)
+- When your scale has 7 notes, it aligns with white keys; other scales won't match the piano layout
+
+---
+
+## Common Workflows
+
+### "I want to try a different equal temperament"
+
+**Goal**: Switch from 12-tone to 19-tone equal temperament.
+
+1. Load PitchGrid with the default preset
+2. Set **Steps** to **19** (this maps 19 notes per octave to your keyboard)
+3. Adjust **Depth** until the Info Area shows "12L 7s" (the 19-tone MOS)
+4. Play — you now have 19 equally-spaced notes per octave
+
+> **[SCREENSHOT NEEDED: Grid showing 19-TET configuration]**
+
+**Tip**: The factory preset "19-TET" does this automatically.
+
+### "I want just intonation"
+
+**Goal**: Tune intervals to pure frequency ratios.
+
+1. Start with any preset
+2. In the **Pitch Ruler Marks** section, select **Prime Limit** and set it to show 5-limit ratios
+3. The ruler now shows just intervals (3:2, 5:4, etc.)
+4. Click **Optimize** and select the intervals you want to be pure
+5. PitchGrid adjusts Skew and Stretch to align your scale with those ratios
+
+> **[SCREENSHOT NEEDED: Optimization dialog with just intervals selected]**
+
+### "I want to use my LinnStrument / isomorphic controller"
+
+**Goal**: Play PitchGrid scales on a grid controller with proper layout.
+
+1. Download [PitchGrid Mapper](https://github.com/pitchgrid-io/pitchgrid-mapper/releases) (free, open source)
+2. Run PitchGrid Mapper — it creates a virtual MIDI device
+3. In PitchGrid plugin, enable **OSC output** (Settings menu)
+4. In your DAW, set MIDI input to "PitchGrid Mapper"
+5. Your controller now shows the scale layout with lit pads for scale tones
+
+See the [PitchGrid Mapper documentation](/info/PitchGridMapper) for details.
+
+### "I want to automate tuning changes"
+
+**Goal**: Change tunings during a track using DAW automation.
+
+1. In your DAW, open the automation lane for the PitchGrid track
+2. PitchGrid exposes all parameters: Skew, Stretch, Depth, Steps, etc.
+3. Draw automation curves — the tuning changes in real-time as the track plays
+
+**Example**: Automate Skew from 0.5 to 0.7 over 8 bars for a gradual tuning drift.
+
+---
+
+## MIDI Configuration
 
 ### Input Modes
-- **Regular MIDI**: Standard note + velocity + pitch bend (global).
-  - Select via dropdown.
-  - Pitch Bend Range: 1-96 semitones (default 12); adjusts sensitivity.
-- **MPE**: Polyphonic expression per note.
-  - Enable for controllers like Seaboard.
-  - Input Pitch Bend Range: Separate control for per-note bends.
-  - Pitch Bend Mode: "Toward Scale" (bends to nearest note) or "Along Mapped" (follows grid paths).
 
-**Tip**: For MPE, ensure your controller sends on multiple channels (e.g., 1-15).
+**Regular MIDI**
+- Standard note on/off with global pitch bend
+- Works with any MIDI keyboard
+- Set **Pitch Bend Range** to match your controller (usually ±2 semitones)
+
+**MPE (MIDI Polyphonic Expression)**
+- Per-note pitch bend, pressure, and slide
+- For expressive controllers: Seaboard, LinnStrument, Continuum
+- Set **Input Pitch Bend Range** to match your controller (often ±48 semitones)
 
 ### Output Modes
-Choose how tuned MIDI is sent:
-- **None**: Processes internally for visualization only.
-- **Mono**: Single channel output with pitch bend for microtones.
-  - Channel: 1-16.
-- **Poly**: Multi-channel notes (up to 16 voices).
-  - Start/End Channel: Define range (e.g., 1-8 for octophonic).
-- **MPE**: Polyphonic output with per-note expression.
-  - Zone: Lower (ch 1 master, 2-16 members) or Upper (ch 16 master, 1-15 members).
-  - Num Channels: 1-15 voices.
-- **MTS-ESP**: Integrates with MTS master (see Advanced Features).
 
-**Avoid Duplicates**: Toggle to prevent multiple notes on the same output channel—useful for poly modes.
+| Mode | Description | Use When |
+|------|-------------|----------|
+| **None** | No MIDI output (visualization only) | Testing/exploring |
+| **Mono** | Single channel with pitch bend | Simple setups, mono synths |
+| **Poly** | Multiple channels (up to 16 voices) | Polyphonic non-MPE synths |
+| **MPE** | Full MPE output | MPE-capable synths |
+| **MTS-ESP** | Tuning data via MTS protocol | Multi-plugin tuning sync |
 
-**Step-by-Step Setup**:
-1. Set Input Mode to match your controller.
-2. Choose Output Mode (start with MPE for expressivity).
-3. Adjust channels to avoid conflicts with other tracks.
-4. Test: Play a glissando—pitch bends should follow your tuning.
+### Signal Flow
 
-**Warning**: In Poly mode, exceeding channel limits mutes notes. Monitor the status bar.
+```
+Your Controller
+      ↓
+  [MIDI In to DAW]
+      ↓
+  [PitchGrid Plugin]
+      ↓
+  [Retuned MIDI/MPE Out]
+      ↓
+  [Your Synth]
+```
 
-## Preset Management
+PitchGrid receives standard MIDI and outputs retuned MIDI with pitch bend data that makes your synth play the correct microtonal pitches.
 
-Presets let you save and recall tunings quickly.
+---
 
-### Loading/Saving
-- **Load**: Dropdown in toolbar > Select preset > Click "Load."
-- **Save**: "Save As" > Name it > Choose thumbnail (auto-generated from grid).
-- **Overwrite**: Right-click a preset > "Overwrite."
-
-Presets store tuning parameters and node selections, but not global MIDI settings.
+## Presets
 
 ### Factory Presets
-Start with these:
-- **12-TET**: Standard Western tuning.
-- **Pythagorean**: Pure fifths with wolf intervals.
-- **1/4-Comma Meantone**: Renaissance consonance.
-- **Just Intonation**: Pure intervals based on harmonics.
-- **19-TET**: Bright, smooth alternative.
-- **Bohlen-Pierce**: Acoustic scale in 3:5:7 ratios.
-- And more—over 20 included.
 
-Thumbnails show a mini lattice preview.
+PitchGrid includes presets for common tunings:
 
-**Tip**: Organize into banks (e.g., "Xenharmonic," "Historical") via the preset editor.
+| Preset | Description |
+|--------|-------------|
+| **12-TET** | Standard Western tuning (default) |
+| **Pythagorean** | Pure fifths (3:2), historical tuning |
+| **1/4-Comma Meantone** | Pure major thirds, Renaissance standard |
+| **19-TET** | 19 equal steps, smooth and bright |
+| **31-TET** | 31 equal steps, excellent just approximations |
+| **Just Intonation 5-limit** | Pure intervals from the 5-limit |
+| **Bohlen-Pierce** | Non-octave scale based on 3:5:7 |
 
-**Warning**: Factory presets are read-only—duplicate before editing.
+### Saving Your Own
+
+1. Adjust parameters to taste
+2. Click the **Save** icon in the header
+3. Name your preset
+4. It appears in the User section of the preset menu
+
+### Preset Contents
+
+Presets store:
+- All tuning parameters (Depth, Skew, Stretch, Steps, etc.)
+- Mode offset
+- Root frequency
+
+Presets do NOT store:
+- MIDI input/output settings
+- Window size
+
+---
+
+## Understanding the Theory (Optional)
+
+This section explains the concepts behind PitchGrid. **You don't need this to use the plugin** — but if you're curious about why it works the way it does, read on.
+
+### Why Tuning Theory Exists
+
+There's a fundamental tension in music between two desirable properties:
+
+**Justness**: Intervals sound most consonant when their frequencies form simple ratios. A perfect fifth (3:2) sounds pure because the third harmonic of one note matches the second harmonic of the other. The simpler the ratio, the stronger the consonance.
+
+**Regularity**: Music relies on repetition and transposition. We want to play a melody in different keys and have it sound "the same." This requires intervals to be consistent throughout the scale.
+
+The problem: **you can't have both perfectly.** A scale built entirely from just intervals won't transpose cleanly. A perfectly regular scale (like 12-TET) sacrifices some justness.
+
+Every tuning system is a compromise between these two goals.
+
+### The PitchGrid Approach
+
+Traditional tuning theory starts with just intervals and then "tempers" them (adjusts them slightly) to achieve regularity.
+
+PitchGrid inverts this: **start with a regular structure, then see which just intervals it approximates.**
+
+This has a practical advantage: regular scales can be controlled with continuous parameters. Turn a knob, and all the pitches shift together while maintaining their structural relationships.
+
+### MOS Scales
+
+The scales PitchGrid works with are called **MOS scales** (Moments of Symmetry), discovered by theorist Erv Wilson.
+
+A MOS scale has exactly two step sizes (Large and Small), distributed as evenly as possible. Examples:
+
+- **5L 2s**: The familiar diatonic scale (major, minor, modes)
+- **2L 5s**: Inverted diatonic
+- **3L 4s**: "Mosh" — a 7-note scale with different character
+- **7L 5s**: 12-note chromatic (when tuned to 12-TET)
+
+The Western diatonic scale is just one MOS among infinitely many. PitchGrid lets you explore the others.
+
+### The Two Dimensions
+
+Why is PitchGrid a 2D grid?
+
+Because MOS scales have two step sizes, they naturally live on a 2D lattice:
+- One axis = Large steps
+- Other axis = Small steps
+
+This is also why standard music notation has two components: staff position (the 7 diatonic notes) and accidentals (sharps/flats). F# and Gb are different points on the lattice — they only collapse to the same pitch in 12-TET.
+
+Isomorphic controllers (LinnStrument, Lumatone) are ideal for these scales because they're also 2D grids.
+
+### Glossary
+
+| Term | Meaning |
+|------|---------|
+| **Cents** | Logarithmic pitch unit; 100 cents = 1 semitone in 12-TET |
+| **EDO** | Equal Division of the Octave (e.g., 12-EDO = 12-TET) |
+| **Equave** | The interval where a scale repeats (usually octave, but can be other ratios) |
+| **Generator** | The interval used to build a MOS scale (e.g., fifth for diatonic) |
+| **Just Intonation** | Tuning based on simple frequency ratios |
+| **MOS** | Moment of Symmetry — a scale with two step sizes, evenly distributed |
+| **Temperament** | A tuning system where some intervals are adjusted from just |
+
+---
 
 ## Advanced Features
 
-For pros, PitchGrid offers deep integration options.
-
 ### MTS-ESP Integration
-MTS-ESP allows sharing tunings across plugins.
-- **Enable**: Set Output Mode to MTS.
-- **Master/Slave**: PitchGrid can act as master (broadcasts tuning) or slave (follows external master).
-- **Setup**: Install MTS-ESP master plugin first; PitchGrid auto-detects.
-- **Benefits**: Sync tunings across instruments in your project.
 
-If conflict (another master), a dialog prompts to resolve.
+MTS-ESP lets multiple plugins share a tuning.
+
+1. Set PitchGrid's Output Mode to **MTS-ESP**
+2. PitchGrid becomes the tuning "master"
+3. Other MTS-ESP-compatible plugins receive the tuning data
+4. All your instruments play in the same tuning
+
+Useful for orchestral or layered sounds where multiple synths need to match.
 
 ### OSC Control
-Open Sound Control for remote parameter tweaks.
-- **Enable**: Toggle "OSC" in bottom bar.
-- **Port**: Default 8000 (incoming), 8001 (outgoing).
-- **Mapping**: Send `/pitchgrid/steps 19` to set steps to 19.
-- **Apps**: Use TouchOSC or Lemur on iPad for wireless control.
 
-Broadcasts status changes to connected clients.
+Control PitchGrid parameters remotely via Open Sound Control.
 
-### Networking
-Share your grid view:
-- **WebSocket Server**: Auto-starts on load (port 5174+).
-- **Connect**: From browser or app, go to `ws://localhost:5174`.
-- **Features**: Remote node selection, parameter control, live playing notes.
-- **Use Case**: Collaborate with a tuner while you perform.
+1. Enable OSC in the Settings menu
+2. Default ports: 8000 (receive), 8001 (send)
+3. Send messages like `/pitchgrid/skew 0.65` to change parameters
+4. Use TouchOSC, Lemur, or any OSC-capable app
 
-**Tip**: Firewall may block—allow incoming on the port shown in status.
+### Network Grid View
 
-**Warning**: Networking is local-only; no internet required.
+Share your grid visualization over the network.
 
-## Licensing and Trial
+1. PitchGrid starts a WebSocket server automatically
+2. Connect from a browser: `ws://localhost:5174`
+3. Remote viewers see the grid in real-time
+4. Useful for collaboration or external displays
 
-PitchGrid offers a generous trial and flexible licensing.
-
-### Activation
-- **Trial**: 14 full days, all features unlocked.
-- **Full License**: One-time purchase ($99), perpetual use, free updates v1.x.
-- **Process**: Enter key in plugin > Activate offline.
-- **Transfer**: Deactivate on old machine via menu > Reactivate on new.
-
-### Restrictions
-- Trial: Watermark on audio after 14 days; no saving presets.
-- License: Non-transferable without deactivation; no resale.
-- Educational discounts available—contact sales@node.audio.
-
-Support includes email and community forum.
+---
 
 ## Troubleshooting
 
-Encounter issues? Here's help.
+### Plugin doesn't appear in DAW
 
-### Common Issues
-- **Plugin Not Loading**: Rescan in DAW; check format compatibility.
-- **No Sound**: Ensure MIDI routing: Controller > PitchGrid > Synth. Check output mode != None.
-- **Grid Not Updating**: Restart plugin; clear cache (toolbar > Reset View).
-- **MPE Glitches**: Verify controller channels; set Input Range to match device.
-- **MTS Not Connecting**: Run as admin (Windows); check MTS master is loaded first.
-- **High CPU**: Reduce Depth; disable OSC if unused.
-- **WebView Blank**: Update graphics drivers; try different browser engine if available.
+- Rescan plugins in your DAW's preferences
+- Check that you installed the correct format (VST3 for Windows, AU for Logic)
+- On Mac, check System Preferences > Security if the installer was blocked
 
-### Support
-- **Docs**: [pitchgrid.io/manual](https://pitchgrid.io/manual)
-- **Forum**: community.pitchgrid.io
-- **Email**: support@node.audio
-- **Updates**: Check for new versions in plugin menu.
+### No sound
 
-**Tip**: Enable debug logging (advanced settings) and share logs with support.
+- Check MIDI routing: Controller → PitchGrid → Synth
+- Make sure Output Mode is not set to "None"
+- Verify your synth is receiving on the correct MIDI channel
 
-### DAW-Specific Tips
-- **Ableton Live**: Use as MIDI effect on instrument track. Enable "Monitor In" for live input.
-- **Logic Pro**: Insert in MIDI FX slot. For MPE, set track to "MPE Enabled."
-- **Reaper**: Add to track FX; route MIDI via sends if needed.
-- **FL Studio**: Place in MIDI settings > Effects. Use Patcher for complex routing.
+### MPE not working correctly
 
-If problems persist, our team is here to help—happy tuning!
+- Set Input Mode to **MPE**
+- Match the **Input Pitch Bend Range** to your controller's setting
+- Ensure your DAW has MPE mode enabled for the track
 
-# End User License Agreement
+### Grid appears blank or frozen
 
-[Standard EULA text - abbreviated for manual]
+- Try Window > Reset View in the plugin menu
+- Update your graphics drivers
+- Restart the plugin
 
-This license agreement governs your use of PitchGrid. By installing, you agree to...
+### High CPU usage
 
-(Full EULA available at pitchgrid.io/eula)
+- Reduce **Depth** to lower values
+- Disable OSC if not using it
+- Close the network visualization if active
+
+### DAW-Specific Issues
+
+**Ableton Live**: PitchGrid must route to another track; Live doesn't support MIDI effects directly on instrument tracks.
+
+**Logic Pro**: Use the MIDI FX slot, not the Instrument slot.
+
+**Bitwig**: Limited compatibility due to Bitwig's internal MPE handling. Use MTS-ESP mode instead.
+
+### Getting Help
+
+- Documentation: [pitchgrid.io](https://pitchgrid.io)
+- Email: support@node.audio
+- Community: [PitchGrid Discord](https://discord.gg/pitchgrid)
+
+---
+
+## Licensing
+
+### Trial
+
+- 15 days, full functionality
+- No watermarks or limitations during trial
+
+### Full License
+
+- One-time purchase from [node.audio](https://node.audio/products/pitchgrid)
+- Perpetual license with free updates for version 1.x
+- 3 activations per license (3 computers)
+
+### Activation
+
+1. Launch PitchGrid in your DAW
+2. Enter your email and license key
+3. Click Activate
+
+To transfer to a new computer: deactivate on the old machine first (Settings > Deactivate License).
+
+---
+
+## Legal
+
+© 2025-2026 Node Audio and Peter Jung. All rights reserved.
+
+PitchGrid is a trademark of Peter Jung. This software is provided under license; see [node.audio/eula](https://node.audio/eula) for terms.
+
+VST is a trademark of Steinberg. Audio Units is a trademark of Apple. All other trademarks are property of their respective owners.
+
+---
+
+*For the latest version of this manual, visit [pitchgrid.io/info/plugin-user-manual](https://pitchgrid.io/info/plugin-user-manual)*
