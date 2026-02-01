@@ -14,7 +14,7 @@ PitchGrid Mapper sits between your physical controller and the PitchGrid plugin 
 2. The Mapper **remaps** those notes according to the current PitchGrid scale (received via OSC from the plugin)
 3. The remapped notes are sent out through a **virtual MIDI device** to your DAW and the PitchGrid plugin
 
-This means any supported controller becomes a microtonal instrument — playing the exact scale you've dialed in with PitchGrid, with consistent fingering patterns across all keys.
+This means any supported controller becomes a microtonal instrument — playing the exact scale you've dialed in with PitchGrid, with consistent fingering patterns within your chosen scale.
 
 ![PG_Mapper_Overview](/docs/images/PG_Mapper_Overview.png)
 
@@ -37,7 +37,9 @@ PitchGrid Mapper offers three fundamentally different ways to map scales onto yo
 
 ![PitchGrid Mapper — Isomorphic Layout](/docs/images/PitchGridMapper-Isomorphic.png)
 
-The isomorphic layout arranges notes on a hexagonal honeycomb grid where **every scale pattern looks identical regardless of position**. Moving in one direction always means the same interval change. This is the most natural layout for exploring PitchGrid scales — transposing is simply a matter of shifting your hand.
+The isomorphic layout arranges notes on a hexagonal honeycomb grid where **geometric patterns equal musical patterns**. Moving in one direction always means the same interval change. Transpose by shifting your hand — the shape stays the same.
+
+*Best for: Exploring new scales, understanding harmonic relationships, the Exquis and Lumatone.*
 
 Controls: root position, skew, rotate, reflect.
 
@@ -45,7 +47,9 @@ Controls: root position, skew, rotate, reflect.
 
 ![PitchGrid Mapper — LinnStrument String-Like Layout](/docs/images/PitchGridMapper-LinnStrument.png)
 
-Rows act as "strings" tuned to different intervals — like a guitar or bass, but generalized to any PitchGrid scale. This is familiar territory for string players and works especially well with the LinnStrument's rectangular grid.
+Rows act as "strings" tuned to different intervals — like a guitar or bass, but generalized to any PitchGrid scale. If you play a stringed instrument, this will feel familiar.
+
+*Best for: String players, guitarists exploring new tunings, the LinnStrument.*
 
 Controls: string orientation, row offset, root position.
 
@@ -53,7 +57,9 @@ Controls: string orientation, row offset, root position.
 
 ![PitchGrid Mapper — Launchpad Piano-Like Layout](/docs/images/PitchGridMapper-LaunchPad.png)
 
-Scale degrees are arranged in strips with accidentals placed in a configurable direction. This mirrors the logic of a piano keyboard — "white keys" and "black keys" — but generalized to any MOS scale. Useful for musicians coming from a keyboard background.
+Scale degrees are arranged in strips with accidentals placed above or below — like a piano keyboard, but generalized to any scale. A 7-note scale looks like a piano. An 8-note scale gets 8 "white keys" per octave.
+
+*Best for: Keyboard players, understanding scale structure, the Launchpad.*
 
 Controls: strip orientation, strip width, accidental direction, root position.
 

@@ -196,6 +196,54 @@
 		color: #1a1a2e;
 	}
 
+	/* Audience Section */
+	.audience-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 2rem;
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	.audience-card {
+		background: rgba(26, 26, 46, 0.5);
+		border-radius: 12px;
+		padding: 2rem;
+	}
+
+	.audience-card h3 {
+		color: #ffffff;
+		font-size: 1.1rem;
+		margin-bottom: 1rem;
+	}
+
+	.audience-card ul {
+		margin: 0;
+		padding-left: 1.25rem;
+		color: #b0b0b0;
+	}
+
+	.audience-card li {
+		margin-bottom: 0.75rem;
+		line-height: 1.5;
+	}
+
+	.audience-yes {
+		border: 1px solid rgba(100, 200, 100, 0.3);
+	}
+
+	.audience-yes h3 {
+		color: #7dce7d;
+	}
+
+	.audience-maybe {
+		border: 1px solid rgba(255, 171, 0, 0.3);
+	}
+
+	.audience-maybe h3 {
+		color: #FFAB00;
+	}
+
 	/* Mapper Showcase */
 	.mapper-showcase {
 		text-align: center;
@@ -456,10 +504,10 @@
 <section class="hero">
 	<div class="hero-content">
 		<h1>PitchGrid</h1>
-		<p class="hero-tagline">The tonal structure of Western music is two-dimensional</p>
+		<p class="hero-tagline">Explore tunings beyond the piano — with structure that makes sense</p>
 		<p class="hero-description">
-			Interactive tuning and MIDI mapping for microtonal music — a VST3/AU plugin
-			that makes alternative tuning systems accessible, intuitive, and fun.
+			A VST3/AU plugin for exploring tuning systems beyond 12-tone equal temperament.
+			Pick a scale, hear the difference, play it on your controller — with theory that still works.
 		</p>
 		<div class="hero-cta-group">
 			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Get PitchGrid Plugin</a>
@@ -486,7 +534,7 @@
 			<div class="feature-card">
 				<span class="feature-icon">🌐</span>
 				<h3>Online Tools</h3>
-				<p>Interactive web applications for exploring diatonic scales, MOS systems, and isomorphic keyboards.</p>
+				<p>Interactive web applications for exploring scales, tuning systems, and isomorphic keyboard layouts.</p>
 				<a href="/diatonic" class="btn">Explore Tools</a>
 			</div>
 			
@@ -509,6 +557,30 @@
 				<h3>PGRhythm</h3>
 				<p>Parametric MIDI sequencer that extends PitchGrid concepts to create complex rhythmic patterns.</p>
 				<a href="https://github.com/peterjungx/pgrhythm" target="_blank" class="btn">View on GitHub</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Who Is This For Section -->
+	<section class="section">
+		<h2>Who Is PitchGrid For?</h2>
+		<div class="audience-grid">
+			<div class="audience-card audience-yes">
+				<h3>✓ PitchGrid is for you if:</h3>
+				<ul>
+					<li>You're curious what music sounds like outside 12-tone equal temperament</li>
+					<li>You play an isomorphic controller (LinnStrument, Lumatone, Exquis) and want to explore new tunings</li>
+					<li>You've heard of "microtonal" music and want to try it yourself</li>
+					<li>You're a composer looking for fresh harmonic territory</li>
+					<li>You want to understand how Western music concepts generalize to other scales</li>
+				</ul>
+			</div>
+			<div class="audience-card audience-maybe">
+				<h3>? You might want something else if:</h3>
+				<ul>
+					<li>You just want purer thirds in standard 12-tone music (simpler JI tools exist)</li>
+					<li>You want to auto-tune existing recordings (that's a different kind of tool)</li>
+				</ul>
 			</div>
 		</div>
 	</section>
@@ -539,13 +611,13 @@
 		<h2>Understanding PitchGrid</h2>
 		<div class="about-content">
 			<p>
-				<strong>The tonal structure of Western music is (and always was) two-dimensional.</strong>
+				<strong>Western music uses a 7-note scale with 5 large steps and 2 small steps — but there's nothing magical about 7.</strong>
 			</p>
 			<img src="/docs/images/PitchGrid-Basic-CMajor.png" alt="PitchGrid Basic C-Major" class="concept-image" />
 			<p>
-				The PitchGrid concept clarifies this realization and draws a vision of its potential impact.
-				By representing musical relationships on a two-dimensional lattice, we can understand complex 
-				tuning systems and create tools that make microtonality accessible to everyone.
+				PitchGrid lets you explore scales with 5, 8, 10, or any number of notes — all with the same kind 
+				of internal structure: modes you can rotate through, keys you can change, and voice leading rules 
+				that make musical sense. Different raw materials, familiar logic.
 			</p>
 		</div>
 	</section>
@@ -553,9 +625,9 @@
 	<!-- Theory Section -->
 	<section class="section">
 		<div class="theory-section">
-			<h2>Dive Deeper Into Theory</h2>
+			<h2>The Math Behind It (Optional)</h2>
 			<p style="font-size: 1.1rem; color: #b0b0b0; margin-bottom: 2rem;">
-				Learn about the mathematical foundations and theoretical insights that power PitchGrid
+				Want to understand why this works? The theory is there if you want it — but you don't need it to play.
 			</p>
 			<a href="/info/PitchGrid" class="btn-large">Read the PitchGrid Concept</a>
 		</div>
