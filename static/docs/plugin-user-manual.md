@@ -109,7 +109,13 @@ One license allows 3 activations (3 different computers). For issues, contact su
 
 ## DAW Setup
 
-### Logic Pro
+**Important:** PitchGrid is logically a MIDI effect — it transforms MIDI data before it reaches your synth. However, the VST3 standard doesn't have a "MIDI effect" category, so PitchGrid appears as a **virtual instrument** in most DAWs.
+
+This means:
+- **In most DAWs** (Ableton, FL Studio, Reaper): Put PitchGrid on its own track and route MIDI through it to your synth on another track
+- **In Logic Pro** (AU format): PitchGrid appears as a true MIDI FX and can be inserted directly before your instrument
+
+### Logic Pro (AU — True MIDI FX)
 
 1. Create a new **Software Instrument** track
 2. In the channel strip, click the **MIDI FX** slot
@@ -119,7 +125,7 @@ One license allows 3 activations (3 different computers). For issues, contact su
 
 > **[SCREENSHOT NEEDED: Logic Pro channel strip with PitchGrid in MIDI FX slot]**
 
-### Ableton Live
+### Ableton Live (VST3 — Route Between Tracks)
 
 1. Create a new **MIDI track**
 2. Add **PitchGrid** as an instrument on that track
@@ -129,14 +135,14 @@ One license allows 3 activations (3 different computers). For issues, contact su
 
 > **[SCREENSHOT NEEDED: Ableton routing — PitchGrid track → Synth track]**
 
-### Reaper
+### Reaper (VST3 — FX Chain)
 
 1. Create a new track
 2. Add **PitchGrid** to the FX chain
 3. Add your synth after PitchGrid in the same FX chain
 4. Route your MIDI controller to this track
 
-### FL Studio
+### FL Studio (VST3 — Patcher)
 
 1. Add **PitchGrid** to the Channel Rack
 2. Use **Patcher** to route MIDI: Controller → PitchGrid → Synth
@@ -183,6 +189,8 @@ Shows properties of your current scale:
 
 - **MOS System**: Number of large (L) and small (s) steps
 - **Large Step / Small Step**: Size of each step in cents
+- **Accidental**: Interval for adding a sharp or flat to a note, in cents (always equals L minus s)
+- **Generator**: The interval that generates the scale structure; in diatonic scales, this is the perfect fifth
 - **Equave**: The interval where the scale repeats (usually octave = 1200 cents)
 - **Step Sequence**: The pattern of large and small steps (e.g., LLsLLLs for major)
 
@@ -207,9 +215,9 @@ The central visualization:
 - **Yellow nodes**: Root note and its octave equivalents
 - **White nodes**: Other notes in your scale
 - **Grey nodes**: Off-scale notes (accidentals)
-- **Zig-zag path**: Your current scale, connecting the nodes
+- **Zig-zag path**: Your current scale, connecting adjacent scale degrees
 
-The grid is a map of pitch relationships. Horizontal movement = one type of step; vertical = another. As you adjust Skew and Stretch, the grid morphs to show the new relationships.
+The grid is a window into an infinite, regularly-tuned 2D lattice of pitches. This window shows which notes get mapped to your keyboard. It's oriented so that the same scale degree in different octaves lines up horizontally. Moving from one scale degree to the next means moving up or down (corresponding to the two step sizes), which creates the zig-zag pattern you see.
 
 ### 6. Piano Mapping
 
@@ -219,7 +227,7 @@ Shows how notes map to a standard MIDI keyboard:
 
 - Each key displays its note name and pitch
 - Colors match the grid (yellow = root, white = scale, grey = off-scale)
-- When your scale has 7 notes, it aligns with white keys; other scales won't match the piano layout
+- The piano keyboard layout specifically matches C Major with 12 steps per octave — other scales and settings won't align with the white/black key pattern
 
 ---
 
@@ -227,14 +235,20 @@ Shows how notes map to a standard MIDI keyboard:
 
 ### "I want to try a different equal temperament"
 
-**Goal**: Switch from 12-tone to 19-tone equal temperament.
+**Goal**: Tune the diatonic scale to 19-EDO instead of 12-EDO.
 
-1. Load PitchGrid with the default preset
-2. Set **Steps** to **19** (this maps 19 notes per octave to your keyboard)
-3. Adjust **Depth** until the Info Area shows "12L 7s" (the 19-tone MOS)
-4. Play — you now have 19 equally-spaced notes per octave
+1. Start with the default **12-TET** preset
+2. In the **Pitch Ruler Marks** section, select **Equal Div.** (EDO)
+3. Set the **Steps** parameter in the Pitch Ruler area to **19**
+4. Click the **C** below the "19\19" pitch mark label to mark it for optimization
+5. Click another note from the first octave for optimization (e.g., the **E** near the "6\19" mark)
+6. Click the **Optimize** button
+7. Observe how the pitches of the mapped notes now align with 19-EDO pitch ruler marks
+8. *Optional*: To make all 19 pitches playable, set the **Steps** parameter in the **Piano Mapping** section to **19**
 
-> **[SCREENSHOT NEEDED: Grid showing 19-TET configuration]**
+> **[SCREENSHOT NEEDED: Grid showing 19-EDO optimization with pitch ruler]**
+
+**Note**: Not all EDOs work with the diatonic scale structure. Compatible EDOs include 7, 12, 17, 19, 22, and 31. Other MOS scale structures support different EDOs.
 
 **Tip**: The factory preset "19-TET" does this automatically.
 
@@ -380,7 +394,7 @@ This has a practical advantage: regular scales can be controlled with continuous
 
 The scales PitchGrid works with are called **MOS scales** (Moments of Symmetry), discovered by theorist Erv Wilson.
 
-A MOS scale has exactly two step sizes (Large and Small), distributed as evenly as possible. Examples:
+A MOS scale has exactly two step sizes (Large and Small), distributed as evenly as possible. The number of large and small steps must not share a common divisor — so 5L 2s works, but 4L 2s wouldn't (both divisible by 2). Examples:
 
 - **5L 2s**: The familiar diatonic scale (major, minor, modes)
 - **2L 5s**: Inverted diatonic
@@ -435,7 +449,7 @@ These all use the familiar 7-note scale structure — 5 large steps and 2 small 
 
 ### Beyond Western (Different Scale Structures)
 
-Change **Depth** to explore scales with different numbers of notes.
+Use **Depth**, **Stretch**, and **Skew** together to explore scales with different numbers of notes and interval structures.
 
 | Scale | Depth | Notes | Character |
 |-------|-------|-------|-----------|
@@ -477,7 +491,7 @@ The best way to understand PitchGrid is to play with it. Here are some exercises
 3. Slowly turn **Skew** from one extreme to the other
 4. Listen: intervals expand and contract. Some settings sound consonant, others tense.
 
-*The "sweet spots" are where intervals align with just ratios.*
+*The "sweet spots" are where intervals align with or are close to just ratios.*
 
 ### 3. Change the Scale Structure
 
@@ -521,23 +535,15 @@ MTS-ESP lets multiple plugins share a tuning.
 
 Useful for orchestral or layered sounds where multiple synths need to match.
 
-### OSC Control
+### OSC Output
 
-Control PitchGrid parameters remotely via Open Sound Control.
+PitchGrid can send tuning data via OSC to companion applications.
 
-1. Enable OSC in the Settings menu
-2. Default ports: 8000 (receive), 8001 (send)
-3. Send messages like `/pitchgrid/skew 0.65` to change parameters
-4. Use TouchOSC, Lemur, or any OSC-capable app
+1. Enable **OSC output** in the Settings menu
+2. The plugin broadcasts scale and tuning information
+3. Currently supported: **[PitchGrid Mapper](/info/PitchGridMapper)** — for visualizing scales on isomorphic controllers
 
-### Network Grid View
-
-Share your grid visualization over the network.
-
-1. PitchGrid starts a WebSocket server automatically
-2. Connect from a browser: `ws://localhost:5174`
-3. Remote viewers see the grid in real-time
-4. Useful for collaboration or external displays
+This is a beta feature; the protocol may change in future versions.
 
 ---
 
@@ -579,7 +585,7 @@ Share your grid visualization over the network.
 
 **Logic Pro**: Use the MIDI FX slot, not the Instrument slot.
 
-**Bitwig**: Limited compatibility due to Bitwig's internal MPE handling. Use MTS-ESP mode instead.
+**Bitwig**: Only works with **MTS-ESP mode** due to Bitwig's internal handling of MPE and pitch bend. Standard MIDI/MPE output modes are not compatible.
 
 ### Getting Help
 

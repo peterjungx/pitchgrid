@@ -1,8 +1,18 @@
 # ![](favicon.png "50") PitchGrid Mapper
 
-> **⚠️ Requires [PitchGrid Plugin](https://node.audio/products/pitchgrid)** — The Mapper is a companion app that visualizes and controls layouts for scales defined in the PitchGrid plugin. It does not function standalone.
+> **⚠️ Requires [PitchGrid Plugin](https://node.audio/products/pitchgrid)** — The Mapper is a companion app for scales defined in the PitchGrid plugin. It does not function standalone.
 
-**PitchGrid Mapper** connects your isomorphic MIDI controller to the PitchGrid plugin, showing you where each note in your chosen scale lands on your controller's grid — with real-time visualization and configurable layouts.
+## Play Any Scale in a Layout That Makes Sense
+
+The piano keyboard was designed for one scale: the diatonic. If you want to play a 9-note scale, an 8-note scale, or any non-Western tuning system, the piano layout fights you — the patterns don't line up, muscle memory doesn't transfer.
+
+**PitchGrid Mapper solves this.** It automatically generates layouts for your 2D grid controller (LinnStrument, Exquis, Lumatone, Launchpad) where:
+
+- **The structure is visible** — see the scale's pattern with your eyes
+- **The fingering makes sense** — same shape = same interval, anywhere on the grid
+- **Your hands learn the scale** — muscle memory works because the layout is consistent
+
+This is not just visualization. It's a new way to *play* — connecting eyes, fingers, and ears to scales that were previously inaccessible. No other tool on the market does this.
 
 **[Download the latest release](https://github.com/pitchgrid-io/pitchgrid-mapper/releases)**
 
@@ -10,8 +20,9 @@
 
 ## What You Get
 
-- **Visual layout** of your PitchGrid scale on your controller
-- **Consistent fingering** — for any scale, the same shape means the same interval relationship
+- **Playable layouts** that automatically make structural sense for any PitchGrid scale
+- **Visual feedback** — root notes, scale tones, and accidentals are clearly marked
+- **Consistent fingering** — the same geometric shape always produces the same musical interval
 - **Three layout styles** — isomorphic (hex grid), string-like (rows), or piano-like (strips)
 - **Real-time sync** — change the scale in the plugin, the Mapper updates instantly
 
