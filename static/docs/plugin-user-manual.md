@@ -415,6 +415,99 @@ Isomorphic controllers (LinnStrument, Lumatone) are ideal for these scales becau
 
 ---
 
+## Notable Scales
+
+Here are some historically important and experimentally interesting scales you can create in PitchGrid, with exact parameter values.
+
+### Western Diatonic Scales (5L 2s)
+
+These all use the familiar 7-note scale structure — 5 large steps and 2 small steps.
+
+| Scale | Depth | Skew | Stretch | Character |
+|-------|-------|------|---------|-----------|
+| **12-TET** | 5L 2s | ~0.583 | 1.0 | Standard Western tuning. The default. |
+| **Pythagorean** | 5L 2s | ~0.585 | 1.0 | Pure fifths (702.0ct). Bright, medieval. |
+| **1/4-Comma Meantone** | 5L 2s | ~0.579 | 1.0 | Pure major thirds (386.3ct). Renaissance organs. |
+| **19-TET** | 5L 2s | ~0.579 | 1.0 | 19 equal steps. Smooth, close to meantone. |
+| **31-TET** | 5L 2s | ~0.581 | 1.0 | 31 equal steps. Excellent just approximations. |
+
+*Tip: Load the 12-TET preset, then slowly turn Skew to hear the transition between these tunings.*
+
+### Beyond Western (Different Scale Structures)
+
+Change **Depth** to explore scales with different numbers of notes.
+
+| Scale | Depth | Notes | Character |
+|-------|-------|-------|-----------|
+| **Pentatonic** | 2L 3s | 5 | The "black keys." Universal folk scale. |
+| **Mavila** | 2L 5s | 7 | Inverted diatonic. Pelog-like, gamelan feel. |
+| **Porcupine** | 7L 1s | 8 | 8 notes, unusual thirds. |
+| **Orwell** | 4L 5s | 9 | 9 notes, good 7-limit approximations. |
+| **Bohlen-Pierce** | 5L 4s | 9 | Non-octave scale (repeats at 3:1). Alien but consonant. |
+
+*For Bohlen-Pierce: Set Stretch so the equave is ~1902ct (a perfect twelfth, ratio 3:1).*
+
+### Creating These Scales
+
+1. **Load a preset** if available — this sets all parameters
+2. **Or dial manually**: Set Depth first (this changes the scale structure), then adjust Skew (this changes the tuning)
+3. **Watch the Info Area** — it shows the step pattern (e.g., "LLsLLLs") and interval sizes in cents
+4. **Use the Pitch Ruler** — set it to show just intervals, then adjust Skew until scale notes align with the ruler marks
+
+---
+
+## Experiments to Try
+
+The best way to understand PitchGrid is to play with it. Here are some exercises:
+
+### 1. Hear the Difference Between Tunings
+
+1. Load **12-TET** (the default)
+2. Play a major chord (root, major third, fifth)
+3. Now load **1/4-Comma Meantone**
+4. Play the same chord — notice the third sounds smoother, more "at rest"
+5. Load **Pythagorean** — the fifth is purer, but the third is sharper
+
+*What you're hearing: the tradeoff between just intervals.*
+
+### 2. Sweep Through Tuning Space
+
+1. Start with any preset
+2. Play a sustained chord or drone
+3. Slowly turn **Skew** from one extreme to the other
+4. Listen: intervals expand and contract. Some settings sound consonant, others tense.
+
+*The "sweet spots" are where intervals align with just ratios.*
+
+### 3. Change the Scale Structure
+
+1. Start with 12-TET (5L 2s diatonic)
+2. While holding a chord, change **Depth** to 7L 5s (chromatic)
+3. Now try 2L 3s (pentatonic)
+4. Notice: the same keys now play different notes in the scale
+
+*Depth changes how many notes exist; Skew changes how they're tuned.*
+
+### 4. Automate a Tuning Drift
+
+1. Record a simple chord progression or loop
+2. Open automation for the **Skew** parameter
+3. Draw a slow curve over 16 bars
+4. Play back — the tuning gradually shifts throughout the progression
+
+*This creates a sense of harmonic motion that's impossible in fixed tuning.*
+
+### 5. Find Your Own Scale
+
+1. Set **Depth** to something unfamiliar (try 3L 4s or 4L 3s)
+2. Play random notes — find combinations that sound good to you
+3. Adjust **Skew** until the intervals feel right
+4. Save as a preset — this is now your scale
+
+*There are no wrong answers. Trust your ears.*
+
+---
+
 ## Advanced Features
 
 ### MTS-ESP Integration

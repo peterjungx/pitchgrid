@@ -1,23 +1,40 @@
 # ![](favicon.png "50") PitchGrid Mapper
 
-**PitchGrid Mapper** is a universal bridge between PitchGrid's microtonal scales and isomorphic MIDI controllers. It lets you play PitchGrid scales on hardware controllers like the LinnStrument, Exquis, Launchpad, and Lumatone — with real-time visualization and configurable layouts.
+> **⚠️ Requires [PitchGrid Plugin](https://node.audio/products/pitchgrid)** — The Mapper is a companion app that visualizes and controls layouts for scales defined in the PitchGrid plugin. It does not function standalone.
+
+**PitchGrid Mapper** connects your isomorphic MIDI controller to the PitchGrid plugin, showing you where each note in your chosen scale lands on your controller's grid — with real-time visualization and configurable layouts.
 
 **[Download the latest release](https://github.com/pitchgrid-io/pitchgrid-mapper/releases)**
 
 ---
 
+## What You Get
+
+- **Visual layout** of your PitchGrid scale on your controller
+- **Consistent fingering** — for any scale, the same shape means the same interval relationship
+- **Three layout styles** — isomorphic (hex grid), string-like (rows), or piano-like (strips)
+- **Real-time sync** — change the scale in the plugin, the Mapper updates instantly
+
+---
+
 ## How It Works
 
-PitchGrid Mapper sits between your physical controller and the PitchGrid plugin in your DAW:
+```
+Your Controller → PitchGrid Mapper → Your DAW → PitchGrid Plugin → Synth
+                        ↑
+              OSC scale data from Plugin
+```
 
 1. Your **MIDI controller** sends note data to PitchGrid Mapper
-2. The Mapper **remaps** those notes according to the current PitchGrid scale (received via OSC from the plugin)
-3. The remapped notes are sent out through a **virtual MIDI device** to your DAW and the PitchGrid plugin
+2. The Mapper **remaps** those notes according to the current scale (received via OSC from the plugin)
+3. Remapped notes go through a **virtual MIDI device** to your DAW and the PitchGrid plugin
+4. The plugin applies **tuning via pitch bend** and sends to your synth
 
-This means any supported controller becomes a microtonal instrument — playing the exact scale you've dialed in with PitchGrid, with consistent fingering patterns within your chosen scale.
+The Mapper displays the scale visually: root notes highlighted, scale tones lit, off-scale notes dimmed.
 
 ![PG_Mapper_Overview](/docs/images/PG_Mapper_Overview.png)
 
+---
 
 ## Supported Controllers
 
@@ -25,75 +42,108 @@ This means any supported controller becomes a microtonal instrument — playing 
 - **LinnStrument 128** — Roger Linn's expressive grid controller
 - **Exquis** — Intuitive Instruments' isomorphic MPE controller
 - **Launchpad Mini MK3** — Novation's affordable pad grid
-- **Lumatone** — Professional grade Bosanquet layout controller [Untested]
+- **Lumatone** — Professional-grade 280-key isomorphic keyboard [Untested]
 
-Additional controllers can be added through simple YAML configuration files. If your controller isn't listed, you can define its grid dimensions, MIDI mapping, and physical layout to get it working.
+Don't see your controller? You can add it with a simple YAML config file — see the [GitHub repository](https://github.com/pitchgrid-io/pitchgrid-mapper) for examples.
+
+---
 
 ## Layout Types
 
-PitchGrid Mapper offers three fundamentally different ways to map scales onto your controller's grid:
+The Mapper offers three ways to arrange scales on your controller. Each has its own logic — pick the one that fits how you think.
 
 ### Isomorphic Layout
 
 ![PitchGrid Mapper — Isomorphic Layout](/docs/images/PitchGridMapper-Isomorphic.png)
 
-The isomorphic layout arranges notes on a hexagonal honeycomb grid where **geometric patterns equal musical patterns**. Moving in one direction always means the same interval change. Transpose by shifting your hand — the shape stays the same.
+Notes on a hexagonal grid where **geometric patterns equal musical patterns**. Move in any direction = same interval change. Transpose by shifting your hand — the shape stays the same.
 
 *Best for: Exploring new scales, understanding harmonic relationships, the Exquis and Lumatone.*
-
-Controls: root position, skew, rotate, reflect.
 
 ### String-Like Layout
 
 ![PitchGrid Mapper — LinnStrument String-Like Layout](/docs/images/PitchGridMapper-LinnStrument.png)
 
-Rows act as "strings" tuned to different intervals — like a guitar or bass, but generalized to any PitchGrid scale. If you play a stringed instrument, this will feel familiar.
+Rows act as "strings" — each row starts at a different pitch, and you move up the scale along the row. Familiar to guitarists and string players.
 
-*Best for: String players, guitarists exploring new tunings, the LinnStrument.*
-
-Controls: string orientation, row offset, root position.
+*Best for: String players, guitarists, the LinnStrument.*
 
 ### Piano-Like (Mosaic) Layout
 
 ![PitchGrid Mapper — Launchpad Piano-Like Layout](/docs/images/PitchGridMapper-LaunchPad.png)
 
-Scale degrees are arranged in strips with accidentals placed above or below — like a piano keyboard, but generalized to any scale. A 7-note scale looks like a piano. An 8-note scale gets 8 "white keys" per octave.
+Scale degrees in strips, with accidentals above or below — like a piano, but generalized. A 7-note scale looks like a piano. An 8-note scale gets 8 "white keys."
 
 *Best for: Keyboard players, understanding scale structure, the Launchpad.*
 
-Controls: strip orientation, strip width, accidental direction, root position.
+---
 
-## The Lumatone
+## Understanding the Display
 
-![PitchGrid Mapper — Lumatone Isomorphic Layout](/docs/images/PitchGridMapper-Lumatone.png)
+The Mapper's grid visualization tells you:
 
-The 280-key Lumatone is the ultimate canvas for PitchGrid scales. With its enormous hexagonal grid, it can display multiple octaves of any scale with room to spare, making it ideal for exploring the full range of PitchGrid's tuning possibilities.
+| Color | Meaning |
+|-------|---------|
+| **Bright (root color)** | Root note and its octave equivalents |
+| **Medium (scale color)** | Other notes in your current scale |
+| **Dim / Dark** | Off-scale notes (accidentals) |
+
+When you change the scale in the PitchGrid plugin, the Mapper updates to show the new pattern. When you change the layout (isomorphic → string-like), the *intervals stay the same* — only the ergonomic arrangement changes.
+
+---
 
 ## Getting Started
 
-### Installation
+### 1. Install
 
-1. Download the latest release from [GitHub](https://github.com/pitchgrid-io/pitchgrid-mapper/releases)
-2. On Windows, create a virtual MIDI device called "PitchGrid Mapper" (automatically created on Mac)
-3. Run the application. (On Mac, a virtual MIDI device called "PitchGrid Mapper" is created automatically)
-4. In your DAW, set MIDI input to "PitchGrid Mapper"
-5. Route that to the PitchGrid plugin
-6. In the PitchGrid plugin, enable OSC output
-7. Connect your controller via USB
-8. Choose your controller from the Controllers dropdown 
+1. Download from [GitHub](https://github.com/pitchgrid-io/pitchgrid-mapper/releases)
+2. Run the application
+3. A virtual MIDI device "PitchGrid Mapper" is created (automatic on Mac; on Windows, create it manually first)
 
-### Using the PitchGrid Isomorphic Controller Mapper UI
+### 2. Connect to Your DAW
 
-Once PitchGrid Mapper is running:
+1. In your DAW, set MIDI input to **PitchGrid Mapper**
+2. Route to a track with the **PitchGrid plugin**
+3. In the plugin, enable **OSC output** (Settings menu)
+4. Connect your controller via USB
+5. In the Mapper, select your controller from the dropdown
 
-- **Controller selection** — choose your connected controller
-- **Layout type** — switch between isomorphic, string-like, and piano-like
-- **Labels** — Select which type of labels should be shown on the pads in the UI
-- **Transformation controls** — shift, skew, rotate, and reflect the layout
-- **Connection status** — virtual MIDI and OSC connection indicators
+### 3. Play
 
-Changes apply in real-time — adjust the layout while playing and hear the results immediately.
+The Mapper display should now show your controller's grid with the current scale highlighted. Play some notes — they're retuned according to the plugin's settings.
+
+---
+
+## The Interface
+
+- **Controller dropdown** — select your connected device
+- **Layout selector** — isomorphic, string-like, or piano-like
+- **Labels dropdown** — note names, scale degrees, or MOS coordinates
+- **Transform controls** — shift, skew, rotate, reflect the layout
+- **Status indicators** — MIDI and OSC connection state
+
+Changes apply in real-time. Adjust the layout while playing to find what works.
+
+---
+
+## Why 2D Controllers Fit These Scales
+
+PitchGrid works with scales that have exactly two step sizes — for example, the Western major scale has 5 large steps and 2 small steps (the pattern LLsLLLs).
+
+These scales are inherently two-dimensional:
+- One direction = large steps
+- Other direction = small steps
+
+That's why standard notation has both staff position (7 diatonic notes) AND accidentals (sharps/flats). F# and Gb are different positions in this 2D space — they only become "the same note" when you collapse to 12-TET on a piano.
+
+A 2D grid controller maps naturally to this structure. The Mapper shows you how your chosen scale lives on that grid.
+
+For more on the theory, see the [PitchGrid Concept](/info/PitchGrid) or the Plugin User Manual's theory section.
+
+---
 
 ## Open Source
 
-PitchGrid Mapper is open source and available on [GitHub](https://github.com/pitchgrid-io/pitchgrid-mapper). Contributions are welcome — whether that's adding support for new controllers, improving layouts, or enhancing the web UI.
+PitchGrid Mapper is free and open source. Contributions welcome.
+
+**[View on GitHub](https://github.com/pitchgrid-io/pitchgrid-mapper)**
