@@ -262,7 +262,7 @@
 			
 			<ul class="nav-links">
 				<li class="dropdown">
-					<a href="#">Tools</a>
+					<a href="/diatonic">Tools</a>
 					<div class="dropdown-content">
 						<a href="/diatonic">Diatonic PitchGrid</a>
 						<a href="/scalemapper">Scale Mapper</a>
