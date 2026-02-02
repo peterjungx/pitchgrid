@@ -18,7 +18,9 @@ Get PitchGrid running in under 5 minutes.
 
 - Create a MIDI track
 - Add PitchGrid as a **MIDI effect** (before your synth)
-- Add any synth after PitchGrid
+- Add a synth after PitchGrid (any monosynth, or a synth with MPE or MTS-ESP support)
+- Adjust your controller's MIDI type in the input section (MIDI or MPE)
+- Adjust output pitch bend range of PitchGrid to match the pitch bend range of your synth (when Output mode is not MTS-ESP)
 
 > **[SCREENSHOT NEEDED: PitchGrid in DAW signal chain — Controller → PitchGrid → Synth]**
 
@@ -28,13 +30,15 @@ Get PitchGrid running in under 5 minutes.
 - Now turn the **Skew** knob slowly to the left or right
 - Listen: the intervals change. You're now in a different tuning system.
 
-> **[SCREENSHOT NEEDED: Before/after grid comparison — default 12-TET vs. skewed tuning, with Skew knob highlighted]**
+![Animated Skew](PGAnimPingPong.gif)
 
 ### 4. Explore
 
 - Try the **Depth** knob to change how many notes are in your scale
+- Try the **Mode/Offset** knob to move the lattice up or down. See note assignments change
+- Try the **Steps** knob to adjust how many notes are mapped to the piano-roll
 - Load different **Presets** from the dropdown to hear historical and experimental tunings
-- That's it — you're making microtonal music!
+- That's it — you're using alternative well-formed scales!
 
 ---
 
@@ -42,7 +46,7 @@ Get PitchGrid running in under 5 minutes.
 
 PitchGrid is a plugin that lets you **explore tuning systems beyond standard 12-tone equal temperament**.
 
-Instead of the 12 notes per octave you're used to, you can play scales with 5, 7, 8, 10, 19, 31, or any number of notes — each with its own harmonic character.
+Instead of the equally tuned 12 notes per octave you're used to, you can play scales with any number of notes, while preserving transposability, modes and other familiar features you may know from Western music theory.
 
 ### What Makes It Different
 
@@ -115,25 +119,27 @@ This means:
 - **In most DAWs** (Ableton, FL Studio, Reaper): Put PitchGrid on its own track and route MIDI through it to your synth on another track
 - **In Logic Pro** (AU format): PitchGrid appears as a true MIDI FX and can be inserted directly before your instrument
 
-### Logic Pro (AU — True MIDI FX)
+### Logic Pro (AU — MIDI FX)
 
 1. Create a new **Software Instrument** track
 2. In the channel strip, click the **MIDI FX** slot
-3. Select **PitchGrid**
+3. Select **Node Audio → PitchGrid**
 4. Add your synth in the **Instrument** slot below
 5. If using an MPE controller, set PitchGrid's Input Mode to **MPE**
 
-> **[SCREENSHOT NEEDED: Logic Pro channel strip with PitchGrid in MIDI FX slot]**
+![PG_LogicProSetup](images/PG_LogicProSetup.png "100")
 
-### Ableton Live (VST3 — Route Between Tracks)
+### Ableton Live (VST3 Instrument — Route Between Tracks)
 
 1. Create a new **MIDI track**
 2. Add **PitchGrid** as an instrument on that track
-3. Create a second MIDI track with your synth
-4. Set the synth track's **MIDI From** to the PitchGrid track
-5. Arm the PitchGrid track; monitor the synth track
+3. Enable MPE Mode for the track with **PitchGrid**
+4. Create a second MIDI track with your synth
+5. Set both of the synth track's **MIDI From** settings to PitchGrid
+6. Enable MPE for the synth track
+7. Arm the PitchGrid track; monitor the synth track
 
-> **[SCREENSHOT NEEDED: Ableton routing — PitchGrid track → Synth track]**
+![PG_AbletonLiveSetup](images/PG_AbletonLiveSetup.png "500")
 
 ### Reaper (VST3 — FX Chain)
 
@@ -142,16 +148,28 @@ This means:
 3. Add your synth after PitchGrid in the same FX chain
 4. Route your MIDI controller to this track
 
-### FL Studio (VST3 — Patcher)
+![PG_ReaperSetup](images/PG_ReaperSetup.png "300")
 
-1. Add **PitchGrid** to the Channel Rack
-2. Use **Patcher** to route MIDI: Controller → PitchGrid → Synth
+### Cubase
+
+The PitchGrid plugin is reportedly fully functional in Cubase. 
+
+### Studio One
+
+The PitchGrid plugin is reportedly fully functional in Studio One. 
+
+### Bitwig
+
+Bitwig does not support plugins which output MPE. In Bitwig, you can still use MTS-ESP as output, or you can forward the MPE signal from the Standalone app to Bitwig. A CLAP version of the plugin is on the TODO list.
+
+### FL Studio
+
+AFAIK FL Studio does not support MPE.
+
 
 ---
 
 ## Interface Guide
-
-> **[SCREENSHOT NEEDED: Full interface with numbered callouts (1-6) for each area described below]**
 
 The PitchGrid interface has six main areas:
 
@@ -246,9 +264,7 @@ Shows how notes map to a standard MIDI keyboard:
 7. Observe how the pitches of the mapped notes now align with 19-EDO pitch ruler marks
 8. *Optional*: To make all 19 pitches playable, set the **Steps** parameter in the **Piano Mapping** section to **19**
 
-> **[SCREENSHOT NEEDED: Grid showing 19-EDO optimization with pitch ruler]**
-
-**Note**: Not all EDOs work with the diatonic scale structure. Compatible EDOs include 7, 12, 17, 19, 22, and 31. Other MOS scale structures support different EDOs.
+**Note**: Not all EDOs work with the diatonic scale structure. EDOs compatible with the diatonic structure include 7, 12, 17, 19, 22, and 31. Other MOS scale structures support different EDOs.
 
 **Tip**: The factory preset "19-TET" does this automatically.
 
@@ -257,21 +273,23 @@ Shows how notes map to a standard MIDI keyboard:
 **Goal**: Tune intervals to pure frequency ratios.
 
 1. Start with any preset
-2. In the **Pitch Ruler Marks** section, select **Prime Limit** and set it to show 5-limit ratios
-3. The ruler now shows just intervals (3:2, 5:4, etc.)
-4. Click **Optimize** and select the intervals you want to be pure
-5. PitchGrid adjusts Skew and Stretch to align your scale with those ratios
+2. In the **Pitch Ruler Marks** section, select **Prime Limit** 
+3. Configure the primes and the **MaxInt** parameter
+4. The ruler now shows just intervals (3:2, 5:4, etc.)
+5. Select **Snap to Ruler Marks** from the Snapping section in the settings menu
+6. All mapped notes snap to the nearest just ruler mark
+7. Play with **Skew** and **Mode Offset** parameters until the desired pitches are available in your scale
 
-> **[SCREENSHOT NEEDED: Optimization dialog with just intervals selected]**
+**Note**: The snapping feature destroys strict regularity of the lattice. Therefore, the scale's intervals may sound differently when played in another key.
 
 ### "I want to use my LinnStrument / isomorphic controller"
 
 **Goal**: Play PitchGrid scales on a grid controller with proper layout.
 
 1. Download [PitchGrid Mapper](https://github.com/pitchgrid-io/pitchgrid-mapper/releases) (free, open source)
-2. Run PitchGrid Mapper — it creates a virtual MIDI device
+2. Run PitchGrid Mapper - (follow the steps in the [PitchGrid Mapper documentation](/info/PitchGridMapper))
 3. In PitchGrid plugin, enable **OSC output** (Settings menu)
-4. In your DAW, set MIDI input to "PitchGrid Mapper"
+4. Configure your Track with PitchGrid to receive input from "PitchGrid Mapper"
 5. Your controller now shows the scale layout with lit pads for scale tones
 
 See the [PitchGrid Mapper documentation](/info/PitchGridMapper) for details.
