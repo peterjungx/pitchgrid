@@ -103,6 +103,14 @@ When you change the scale in the PitchGrid plugin, the Mapper updates to show th
 
 ---
 
+## System Requirements
+
+- **OS**: Windows 10+ (64-bit) or macOS 10.15+
+- **CPU**: Intel Core i5 / Apple M1 or equivalent
+- **RAM**: 2 GB minimum
+
+---
+
 ## Getting Started
 
 ### 1. Install

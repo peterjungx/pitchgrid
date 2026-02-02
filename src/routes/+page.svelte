@@ -196,6 +196,135 @@
 		color: #1a1a2e;
 	}
 
+	.feature-card .btn-secondary {
+		background: transparent;
+		border-color: rgba(255, 171, 0, 0.5);
+		margin-left: 0.5rem;
+	}
+
+	.feature-card .btn-secondary:hover {
+		background: rgba(255, 171, 0, 0.1);
+		border-color: #FFAB00;
+		color: #FFAB00;
+	}
+
+	.features-grid-small {
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+	/* Plugin + Mapper Combo Showcase */
+	.combo-showcase {
+		text-align: center;
+	}
+
+	.combo-intro {
+		font-size: 1.15rem;
+		color: #b0b0b0;
+		max-width: 800px;
+		margin: 0 auto 3rem;
+		line-height: 1.7;
+	}
+
+	.combo-intro em {
+		color: #FFAB00;
+		font-style: normal;
+	}
+
+	.combo-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		gap: 3rem;
+		margin-bottom: 3rem;
+	}
+
+	.combo-item {
+		background: linear-gradient(135deg, #2a2a4e 0%, #1f1f3a 100%);
+		border: 1px solid rgba(255, 171, 0, 0.2);
+		border-radius: 16px;
+		padding: 2rem;
+		text-align: center;
+	}
+
+	.combo-screenshot {
+		margin-bottom: 1.5rem;
+	}
+
+	.combo-screenshot img {
+		width: 100%;
+		max-width: 100%;
+		height: auto;
+		border-radius: 8px;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+	}
+
+	.combo-item h3 {
+		color: #ffffff;
+		font-size: 1.4rem;
+		margin-bottom: 1rem;
+	}
+
+	.combo-item p {
+		color: #b0b0b0;
+		line-height: 1.7;
+		margin-bottom: 1.5rem;
+	}
+
+	.combo-item p strong {
+		color: #FFAB00;
+	}
+
+	.combo-item .btn {
+		display: inline-block;
+		background: rgba(255, 171, 0, 0.1);
+		border: 1px solid #FFAB00;
+		color: #FFAB00;
+		padding: 0.75rem 1.5rem;
+		border-radius: 25px;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		margin: 0.25rem;
+	}
+
+	.combo-item .btn:hover {
+		background: #FFAB00;
+		color: #1a1a2e;
+	}
+
+	.combo-item .btn-secondary {
+		background: transparent;
+		border-color: rgba(255, 171, 0, 0.5);
+	}
+
+	.combo-item .btn-secondary:hover {
+		background: rgba(255, 171, 0, 0.1);
+		border-color: #FFAB00;
+		color: #FFAB00;
+	}
+
+	.combo-together {
+		background: rgba(255, 171, 0, 0.08);
+		border: 1px solid rgba(255, 171, 0, 0.3);
+		border-radius: 12px;
+		padding: 2rem 3rem;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.combo-together h3 {
+		color: #FFAB00;
+		font-size: 1.3rem;
+		margin-bottom: 1rem;
+	}
+
+	.combo-together p {
+		color: #d0d0d0;
+		line-height: 1.7;
+		margin: 0;
+	}
+
 	/* Audience Section */
 	.audience-grid {
 		display: grid;
@@ -504,58 +633,100 @@
 <section class="hero">
 	<div class="hero-content">
 		<h1>PitchGrid</h1>
-		<p class="hero-tagline">Explore tunings beyond the piano — with structure that makes sense</p>
+		<p class="hero-tagline">Uncover the hidden dimension of musical structure</p>
 		<p class="hero-description">
-			A VST3/AU plugin for exploring tuning systems beyond 12-tone equal temperament.
-			Pick a scale, hear the difference, play it on your controller — with theory that still works.
+			The piano was designed for one scale. Your ears know there's more.<br>
+			PitchGrid lets you see it, hear it, and play it.
 		</p>
 		<div class="hero-cta-group">
 			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Get PitchGrid Plugin</a>
-			<a href="/info/plugin-user-manual" class="hero-cta-secondary">Learn More</a>
-		</div>
-		<div class="hero-screenshot">
-			<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin UI" />
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta" target="_blank">Get PitchGrid Mapper</a>
 		</div>
 	</div>
 </section>
 
 <div class="container">
-	<!-- Feature Cards Section -->
-	<section class="section">
-		<h2>Explore PitchGrid</h2>
-		<div class="features-grid">
-			<div class="feature-card">
-				<span class="feature-icon">🎛️</span>
-				<h3>PitchGrid Plugin</h3>
-				<p>VST3/AU plugin for easy exploration of tunings in your DAW. Turn knobs to discover new musical worlds.</p>
+	<!-- The Problem -->
+	<section class="section combo-showcase">
+		<h2>The Problem With the Piano</h2>
+		<p class="combo-intro">
+			The piano keyboard encodes one tuning system — 12 equal steps — into its physical layout. 
+			Want to play a 9-note scale? An 8-note scale? The patterns don't line up. Muscle memory doesn't transfer. 
+			The instrument fights you.<br><br>
+			And microtonal tools? They give you lists of pitches to edit. No structure. No intuition. No way to <em>play</em>.
+		</p>
+	</section>
+
+	<!-- The Solution: Two Tools -->
+	<section class="section combo-showcase">
+		<h2>See It. Play It.</h2>
+		<p class="combo-intro">
+			PitchGrid is two tools that work as one — connecting eyes, fingers, and ears 
+			to scales that were previously inaccessible.
+		</p>
+		
+		<div class="combo-grid">
+			<div class="combo-item">
+				<div class="combo-screenshot">
+					<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin UI" />
+				</div>
+				<h3>🎛️ PitchGrid Plugin</h3>
+				<p>
+					<strong>See the tuning.</strong> The plugin opens a window into an infinite 2D lattice of pitches. 
+					Turn knobs to explore — watch intervals shift, find the sweet spots where ratios align. 
+					Modes, transposition, chord relationships: they all still work.
+				</p>
 				<a href="https://node.audio/products/pitchgrid" target="_blank" class="btn">Get the Plugin</a>
+				<a href="/info/plugin-user-manual" class="btn btn-secondary">User Manual</a>
 			</div>
 			
+			<div class="combo-item">
+				<div class="combo-screenshot">
+					<img src="/docs/images/PitchGridMapper-Isomorphic.png" alt="PitchGrid Mapper — Isomorphic Layout" />
+				</div>
+				<h3>🎹 PitchGrid Mapper</h3>
+				<p>
+					<strong>Play the tuning.</strong> The Mapper lays out any scale on your 2D controller so the 
+					geometry matches the music. Same shape = same interval, anywhere on the grid. 
+					Your hands learn what your ears hear.
+				</p>
+				<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="btn">Download Mapper</a>
+				<a href="/info/PitchGridMapper" class="btn btn-secondary">Learn More</a>
+			</div>
+		</div>
+		
+		<div class="combo-together">
+			<h3>Together: A New Universe</h3>
+			<p>
+				Change a scale in your DAW — your controller layout updates instantly. 
+				Explore 5-note, 8-note, 10-note scales, each with modes and transpositions intact. 
+				This isn't visualization. It's a new way to <em>play</em>. No other toolchain does this.
+			</p>
+		</div>
+	</section>
+
+	<!-- More Tools Section -->
+	<section class="section">
+		<h2>More Tools</h2>
+		<div class="features-grid features-grid-small">
 			<div class="feature-card">
 				<span class="feature-icon">🌐</span>
 				<h3>Online Tools</h3>
-				<p>Interactive web applications for exploring scales, tuning systems, and isomorphic keyboard layouts.</p>
+				<p>Interactive web apps for exploring scales and tuning systems — no install required.</p>
 				<a href="/diatonic" class="btn">Explore Tools</a>
-			</div>
-			
-			<div class="feature-card">
-				<span class="feature-icon">🎹</span>
-				<h3>PitchGrid Mapper</h3>
-				<p>A universal mapper between PitchGrid microtonal scales and isomorphic MIDI controllers (LinnStrument, Exquis, Launchpad, Lumatone). Connects your controller to the PitchGrid plugin.</p>
-				<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="btn">Download</a>
 			</div>
 
 			<div class="feature-card">
 				<span class="feature-icon">🗺️</span>
 				<h3>Scale Mapper</h3>
-				<p>Visualize and explore regular scale systems with our advanced mapping tools and algorithms.</p>
+				<p>Visualize and explore regular scale systems with advanced mapping algorithms.</p>
 				<a href="/scalemapper" class="btn">Open Mapper</a>
 			</div>
 			
 			<div class="feature-card">
 				<span class="feature-icon">🥁</span>
 				<h3>PGRhythm</h3>
-				<p>Parametric MIDI sequencer that extends PitchGrid concepts to create complex rhythmic patterns.</p>
+				<p>Parametric MIDI sequencer extending PitchGrid concepts to rhythm.</p>
 				<a href="https://github.com/peterjungx/pgrhythm" target="_blank" class="btn">View on GitHub</a>
 			</div>
 		</div>
@@ -582,27 +753,6 @@
 					<li>You want to auto-tune existing recordings (that's a different kind of tool)</li>
 				</ul>
 			</div>
-		</div>
-	</section>
-
-	<!-- PitchGrid Mapper Showcase -->
-	<section class="section mapper-showcase">
-		<h2>PitchGrid Mapper</h2>
-		<p class="mapper-subtitle">
-			Play microtonal scales on your favorite isomorphic MIDI controller
-		</p>
-		<div class="mapper-screenshot">
-			<img src="/docs/images/PitchGridMapper-Isomorphic.png" alt="PitchGrid Mapper — Isomorphic hexagonal layout" />
-		</div>
-		<p class="mapper-description">
-			PitchGrid Mapper creates a virtual MIDI device that bridges your hardware controller 
-			and the PitchGrid plugin. It automatically discovers supported controllers — LinnStrument, 
-			Exquis, Launchpad, Lumatone — and maps their pads to PitchGrid's microtonal note mappings 
-			with isomorphic, string-like, or piano-like layouts.
-		</p>
-		<div class="mapper-cta">
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="hero-cta">Download PitchGrid Mapper</a>
-			<a href="/info/PitchGridMapper" class="hero-cta-secondary">Learn More</a>
 		</div>
 	</section>
 
