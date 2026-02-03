@@ -331,14 +331,14 @@
 					<h3>Connect</h3>
 					<ul>
 						<li><a href="mailto:peter@pitchgrid.io">peter@pitchgrid.io</a></li>
-						<li><a href="https://soundcloud.com/peter-jung-119529179/sets/pitchgrid" target="_blank">SoundCloud</a></li>
-						<li><a href="https://www.superbooth.com/en/messe-and-exhibitors/exhibitors/pitchgrid.html" target="_blank">Superbooth 2025</a></li>
+						<li><a href="https://discord.gg/nm5RwCJhQT" target="_blank">Discord</a></li>
+						<li><a href="https://www.youtube.com/@pitchgrid-io" target="_blank">YouTube</a></li>
 					</ul>
 				</div>
 			</div>
 			
 			<div class="footer-bottom">
-				<p>&copy; 2025 Peter Jung. The PitchGrid project is open source and available on GitHub.</p>
+				<p>&copy; 2026 Peter Jung. Most PitchGrid tools are open source and available on GitHub.</p>
 			</div>
 		</div>
 	</footer>
