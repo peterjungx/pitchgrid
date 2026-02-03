@@ -56,6 +56,18 @@ Most microtonal tools make you pick from a list of predefined scales or edit ind
 - **Structure is preserved** — as you change tunings, you keep the musical structure: modes, transposition, and chord relationships still make sense.
 - **Visual feedback** — the grid shows you the pitch relationships, so you can see what you're hearing.
 
+### Why the Piano Keyboard?
+
+You might notice that PitchGrid maps its tunings to the standard piano keyboard. Given that PitchGrid reveals a two-dimensional tonal structure, why map back to the one-dimensional piano layout?
+
+Two practical reasons:
+
+1. **The piano keyboard is everywhere.** It's the most widespread type of controller — most musicians already have one. With PitchGrid, you can play your piano and watch the keys light up on the 2D lattice, seeing the interval relationships directly. And when you venture outside the diatonic scale's tuning range, you can *visually experience* how the piano layout breaks down: the familiar sequence of white and black keys stops making sense. Every scale has its own natural keyboard layout, with black keys falling between the large steps — and the standard piano only gets it right for one scale.
+
+2. **DAWs speak piano roll.** The piano roll is the universal notation system for modern music production. Every DAW uses it. If you want to store, edit, and share your PitchGrid music using existing tools, you need to map to the piano roll — an act of dimensional reduction, but a necessary bridge to the existing ecosystem. The alternative would have been to build an entirely new DAW with a 2D note editor. The mapping is what lets PitchGrid interoperate with the world.
+
+For players who want to *see and play* in 2D, **PitchGrid Mapper** lets you use isomorphic grid controllers where the visual layout matches the scale structure. The signal path is still 2D controller → 1D piano roll → 2D PitchGrid (so your DAW can record), but what you see and feel on the controller is the true geometry of the scale. The piano roll remains the bridge for recording and editing, while your hands work in the natural 2D space.
+
 ### Who Is It For?
 
 - Composers looking for fresh harmonic territory

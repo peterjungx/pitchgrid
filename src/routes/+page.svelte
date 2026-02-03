@@ -28,30 +28,27 @@
 		z-index: 2;
 	}
 
-	.hero h1 {
-		font-size: 3.5rem;
+	.hero-claim {
+		font-size: 2.5rem;
 		font-weight: 700;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		color: #ffffff;
 		line-height: 1.2;
 	}
 
-	.hero-tagline {
+	.hero-subtext {
 		font-size: 1.25rem;
-		color: #FFAB00;
-		margin-bottom: 2rem;
-		max-width: 800px;
+		color: #b0b0b0;
+		margin-bottom: 2.5rem;
+		max-width: 700px;
 		margin-left: auto;
 		margin-right: auto;
+		line-height: 1.6;
 	}
 
-	.hero-description {
-		font-size: 1.1rem;
-		color: #b0b0b0;
-		margin-bottom: 3rem;
-		max-width: 600px;
-		margin-left: auto;
-		margin-right: auto;
+	.hero-subtext em {
+		color: #FFAB00;
+		font-style: normal;
 	}
 
 	.hero-cta-group {
@@ -131,8 +128,46 @@
 		font-size: 2.5rem;
 		color: #ffffff;
 		text-align: center;
-		margin-bottom: 3rem;
+		margin-bottom: 1.5rem;
 		font-weight: 600;
+	}
+
+	.section-intro {
+		font-size: 1.15rem;
+		color: #b0b0b0;
+		max-width: 800px;
+		margin: 0 auto 3rem;
+		text-align: center;
+		line-height: 1.7;
+	}
+
+	.section-intro em {
+		color: #FFAB00;
+		font-style: normal;
+	}
+
+	/* Insight Section */
+	.insight-section {
+		background: rgba(255, 171, 0, 0.05);
+		border-radius: 12px;
+		padding: 3rem;
+		text-align: center;
+	}
+
+	.insight-text {
+		font-size: 1.2rem;
+		color: #d0d0d0;
+		max-width: 800px;
+		margin: 0 auto;
+		line-height: 1.8;
+	}
+
+	.insight-text p {
+		margin-bottom: 1.5rem;
+	}
+
+	.insight-text strong {
+		color: #ffffff;
 	}
 
 	/* Feature Cards */
@@ -214,32 +249,15 @@
 		margin: 0 auto;
 	}
 
-	/* Plugin + Mapper Combo Showcase */
-	.combo-showcase {
-		text-align: center;
-	}
-
-	.combo-intro {
-		font-size: 1.15rem;
-		color: #b0b0b0;
-		max-width: 800px;
-		margin: 0 auto 3rem;
-		line-height: 1.7;
-	}
-
-	.combo-intro em {
-		color: #FFAB00;
-		font-style: normal;
-	}
-
-	.combo-grid {
+	/* Product Showcase */
+	.product-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 		gap: 3rem;
 		margin-bottom: 3rem;
 	}
 
-	.combo-item {
+	.product-item {
 		background: linear-gradient(135deg, #2a2a4e 0%, #1f1f3a 100%);
 		border: 1px solid rgba(255, 171, 0, 0.2);
 		border-radius: 16px;
@@ -247,11 +265,11 @@
 		text-align: center;
 	}
 
-	.combo-screenshot {
+	.product-screenshot {
 		margin-bottom: 1.5rem;
 	}
 
-	.combo-screenshot img {
+	.product-screenshot img {
 		width: 100%;
 		max-width: 100%;
 		height: auto;
@@ -259,23 +277,23 @@
 		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 	}
 
-	.combo-item h3 {
+	.product-item h3 {
 		color: #ffffff;
 		font-size: 1.4rem;
 		margin-bottom: 1rem;
 	}
 
-	.combo-item p {
+	.product-item p {
 		color: #b0b0b0;
 		line-height: 1.7;
 		margin-bottom: 1.5rem;
 	}
 
-	.combo-item p strong {
+	.product-item p strong {
 		color: #FFAB00;
 	}
 
-	.combo-item .btn {
+	.product-item .btn {
 		display: inline-block;
 		background: rgba(255, 171, 0, 0.1);
 		border: 1px solid #FFAB00;
@@ -288,41 +306,44 @@
 		margin: 0.25rem;
 	}
 
-	.combo-item .btn:hover {
+	.product-item .btn:hover {
 		background: #FFAB00;
 		color: #1a1a2e;
 	}
 
-	.combo-item .btn-secondary {
+	.product-item .btn-secondary {
 		background: transparent;
 		border-color: rgba(255, 171, 0, 0.5);
 	}
 
-	.combo-item .btn-secondary:hover {
+	.product-item .btn-secondary:hover {
 		background: rgba(255, 171, 0, 0.1);
 		border-color: #FFAB00;
 		color: #FFAB00;
 	}
 
-	.combo-together {
+	/* Validation Section */
+	.validation-box {
 		background: rgba(255, 171, 0, 0.08);
 		border: 1px solid rgba(255, 171, 0, 0.3);
 		border-radius: 12px;
-		padding: 2rem 3rem;
+		padding: 2.5rem 3rem;
 		max-width: 800px;
 		margin: 0 auto;
+		text-align: center;
 	}
 
-	.combo-together h3 {
+	.validation-box h3 {
 		color: #FFAB00;
-		font-size: 1.3rem;
+		font-size: 1.4rem;
 		margin-bottom: 1rem;
 	}
 
-	.combo-together p {
+	.validation-box p {
 		color: #d0d0d0;
 		line-height: 1.7;
 		margin: 0;
+		font-size: 1.05rem;
 	}
 
 	/* Audience Section */
@@ -373,47 +394,15 @@
 		color: #FFAB00;
 	}
 
-	/* Mapper Showcase */
-	.mapper-showcase {
-		text-align: center;
-	}
-
-	.mapper-subtitle {
-		font-size: 1.15rem;
-		color: #b0b0b0;
-		margin-bottom: 2rem;
-		max-width: 700px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.mapper-screenshot {
-		max-width: 780px;
-		width: 100%;
-		margin: 0 auto 2rem;
-	}
-
-	.mapper-screenshot img {
+	/* Concept Image */
+	.concept-image {
+		margin: 2rem auto;
+		display: block;
+		max-width: 400px;
 		width: 100%;
 		height: auto;
 		border-radius: 12px;
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(255, 171, 0, 0.1);
-	}
-
-	.mapper-description {
-		font-size: 1.05rem;
-		color: #b0b0b0;
-		max-width: 700px;
-		margin: 0 auto 2rem;
-		line-height: 1.7;
-	}
-
-	.mapper-cta {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 	}
 
 	/* Music Section */
@@ -508,29 +497,6 @@
 		color: #1a1a2e;
 	}
 
-	/* About Section */
-	.about-section {
-		text-align: center;
-	}
-
-	.about-content {
-		max-width: 800px;
-		margin: 0 auto;
-		font-size: 1.1rem;
-		line-height: 1.8;
-		color: #b0b0b0;
-	}
-
-	.concept-image {
-		margin: 2rem auto;
-		display: block;
-		max-width: 400px;
-		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-	}
-
 	/* Events Section */
 	.events-grid {
 		display: grid;
@@ -591,13 +557,35 @@
 		border-radius: 0 8px 8px 0;
 	}
 
+	/* Pioneer CTA */
+	.pioneer-section {
+		background: linear-gradient(135deg, rgba(255, 171, 0, 0.15) 0%, rgba(255, 171, 0, 0.05) 100%);
+		border: 1px solid rgba(255, 171, 0, 0.3);
+		border-radius: 16px;
+		padding: 3rem;
+		text-align: center;
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.pioneer-section h2 {
+		margin-bottom: 1rem;
+	}
+
+	.pioneer-section p {
+		font-size: 1.15rem;
+		color: #d0d0d0;
+		line-height: 1.7;
+		margin-bottom: 2rem;
+	}
+
 	/* Responsive */
 	@media (max-width: 768px) {
-		.hero h1 {
-			font-size: 2.5rem;
+		.hero-claim {
+			font-size: 1.8rem;
 		}
 
-		.hero-tagline {
+		.hero-subtext {
 			font-size: 1.1rem;
 		}
 
@@ -622,8 +610,17 @@
 			font-size: 2rem;
 		}
 
+		.product-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.insight-section,
 		.music-section,
 		.theory-section {
+			padding: 2rem;
+		}
+
+		.validation-box {
 			padding: 2rem;
 		}
 	}
@@ -632,56 +629,92 @@
 <!-- Hero Section -->
 <section class="hero">
 	<div class="hero-content">
-		<h1>PitchGrid</h1>
-		<p class="hero-tagline">Uncover the hidden dimension of musical structure</p>
-		<p class="hero-description">
-			The piano was designed for one scale. Your ears know there's more.<br>
-			PitchGrid lets you see it, hear it, and play it.
+		<h1 class="hero-claim">The tonal structure of Western music is two-dimensional.</h1>
+		<p class="hero-subtext">
+			The piano hides this. Standard notation encodes it. PitchGrid <em>reveals</em> it — 
+			and once you see it, you can play it.
 		</p>
 		<div class="hero-cta-group">
 			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Get PitchGrid Plugin</a>
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta" target="_blank">Get PitchGrid Mapper</a>
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper</a>
+		</div>
+		<div class="hero-screenshot">
+			<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin — visualizing the two-dimensional structure of music" />
 		</div>
 	</div>
 </section>
 
 <div class="container">
-	<!-- The Problem -->
-	<section class="section combo-showcase">
-		<h2>The Problem With the Piano</h2>
-		<p class="combo-intro">
-			The piano keyboard encodes one tuning system — 12 equal steps — into its physical layout. 
-			Want to play a 9-note scale? An 8-note scale? The patterns don't line up. Muscle memory doesn't transfer. 
-			The instrument fights you.<br><br>
-			And microtonal tools? They give you lists of pitches to edit. No structure. No intuition. No way to <em>play</em>.
+	<!-- The Insight -->
+	<section class="section">
+		<div class="insight-section">
+			<div class="insight-text">
+				<p>
+					<strong>You already learned two-dimensional music theory. You just couldn't see it.</strong>
+				</p>
+				<p>
+					The notation is 2D — scale degrees on one axis, accidentals on the other. 
+					Chord relationships are 2D. Voice leading rules are 2D. 
+					The stack-of-fifths construction that gave us the diatonic scale, known since Babylonian times, is intrinsically 2D.
+				</p>
+				<p>
+					But the piano keyboard is one-dimensional. So you learned to <em>think</em> in 1D, 
+					projecting everything down onto a line.
+				</p>
+				<p>
+					<strong>PitchGrid unfolds that projection.</strong> What felt like arbitrary rules suddenly makes geometric sense. 
+					Modes, keys, transposition, counterpoint — they all still work, but now you can see <em>why</em>.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Validation -->
+	<section class="section">
+		<h2>You Knew There Was More</h2>
+		<p class="section-intro">
+			If you've explored microtonality and felt lost — you're not alone.
+		</p>
+		<div class="validation-box">
+			<h3>The Microtonal Jungle</h3>
+			<p>
+				Many talented musicians enter the world of alternative tunings hoping to find new sonic territory. 
+				Instead, they find disconnected tools, invented notations, debates about EDOs, and an approach 
+				completely severed from the Western theory they spent years learning. 
+				Their music loses architecture. Eventually, many give up and return to 12-TET.
+			</p>
+		</div>
+		<p class="section-intro" style="margin-top: 2rem;">
+			PitchGrid is the map they didn't have. <em>Western theory extended, not abandoned.</em>
 		</p>
 	</section>
 
-	<!-- The Solution: Two Tools -->
-	<section class="section combo-showcase">
+	<!-- The Tools -->
+	<section class="section">
 		<h2>See It. Play It.</h2>
-		<p class="combo-intro">
-			PitchGrid is two tools that work as one — connecting eyes, fingers, and ears 
+		<p class="section-intro">
+			Two tools that work as one — connecting eyes, fingers, and ears 
 			to scales that were previously inaccessible.
 		</p>
 		
-		<div class="combo-grid">
-			<div class="combo-item">
-				<div class="combo-screenshot">
+		<div class="product-grid">
+			<div class="product-item">
+				<div class="product-screenshot">
 					<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin UI" />
 				</div>
 				<h3>🎛️ PitchGrid Plugin</h3>
 				<p>
 					<strong>See the tuning.</strong> The plugin opens a window into an infinite 2D lattice of pitches. 
 					Turn knobs to explore — watch intervals shift, find the sweet spots where ratios align. 
-					Modes, transposition, chord relationships: they all still work.
+					Modes, transposition, chord relationships: they all still work. 
+					Maps to the piano keyboard and DAW piano roll — bridging new tunings with your existing tools.
 				</p>
 				<a href="https://node.audio/products/pitchgrid" target="_blank" class="btn">Get the Plugin</a>
 				<a href="/info/plugin-user-manual" class="btn btn-secondary">User Manual</a>
 			</div>
 			
-			<div class="combo-item">
-				<div class="combo-screenshot">
+			<div class="product-item">
+				<div class="product-screenshot">
 					<img src="/docs/images/PitchGridMapper-Isomorphic.png" alt="PitchGrid Mapper — Isomorphic Layout" />
 				</div>
 				<h3>🎹 PitchGrid Mapper</h3>
@@ -695,13 +728,85 @@
 			</div>
 		</div>
 		
-		<div class="combo-together">
-			<h3>Together: A New Universe</h3>
+		<div class="validation-box">
+			<h3>Together: A Complete System</h3>
 			<p>
 				Change a scale in your DAW — your controller layout updates instantly. 
 				Explore 5-note, 8-note, 10-note scales, each with modes and transpositions intact. 
-				This isn't visualization. It's a new way to <em>play</em>. No other toolchain does this.
+				The familiar clichés of Western music — the patterns that make music feel like music — 
+				now work in completely new tonal architectures.
 			</p>
+		</div>
+	</section>
+
+	<!-- What's Universal -->
+	<section class="section">
+		<h2>What Still Works</h2>
+		<p class="section-intro">
+			PitchGrid doesn't throw away what you learned. It separates what's <em>truly universal</em> 
+			from what's just a side effect of 12-tone equal temperament.
+		</p>
+		<img src="/docs/images/PitchGrid-Basic-CMajor.png" alt="PitchGrid Basic C-Major" class="concept-image" />
+		<div class="audience-grid">
+			<div class="audience-card audience-yes">
+				<h3>✓ These still work:</h3>
+				<ul>
+					<li>Modes and modal interchange</li>
+					<li>Keys and key relationships</li>
+					<li>Functional tonality</li>
+					<li>Voice leading and counterpoint</li>
+					<li>Scale degree + accidental notation</li>
+				</ul>
+			</div>
+			<div class="audience-card audience-maybe">
+				<h3>↻ These are 12-TET specific:</h3>
+				<ul>
+					<li>Circle of fifths closing after 12 steps (in general, it's a spiral)</li>
+					<li>The semitone as fundamental unit</li>
+					<li>Conflating "small step" with "chromatic alteration"</li>
+					<li>Enharmonic equivalence (C♯ = D♭)</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- Who Is This For -->
+	<section class="section">
+		<h2>Who Is PitchGrid For?</h2>
+		<div class="audience-grid">
+			<div class="audience-card audience-yes">
+				<h3>✓ PitchGrid is for you if:</h3>
+				<ul>
+					<li>You've tried microtonality and felt lost in the xenharmonic jungle</li>
+					<li>You want new sounds without abandoning the theory you know</li>
+					<li>You play an isomorphic controller and want to explore new tunings</li>
+					<li>You're a composer looking for fresh harmonic territory</li>
+					<li>You want to understand <em>why</em> Western music theory works</li>
+				</ul>
+			</div>
+			<div class="audience-card audience-maybe">
+				<h3>? You might want something else if:</h3>
+				<ul>
+					<li>You want to auto-tune existing recordings</li>
+					<li>You're happy managing thousands of individual tuning files</li>
+					<li>You're not ready to invest time learning new concepts</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- The Honest Truth -->
+	<section class="section">
+		<div class="pioneer-section">
+			<h2>The Honest Truth</h2>
+			<p>
+				There is no corpus yet. No cultural memory of melodies in these tunings. 
+				No standards to learn, no covers to play. The promised land exists — but it's waiting for settlers.
+			</p>
+			<p>
+				<strong>The first great works in these tunings haven't been written yet. Maybe you'll write them.</strong>
+			</p>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Start Exploring</a>
 		</div>
 	</section>
 
@@ -732,46 +837,6 @@
 		</div>
 	</section>
 
-	<!-- Who Is This For Section -->
-	<section class="section">
-		<h2>Who Is PitchGrid For?</h2>
-		<div class="audience-grid">
-			<div class="audience-card audience-yes">
-				<h3>✓ PitchGrid is for you if:</h3>
-				<ul>
-					<li>You're curious what music sounds like outside 12-tone equal temperament</li>
-					<li>You play an isomorphic controller (LinnStrument, Lumatone, Exquis) and want to explore new tunings</li>
-					<li>You've heard of "microtonal" music and want to try it yourself</li>
-					<li>You're a composer looking for fresh harmonic territory</li>
-					<li>You want to understand how Western music concepts generalize to other scales</li>
-				</ul>
-			</div>
-			<div class="audience-card audience-maybe">
-				<h3>? You might want something else if:</h3>
-				<ul>
-					<li>You just want purer thirds in standard 12-tone music (simpler JI tools exist)</li>
-					<li>You want to auto-tune existing recordings (that's a different kind of tool)</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	<!-- About Section -->
-	<section class="section about-section">
-		<h2>Understanding PitchGrid</h2>
-		<div class="about-content">
-			<p>
-				<strong>Western music uses a 7-note scale with 5 large steps and 2 small steps — but there's nothing magical about 7.</strong>
-			</p>
-			<img src="/docs/images/PitchGrid-Basic-CMajor.png" alt="PitchGrid Basic C-Major" class="concept-image" />
-			<p>
-				PitchGrid lets you explore scales with 5, 8, 10, or any number of notes — all with the same kind 
-				of internal structure: modes you can rotate through, keys you can change, and voice leading rules 
-				that make musical sense. Different raw materials, familiar logic.
-			</p>
-		</div>
-	</section>
-
 	<!-- Theory Section -->
 	<section class="section">
 		<div class="theory-section">
@@ -783,12 +848,12 @@
 		</div>
 	</section>
 
-	<!-- Music Section -->
+	<!-- Music Section (commented out - works too minuscule for scope)
 	<section class="section">
 		<h2>Music Created with PitchGrid</h2>
 		<div class="music-section">
 			<p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #b0b0b0;">
-				Here are some musical pieces created with the PitchGrid plugin
+				Early explorers are already making music in these new territories
 			</p>
 			<div class="music-grid">
 				<div class="music-item">
@@ -825,36 +890,52 @@
 			</div>
 		</div>
 	</section>
+	-->
 
 	<!-- Videos Section -->
 	<section class="section">
 		<h2>Videos & Demonstrations</h2>
 		<div class="videos-grid">
+			<!-- Microtonality on the Exquis - commented out, will add Plugin+Mapper videos later
 			<div class="video-item">
-				<div class="video-placeholder">📹</div>
-				<h4>Microtonality on the Exquis - The PitchGrid Way</h4>
+				<a href="https://youtu.be/nl94-T3geNw" target="_blank">
+					<img src="https://img.youtube.com/vi/nl94-T3geNw/hqdefault.jpg" alt="Microtonality on the Exquis" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				</a>
+				<h4>Microtonality on the Exquis</h4>
 				<p style="color: #b0b0b0; margin-bottom: 1rem;">
-					Watch the features of the MicroExquis VCV Rack module in action.
+					The MicroExquis VCV Rack module in action.
 				</p>
-				<a href="https://youtu.be/nl94-T3geNw" target="_blank" class="btn">Watch Video</a>
 			</div>
+			-->
 			
 			<div class="video-item">
-				<div class="video-placeholder">📹</div>
-				<h4>PitchGrid - First Demo</h4>
+				<a href="https://youtu.be/8jzrObegsr0" target="_blank">
+					<img src="https://img.youtube.com/vi/8jzrObegsr0/hqdefault.jpg" alt="PitchGrid Plugin Introduction" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				</a>
+				<h4>PitchGrid Plugin Introduction</h4>
 				<p style="color: #b0b0b0; margin-bottom: 1rem;">
-					First impressions of PitchGrid Rack for VCV and theoretical background.
+					Getting started with the PitchGrid plugin.
 				</p>
-				<a href="https://youtu.be/ACGUp7ZtsWc" target="_blank" class="btn">Watch Video</a>
 			</div>
 
 			<div class="video-item">
-				<div class="video-placeholder">📹</div>
-				<h4>PGRhythm Demo</h4>
+				<a href="https://www.youtube.com/watch?v=milhWLX0McU" target="_blank">
+					<img src="https://img.youtube.com/vi/milhWLX0McU/hqdefault.jpg" alt="Now and Xen Podcast: PitchGrid" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				</a>
+				<h4>Now and Xen Podcast</h4>
 				<p style="color: #b0b0b0; margin-bottom: 1rem;">
-					See how PitchGrid concepts extend to rhythm generation.
+					Episode 093 — in-depth discussion with Stephen Weigel.
 				</p>
-				<a href="https://youtu.be/dhIEhQWGUYo" target="_blank" class="btn">Watch Demo</a>
+			</div>
+
+			<div class="video-item">
+				<a href="https://youtu.be/3LOPHwRs9p8" target="_blank">
+					<img src="https://img.youtube.com/vi/3LOPHwRs9p8/hqdefault.jpg" alt="Uncover the Hidden Potential" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				</a>
+				<h4>Uncover the Hidden Potential</h4>
+				<p style="color: #b0b0b0; margin-bottom: 1rem;">
+					Exploring new tonal possibilities with PitchGrid.
+				</p>
 			</div>
 		</div>
 	</section>
@@ -864,10 +945,10 @@
 		<h2>Events & Exhibitions</h2>
 		<div class="events-grid">
 			<div class="event-card">
-				<h4>PitchGrid at Superbooth 2025</h4>
+				<h4>PitchGrid at Superbooth 2026</h4>
 				<p>
-					Join us at Superbooth 2025 in Berlin, Germany (May 8th-10th) where we showcase 
-					the PitchGrid and its applications.
+					Visit us at Superbooth 2026 in Berlin — booth o136. 
+					Explore alternative tuning systems hands-on.
 				</p>
 				<a href="https://www.superbooth.com/en/messe-and-exhibitors/exhibitors/pitchgrid.html" target="_blank">
 					Learn More
@@ -875,13 +956,13 @@
 			</div>
 			
 			<div class="event-card">
-				<h4>Talk at SuperBooth 2025</h4>
+				<h4>Talk at Superbooth 2025</h4>
 				<p>
-					Joint presentation with Intuitive Instruments and Entonal Studio. 
-					May 9th, 2:30pm-4:00pm in Berlin, Germany.
+					"Microtonal Dimensions" — joint presentation with Intuitive Instruments and Entonal Studio. 
+					May 9th, 2025.
 				</p>
 				<a href="https://www.superbooth.com/en/events/details/pro-audio-presentation-intuitive-instruments-pitchgrid-entonal-studio.html" target="_blank">
-					Event Details
+					Watch Recording
 				</a>
 			</div>
 		</div>
@@ -891,7 +972,7 @@
 	<section class="section">
 		<h2>Open Source</h2>
 		<p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #b0b0b0;">
-			All PitchGrid sources are publicly available on GitHub. Contributions welcome!
+			Most PitchGrid sources are publicly available on GitHub. Contributions welcome!
 		</p>
 		<div class="source-grid">
 			<div class="source-item">
@@ -943,7 +1024,7 @@
 	<!-- Contact Section -->
 	<section class="section" style="text-align: center;">
 		<h2>Get Involved</h2>
-		<div class="about-content">
+		<div style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #b0b0b0;">
 			<p>
 				<strong>Who is behind PitchGrid?</strong><br>
 				The PitchGrid project is the brainchild of Peter Jung, an independent researcher.
