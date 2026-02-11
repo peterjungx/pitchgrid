@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { calculateTickPositions, spiralRadius, polarToCartesian, segmentRadii } from '$lib/helix_math';
+  import { calculateTickPositions, referenceTickIndex, spiralRadius, polarToCartesian, segmentRadii } from '$lib/helix_math';
 
   export let num: number = 2;
   export let den: number = 1;
@@ -8,6 +8,7 @@
   export let currentTime: number = 0;
   export let period: number = 10; // seconds
   export let isPlaying: boolean = false;
+  export let volumePattern: string = '8252';
   export let width: number = 400;
   export let height: number = 400;
 
@@ -20,17 +21,24 @@
   $: playheadAngle = (currentTime / period) * 2 * Math.PI;
 
   // Calculate tick positions
-  $: ticks = calculateTickPositions(num, den, N_C, N_B).map(tick => {
+  $: refIdx = referenceTickIndex(num, den, N_C, N_B);
+  $: ticks = calculateTickPositions(num, den, N_C, N_B).map((tick, tickIndex) => {
     // For each tick, calculate its global angle
     const globalAngle = tick.segment * 2 * Math.PI + tick.angle;
     const radius = spiralRadius(tick.angle, tick.segment, R, N_C, isAccelerando);
     const [x, y] = polarToCartesian(radius, globalAngle);
+    const envelope = 0.5 + 0.5 * Math.sin(Math.PI * tick.t / N_C);
+    const patternPos = ((tickIndex - refIdx) % volumePattern.length + volumePattern.length) % volumePattern.length;
+    const patternDigit = parseInt(volumePattern[patternPos]) || 0;
+    const volume = envelope * (patternDigit / 9);
     return {
       ...tick,
       globalAngle,
       x: centerX + x,
       y: centerY + y,
-      radius
+      radius,
+      volume,
+      isReference: tickIndex === refIdx
     };
   });
 
@@ -150,11 +158,10 @@
     <circle
       cx={tick.x}
       cy={tick.y}
-      r="{activeTicks.includes(tick) ? 10 : 6}"
+      r="{activeTicks.includes(tick) ? 12 : 12 * tick.volume}"
       fill="#FFAB00"
-      stroke="#9C52F2"
-      stroke-width="3"
-      opacity="0.8"
+      stroke="{tick.isReference ? '#00AA00' : '#9C52F2'}"
+      stroke-width="{tick.isReference ? 4 : 3}"
       class:active={activeTicks.includes(tick)}
     />
   {/each}
@@ -177,6 +184,6 @@
 
   .active {
     fill: #F20000 !important;
-    r: 10 !important;
+    r: 12 !important;
   }
 </style>

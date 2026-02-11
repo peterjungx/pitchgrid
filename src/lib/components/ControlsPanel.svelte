@@ -28,6 +28,11 @@
     dispatch('midiOutputChange', value);
   }
 
+  function handleVolumePatternChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    metronomeActions.setVolumePattern(target.value);
+  }
+
   function handleBarsChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const value = parseInt(target.value);
@@ -99,6 +104,19 @@
     />
     <span class="period-info">Period: {$metronomeStore.period.toFixed(2)}s</span>
     <span class="period-info">Reference Layer Beats: {refBeats}</span>
+  </div>
+
+  <!-- Volume pattern -->
+  <div class="control-group">
+    <label for="volume-pattern">Volume Pattern:</label>
+    <input
+      id="volume-pattern"
+      type="text"
+      value={$metronomeStore.volumePattern}
+      on:change={handleVolumePatternChange}
+      class="pattern-input"
+      placeholder="0-9 digits"
+    />
   </div>
 
   <!-- MIDI output selector -->
@@ -186,6 +204,16 @@
   .period-info {
     font-size: 12px;
     color: #666;
+  }
+
+  .pattern-input {
+    width: 120px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
+    font-family: monospace;
+    letter-spacing: 2px;
   }
 
   .bars-input {

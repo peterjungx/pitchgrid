@@ -9,6 +9,7 @@ export interface MetronomeState {
   bpm: number; // Beats per minute (reference beat)
   period: number; // seconds (derived from bpm)
   audioMuted: boolean;
+  volumePattern: string; // Digits 0-9, cyclic velocity pattern
   isPlaying: boolean;
   currentTime: number;
   startTime: number; // When playback started
@@ -25,15 +26,16 @@ function computePeriod(state: { num: number; den: number; N_C: number; N_B: numb
 const baseState = {
   num: 2,
   den: 1,
-  N_C: 2,
-  N_B: 1,
-  bpm: 60,
+  N_C: 3,
+  N_B: 4,
+  bpm: 120,
 };
 
 const initialState: MetronomeState = {
   ...baseState,
   period: computePeriod(baseState),
   audioMuted: false,
+  volumePattern: '8252',
   isPlaying: false,
   currentTime: 0,
   startTime: 0
@@ -72,6 +74,12 @@ export const metronomeActions = {
       const next = { ...state, bpm };
       return { ...next, period: computePeriod(next) };
     });
+  },
+
+  setVolumePattern: (pattern: string) => {
+    const cleaned = pattern.replace(/[^0-9]/g, '');
+    if (cleaned.length === 0) return;
+    metronomeStore.update(state => ({ ...state, volumePattern: cleaned }));
   },
 
   setAudioMuted: (muted: boolean) => {

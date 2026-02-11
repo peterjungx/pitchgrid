@@ -4,7 +4,7 @@
     import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
     import { AudioEngine } from '$lib/audio_engine';
     import { MidiEngine } from '$lib/midi_engine';
-    import { calculateTickPositions } from '$lib/helix_math';
+    import { calculateTickPositions, referenceTickIndex } from '$lib/helix_math';
     import { onMount } from 'svelte';
 
     let canvasWidth = 400;
@@ -38,6 +38,7 @@
 
                 // Schedule upcoming ticks for all local playheads
                 const ticks = calculateTickPositions(state.num, state.den, state.N_C, state.N_B);
+                const refIdx = referenceTickIndex(state.num, state.den, state.N_C, state.N_B);
                 const normalizedTime = newTime / state.period;
                 const currentTimeSec = Date.now() / 1000;
 
@@ -45,12 +46,15 @@
                 for (let p = 0; p < state.N_C; p++) {
                     const currentPosition = p + normalizedTime;
 
-                    ticks.forEach(tick => {
+                    ticks.forEach((tick, tickIndex) => {
                         // Check if tick is upcoming (within next 1 second of this playhead)
                         const timeToTick = (tick.t - currentPosition) * state.period;
                         if (timeToTick > -0.03 && timeToTick < 0.5) {
                             const triggerTime = now + timeToTick;
-                            const volume = Math.sin(Math.PI*tick.t/state.N_C);
+                            const envelope = 0.5 + 0.5 * Math.sin(Math.PI * tick.t / state.N_C);
+                            const patternPos = ((tickIndex - refIdx) % state.volumePattern.length + state.volumePattern.length) % state.volumePattern.length;
+                            const patternDigit = parseInt(state.volumePattern[patternPos]) || 0;
+                            const volume = envelope * (patternDigit / 9);
                             scheduleTick(tick, (p + 6 - seqNr) % 6, triggerTime, volume);
                         }
                     });
@@ -176,6 +180,7 @@
                 currentTime={$metronomeStore.currentTime}
                 period={$metronomeStore.period}
                 isPlaying={$metronomeStore.isPlaying}
+                volumePattern={$metronomeStore.volumePattern}
                 width={canvasWidth}
                 height={canvasHeight}
             />

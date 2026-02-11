@@ -81,6 +81,7 @@ export function calculateTickPositions(num: number, den: number, N_C: number, N_
     tickIdx++;
   }
 
+  ticks.sort((a, b) => a.t - b.t);
   return ticks;
 }
 
@@ -114,6 +115,19 @@ export function referenceLayerBeats(num: number, den: number, N_C: number, N_B: 
   const isAccelerando = num > den;
   const targetSegment = isAccelerando ? N_C - 2 : 1;
   return ticks.filter(t => t.segment === targetSegment).length;
+}
+
+/**
+ * Index of the reference tick in the sorted ticks array.
+ * Accelerando: first tick on the last layer (N_C - 1).
+ * Decelerando: first tick on the second layer (segment 1).
+ */
+export function referenceTickIndex(num: number, den: number, N_C: number, N_B: number = 1): number {
+  const ticks = calculateTickPositions(num, den, N_C, N_B);
+  const isAccelerando = num > den;
+  const targetSegment = isAccelerando ? N_C - 1 : 1;
+  const idx = ticks.findIndex(t => t.segment === targetSegment);
+  return idx >= 0 ? idx : 0;
 }
 
 /**
