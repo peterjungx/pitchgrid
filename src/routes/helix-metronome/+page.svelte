@@ -34,7 +34,7 @@
                 metronomeActions.updateTime(newTime);
 
                 // Schedule upcoming ticks for all local playheads
-                const ticks = calculateTickPositions(state.num, state.den, state.N_C);
+                const ticks = calculateTickPositions(state.num, state.den, state.N_C, state.N_B);
                 const normalizedTime = newTime / state.period;
                 const currentTimeSec = Date.now() / 1000;
 
@@ -154,6 +154,7 @@
                 num={$metronomeStore.num}
                 den={$metronomeStore.den}
                 N_C={$metronomeStore.N_C}
+                N_B={$metronomeStore.N_B}
                 currentTime={$metronomeStore.currentTime}
                 period={$metronomeStore.period}
                 isPlaying={$metronomeStore.isPlaying}

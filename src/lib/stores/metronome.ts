@@ -4,6 +4,7 @@ export interface MetronomeState {
   num: number;
   den: number;
   N_C: number;
+  N_B: number; // Number of bars
   period: number; // seconds
   isPlaying: boolean;
   currentTime: number;
@@ -14,6 +15,7 @@ const initialState: MetronomeState = {
   num: 2,
   den: 1,
   N_C: 2,
+  N_B: 1,
   period: 10,
   isPlaying: false,
   currentTime: 0,
@@ -31,6 +33,11 @@ export const metronomeActions = {
   setCycles: (N_C: number) => {
     if (N_C < 2 || N_C > 4) return;
     metronomeStore.update(state => ({ ...state, N_C }));
+  },
+
+  setBars: (N_B: number) => {
+    if (N_B < 1 || !Number.isInteger(N_B)) return;
+    metronomeStore.update(state => ({ ...state, N_B }));
   },
 
   setPeriod: (period: number) => {

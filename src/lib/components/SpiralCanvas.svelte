@@ -4,6 +4,7 @@
   export let num: number = 2;
   export let den: number = 1;
   export let N_C: number = 2;
+  export let N_B: number = 1;
   export let currentTime: number = 0;
   export let period: number = 10; // seconds
   export let isPlaying: boolean = false;
@@ -19,7 +20,7 @@
   $: playheadAngle = (currentTime / period) * 2 * Math.PI;
 
   // Calculate tick positions
-  $: ticks = calculateTickPositions(num, den, N_C).map(tick => {
+  $: ticks = calculateTickPositions(num, den, N_C, N_B).map(tick => {
     // For each tick, calculate its global angle
     const globalAngle = tick.segment * 2 * Math.PI + tick.angle;
     const radius = spiralRadius(tick.angle, tick.segment, R, N_C, isAccelerando);
@@ -99,10 +100,10 @@
 
   <!-- Draw playhead -->
   <line
-    x1={centerX + (R / 2) * Math.cos(playheadAngle)}
-    y1={centerY + (R / 2) * Math.sin(playheadAngle)}
-    x2={centerX + R * Math.cos(playheadAngle)}
-    y2={centerY + R * Math.sin(playheadAngle)}
+    x1={centerX + (R / 2) * Math.cos(playheadAngle - Math.PI / 2)}
+    y1={centerY + (R / 2) * Math.sin(playheadAngle - Math.PI / 2)}
+    x2={centerX + R * Math.cos(playheadAngle - Math.PI / 2)}
+    y2={centerY + R * Math.sin(playheadAngle - Math.PI / 2)}
     stroke="#0D75FF"
     stroke-width="3"
     stroke-linecap="round"

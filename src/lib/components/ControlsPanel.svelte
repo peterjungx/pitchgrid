@@ -12,6 +12,14 @@
     const value = parseFloat(target.value);
     metronomeActions.setPeriod(value);
   }
+
+  function handleBarsChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = parseInt(target.value);
+    if (!isNaN(value)) {
+      metronomeActions.setBars(value);
+    }
+  }
 </script>
 
 <div class="controls-panel">
@@ -47,6 +55,19 @@
       <option value={3}>3</option>
       <option value={4}>4</option>
     </select>
+  </div>
+
+  <!-- Bars selector -->
+  <div class="control-group">
+    <label for="bars">Bars:</label>
+    <input
+      id="bars"
+      type="number"
+      min="1"
+      value={$metronomeStore.N_B}
+      on:change={handleBarsChange}
+      class="bars-input"
+    />
   </div>
 
   <!-- Period slider -->
@@ -113,6 +134,15 @@
 
   .control-group input[type="range"] {
     width: 100%;
+  }
+
+  .bars-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
   }
 
 </style>

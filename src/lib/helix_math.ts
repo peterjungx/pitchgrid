@@ -10,34 +10,49 @@ export interface TickPosition {
   idx: number; // Index of the tick
 }
 
+function gcd(a: number, b: number): number {
+  a = Math.abs(a);
+  b = Math.abs(b);
+  while (b) { [a, b] = [b, a % b]; }
+  return a;
+}
+
 /**
  * Calculate tick positions for the metronome
  * @param num Numerator of the ratio
  * @param den Denominator of the ratio
  * @param N_C Number of cycles
+ * @param N_B Number of bars (default 1)
  * @returns Array of tick positions
  */
-export function calculateTickPositions(num: number, den: number, N_C: number): TickPosition[] {
+export function calculateTickPositions(num: number, den: number, N_C: number, N_B: number = 1): TickPosition[] {
   const ticks: TickPosition[] = [];
   const isAccelerando = num > den;
 
-  let start_i: number, end_i: number;
-  if (isAccelerando) {
-    start_i = Math.pow(den, N_C);
-    end_i = Math.pow(num, N_C);
-  } else {
-    start_i = Math.pow(num, N_C);
-    end_i = Math.pow(den, N_C);
-  }
+  // Reduce the ratio to coprime form
+  const g = gcd(num, den);
+  const num_r = num / g;
+  const den_r = den / g;
+
+  // Integer range: small^N_C to large^N_C with step thinning.
+  // For coprime small/large, N_Bars = large - small is the number of bars
+  // in the full range. Thin by keeping every N_Bars-th tick (counting from
+  // end_i) to get 1 bar. For N_B bars, multiply the range by N_B.
+  const small = Math.min(num_r, den_r);
+  const large = Math.max(num_r, den_r);
+  const N_Bars = large - small;
+  const start_i = N_B * Math.pow(small, N_C);
+  const end_i = N_B * Math.pow(large, N_C);
 
   const log_start = Math.log(start_i);
   const log_end = Math.log(end_i);
   const log_diff = log_end - log_start;
 
-  // Generate ticks at integer intervals
-  const num_ticks = Math.floor(end_i - start_i) + 1;
-  for (let idx = 0; idx < num_ticks; idx++) {
-    const i = start_i + idx;
+  let tickIdx = 0;
+  for (let i = start_i; i <= end_i; i++) {
+    // Thin: keep every N_Bars-th integer counting from end_i
+    if ((end_i - i) % N_Bars !== 0) continue;
+
     let t: number;
 
     if (isAccelerando) {
@@ -45,6 +60,10 @@ export function calculateTickPositions(num: number, den: number, N_C: number): T
     } else {
       t = N_C * (log_end - Math.log(i)) / log_diff;
     }
+
+    // Snap near-integer t values to avoid floating-point segment misassignment
+    const t_rounded = Math.round(t);
+    if (Math.abs(t - t_rounded) < 1e-9) t = t_rounded;
 
     // Only include ticks within display range
     if (t >= 0 && t < N_C) {
@@ -56,9 +75,10 @@ export function calculateTickPositions(num: number, den: number, N_C: number): T
         angle,
         radius: 0, // Will be calculated later based on spiral
         segment,
-        idx
+        idx: tickIdx
       });
     }
+    tickIdx++;
   }
 
   return ticks;
@@ -92,9 +112,11 @@ export function spiralRadius(angle: number, segment: number, R: number, N_C: num
  * @returns [x, y] coordinates
  */
 export function polarToCartesian(radius: number, angle: number): [number, number] {
+  // Subtract π/2 so angle 0 points to 12 o'clock instead of 3 o'clock
+  const rotated = angle - Math.PI / 2;
   return [
-    radius * Math.cos(angle),
-    radius * Math.sin(angle)
+    radius * Math.cos(rotated),
+    radius * Math.sin(rotated)
   ];
 }
 
