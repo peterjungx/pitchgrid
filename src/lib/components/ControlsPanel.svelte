@@ -1,5 +1,8 @@
 <script lang="ts">
   import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
+  import { referenceLayerBeats } from '$lib/helix_math';
+
+  $: refBeats = referenceLayerBeats($metronomeStore.num, $metronomeStore.den, $metronomeStore.N_C, $metronomeStore.N_B);
 
   function handleCycleChange(event: Event) {
     const target = event.target as HTMLSelectElement;
@@ -85,6 +88,7 @@
       class="bpm-input"
     />
     <span class="period-info">Period: {$metronomeStore.period.toFixed(2)}s</span>
+    <span class="period-info">Reference Layer Beats: {refBeats}</span>
   </div>
 </div>
 

@@ -65,10 +65,10 @@ export function calculateTickPositions(num: number, den: number, N_C: number, N_
     const t_rounded = Math.round(t);
     if (Math.abs(t - t_rounded) < 1e-9) t = t_rounded;
 
-    // Only include ticks within display range
-    if (t >= 0 && t < N_C) {
-      const segment = Math.floor(t);
-      const angle = (t - segment) * 2 * Math.PI; // Angle within segment
+    // Only include ticks within display range (include final tick at t=N_C)
+    if (t >= 0 && t <= N_C) {
+      const segment = t === N_C ? N_C - 1 : Math.floor(t);
+      const angle = t === N_C ? 2 * Math.PI : (t - segment) * 2 * Math.PI;
 
       ticks.push({
         t,
@@ -103,6 +103,17 @@ export function referenceIntervalDt(num: number, den: number, N_C: number, N_B: 
     if (segTicks.length < 2) return null;
     return segTicks[1].t - segTicks[0].t;
   }
+}
+
+/**
+ * Number of beats on the reference layer.
+ * Decelerando: segment 1. Accelerando: penultimate segment (N_C - 2).
+ */
+export function referenceLayerBeats(num: number, den: number, N_C: number, N_B: number = 1): number {
+  const ticks = calculateTickPositions(num, den, N_C, N_B);
+  const isAccelerando = num > den;
+  const targetSegment = isAccelerando ? N_C - 2 : 1;
+  return ticks.filter(t => t.segment === targetSegment).length;
 }
 
 /**
