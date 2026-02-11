@@ -49,6 +49,62 @@
     return `M ${points.join(' L ')}`;
   });
 
+  // Reference interval arc: the beat whose duration defines BPM.
+  // Decelerando: first interval on segment 1
+  // Accelerando: last interval on segment N_C - 2 (penultimate)
+  $: refArc = (() => {
+    const steps = 50;
+    const points: string[] = [];
+
+    if (isAccelerando) {
+      // Last interval on penultimate layer: crosses boundary into ultimate layer
+      const penultSeg = N_C - 2;
+      const ultSeg = N_C - 1;
+
+      const penultTicks = ticks.filter(t => t.segment === penultSeg).sort((a, b) => a.t - b.t);
+      const ultTicks = ticks.filter(t => t.segment === ultSeg).sort((a, b) => a.t - b.t);
+
+      if (penultTicks.length < 1 || ultTicks.length < 1) return null;
+
+      const lastOnPenult = penultTicks[penultTicks.length - 1];
+      const firstOnUlt = ultTicks[0];
+
+      // Part 1: from last tick on penultimate segment to end of segment (2π)
+      for (let i = 0; i <= steps; i++) {
+        const angle = lastOnPenult.angle + (i / steps) * (2 * Math.PI - lastOnPenult.angle);
+        const radius = spiralRadius(angle, penultSeg, R, N_C, isAccelerando);
+        const [x, y] = polarToCartesian(radius, angle);
+        points.push(`${centerX + x},${centerY + y}`);
+      }
+
+      // Part 2: from start of ultimate segment (0) to first tick
+      if (firstOnUlt.angle > 0) {
+        for (let i = 1; i <= steps; i++) {
+          const angle = (i / steps) * firstOnUlt.angle;
+          const radius = spiralRadius(angle, ultSeg, R, N_C, isAccelerando);
+          const [x, y] = polarToCartesian(radius, angle);
+          points.push(`${centerX + x},${centerY + y}`);
+        }
+      }
+    } else {
+      // Decelerando: first interval on segment 1
+      const segTicks = ticks.filter(t => t.segment === 1).sort((a, b) => a.t - b.t);
+      if (segTicks.length < 2) return null;
+
+      const tick1 = segTicks[0];
+      const tick2 = segTicks[1];
+
+      for (let i = 0; i <= steps; i++) {
+        const angle = tick1.angle + (i / steps) * (tick2.angle - tick1.angle);
+        const radius = spiralRadius(angle, 1, R, N_C, isAccelerando);
+        const [x, y] = polarToCartesian(radius, angle);
+        points.push(`${centerX + x},${centerY + y}`);
+      }
+    }
+
+    return points.length > 0 ? `M ${points.join(' L ')}` : null;
+  })();
+
   // Find active ticks (those near any local playhead)
   $: activeTicks = ticks.filter(tick => {
     const normalizedTime = currentTime / period;
@@ -83,6 +139,11 @@
   {#each spiralPaths as path, i}
     <path d={path} fill="none" stroke="#9C52F2" stroke-width="4" opacity="0.7" />
   {/each}
+
+  <!-- Reference interval arc (BPM beat) -->
+  {#if refArc}
+    <path d={refArc} fill="none" stroke="#00AA00" stroke-width="6" opacity="0.8" />
+  {/if}
 
   <!-- Draw tick marks -->
   {#each ticks as tick}

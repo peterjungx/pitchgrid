@@ -85,6 +85,27 @@ export function calculateTickPositions(num: number, den: number, N_C: number, N_
 }
 
 /**
+ * Compute the Δt of the reference beat interval used for BPM.
+ * Decelerando: first interval on segment 1
+ * Accelerando: last tick on penultimate segment to first tick on ultimate segment
+ */
+export function referenceIntervalDt(num: number, den: number, N_C: number, N_B: number = 1): number | null {
+  const ticks = calculateTickPositions(num, den, N_C, N_B);
+  const isAccelerando = num > den;
+
+  if (isAccelerando) {
+    const penultTicks = ticks.filter(t => t.segment === N_C - 2).sort((a, b) => a.t - b.t);
+    const ultTicks = ticks.filter(t => t.segment === N_C - 1).sort((a, b) => a.t - b.t);
+    if (penultTicks.length < 1 || ultTicks.length < 1) return null;
+    return ultTicks[0].t - penultTicks[penultTicks.length - 1].t;
+  } else {
+    const segTicks = ticks.filter(t => t.segment === 1).sort((a, b) => a.t - b.t);
+    if (segTicks.length < 2) return null;
+    return segTicks[1].t - segTicks[0].t;
+  }
+}
+
+/**
  * Calculate the radius of the spiral at a given angle and segment
  * @param angle Angle in radians (0 to 2π)
  * @param segment Segment number (0 to N_C-1)

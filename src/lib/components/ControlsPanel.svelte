@@ -7,10 +7,12 @@
     metronomeActions.setCycles(value);
   }
 
-  function handlePeriodChange(event: Event) {
+  function handleBpmChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const value = parseFloat(target.value);
-    metronomeActions.setPeriod(value);
+    if (!isNaN(value)) {
+      metronomeActions.setBpm(value);
+    }
   }
 
   function handleBarsChange(event: Event) {
@@ -70,18 +72,19 @@
     />
   </div>
 
-  <!-- Period slider -->
+  <!-- BPM input -->
   <div class="control-group">
-    <label for="period">Period: {$metronomeStore.period.toFixed(1)}s</label>
+    <label for="bpm">BPM:</label>
     <input
-      id="period"
-      type="range"
-      min="1"
-      max="60"
-      step="0.5"
-      value={$metronomeStore.period}
-      on:input={handlePeriodChange}
+      id="bpm"
+      type="number"
+      min="20"
+      max="400"
+      value={$metronomeStore.bpm}
+      on:change={handleBpmChange}
+      class="bpm-input"
     />
+    <span class="period-info">Period: {$metronomeStore.period.toFixed(2)}s</span>
   </div>
 </div>
 
@@ -132,8 +135,18 @@
     color: black;
   }
 
-  .control-group input[type="range"] {
-    width: 100%;
+  .bpm-input {
+    width: 70px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: 14px;
+  }
+
+  .period-info {
+    font-size: 12px;
+    color: #666;
   }
 
   .bars-input {
