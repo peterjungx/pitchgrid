@@ -8,6 +8,7 @@ export interface MetronomeState {
   N_B: number; // Number of bars
   bpm: number; // Beats per minute (reference beat)
   period: number; // seconds (derived from bpm)
+  audioMuted: boolean;
   isPlaying: boolean;
   currentTime: number;
   startTime: number; // When playback started
@@ -32,6 +33,7 @@ const baseState = {
 const initialState: MetronomeState = {
   ...baseState,
   period: computePeriod(baseState),
+  audioMuted: false,
   isPlaying: false,
   currentTime: 0,
   startTime: 0
@@ -70,6 +72,10 @@ export const metronomeActions = {
       const next = { ...state, bpm };
       return { ...next, period: computePeriod(next) };
     });
+  },
+
+  setAudioMuted: (muted: boolean) => {
+    metronomeStore.update(state => ({ ...state, audioMuted: muted }));
   },
 
   play: () => {

@@ -3,14 +3,15 @@
     import ControlsPanel from '$lib/components/ControlsPanel.svelte';
     import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
     import { AudioEngine } from '$lib/audio_engine';
+    import { MidiEngine } from '$lib/midi_engine';
     import { calculateTickPositions } from '$lib/helix_math';
     import { onMount } from 'svelte';
-    import type { note_to_coord_C4_eq_00 } from '$lib/consistent_tuning';
 
     let canvasWidth = 400;
     let canvasHeight = 400;
     let animationFrame: number;
     let audioEngine: AudioEngine;
+    let midiEngine: MidiEngine;
     let scheduledTicks: Set<string> = new Set(); // Track scheduled ticks by unique ID
     let scheduledTimeouts: Set<ReturnType<typeof setTimeout>> = new Set(); // Track timeout IDs for cleanup
 
@@ -19,9 +20,11 @@
         clearScheduledTicks();
     }
 
-    // Initialize audio engine
+    // Initialize audio and MIDI engines
     onMount(() => {
         audioEngine = new AudioEngine();
+        midiEngine = new MidiEngine();
+        midiEngine.init();
 
         // Set up animation loop
         function animate() {
@@ -65,6 +68,9 @@
             if (audioEngine) {
                 audioEngine.dispose();
             }
+            if (midiEngine) {
+                midiEngine.dispose();
+            }
         };
     });
 
@@ -106,13 +112,17 @@
 
         if (delay < 2) { // Only schedule ticks within 2 seconds
             const timeoutId = setTimeout(() => {
-                if (audioEngine) {
+                if (audioEngine && !$metronomeStore.audioMuted) {
                     audioEngine.playTick(playheadIndex, 0, volume);
+                }
+                if (midiEngine) {
+                    midiEngine.sendNoteOn(playheadIndex, volume);
+                    setTimeout(() => midiEngine.sendNoteOff(playheadIndex), 30);
                 }
                 setTimeout(() => {
                     scheduledTicks.delete(tickId);
                 }, 50);
-                
+
                 scheduledTimeouts.delete(timeoutId);
             }, delay * 1000);
 
@@ -129,6 +139,14 @@
             metronomeActions.setRatio(value, $metronomeStore.den);
         } else {
             target.value = $metronomeStore.num.toString();
+        }
+    }
+
+    function handleMidiOutputChange(event: CustomEvent<string | null>) {
+        if (midiEngine) {
+            midiEngine.selectOutput(event.detail);
+            // Auto-mute audio when a MIDI output is selected
+            metronomeActions.setAudioMuted(event.detail !== null);
         }
     }
 
@@ -184,7 +202,7 @@
             </div>
         </div>
 
-        <ControlsPanel />
+        <ControlsPanel on:midiOutputChange={handleMidiOutputChange} />
     </div>
 
     <div class="info">

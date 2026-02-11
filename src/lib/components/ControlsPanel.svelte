@@ -1,6 +1,10 @@
 <script lang="ts">
   import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
   import { referenceLayerBeats } from '$lib/helix_math';
+  import { midiStore } from '$lib/midi_engine';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher<{ midiOutputChange: string | null }>();
 
   $: refBeats = referenceLayerBeats($metronomeStore.num, $metronomeStore.den, $metronomeStore.N_C, $metronomeStore.N_B);
 
@@ -16,6 +20,12 @@
     if (!isNaN(value)) {
       metronomeActions.setBpm(value);
     }
+  }
+
+  function handleMidiOutputChange(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const value = target.value || null;
+    dispatch('midiOutputChange', value);
   }
 
   function handleBarsChange(event: Event) {
@@ -89,6 +99,31 @@
     />
     <span class="period-info">Period: {$metronomeStore.period.toFixed(2)}s</span>
     <span class="period-info">Reference Layer Beats: {refBeats}</span>
+  </div>
+
+  <!-- MIDI output selector -->
+  {#if $midiStore.available}
+    <div class="control-group">
+      <label for="midi-output">MIDI Output:</label>
+      <select id="midi-output" value={$midiStore.selectedOutputId || ''} on:change={handleMidiOutputChange}>
+        <option value="">None</option>
+        {#each $midiStore.outputs as output}
+          <option value={output.id}>{output.name}</option>
+        {/each}
+      </select>
+    </div>
+  {/if}
+
+  <!-- Audio mute toggle -->
+  <div class="control-group">
+    <label>
+      <input
+        type="checkbox"
+        checked={$metronomeStore.audioMuted}
+        on:change={() => metronomeActions.setAudioMuted(!$metronomeStore.audioMuted)}
+      />
+      Mute Audio
+    </label>
   </div>
 </div>
 
