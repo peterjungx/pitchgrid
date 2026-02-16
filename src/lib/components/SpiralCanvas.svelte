@@ -17,9 +17,11 @@
   $: centerX = width / 2;
   $: centerY = height / 2;
   $: isAccelerando = num > den;
+  $: refSegment = isAccelerando ? N_C - 2 : 1;
 
-  // Calculate current playhead angle (0 to 2π)
+  // Calculate current playhead angle (0 to 2π) and rotation for the spiral
   $: playheadAngle = (currentTime / period) * 2 * Math.PI;
+  $: rotationDeg = -playheadAngle * 180 / Math.PI;
 
   // Calculate tick positions
   $: refIdx = referenceTickIndex(num, den, N_C, N_B);
@@ -131,35 +133,38 @@
     fill="#F0F0F0"
   />
 
-  <!-- Draw spiral segments -->
-  {#each spiralPaths as path, i}
-    <path d={path} fill="none" stroke="#9C52F2" stroke-width="4" opacity="0.7" />
-  {/each}
+  <!-- Rotating group: spiral + ticks rotate counter-clockwise -->
+  <g transform="rotate({rotationDeg}, {centerX}, {centerY})">
+    <!-- Draw spiral segments -->
+    {#each spiralPaths as path, i}
+      <path d={path} fill="none" stroke="#9C52F2" stroke-width="{i === refSegment ? 6 : 4}" opacity="0.7" />
+    {/each}
 
-  <!-- Reference interval arc (BPM beat) -->
-  {#if refArc}
-    <path d={refArc} fill="none" stroke="#00AA00" stroke-width="6" opacity="0.8" />
-  {/if}
+    <!-- Reference interval arc (BPM beat) -->
+    {#if refArc}
+      <path d={refArc} fill="none" stroke="#00AA00" stroke-width="6" opacity="0.8" />
+    {/if}
 
-  <!-- Draw tick marks -->
-  {#each ticks as tick}
-    <circle
-      cx={tick.x}
-      cy={tick.y}
-      r="{activeTickIds.has(tick.idx) ? 12 : 12 * tick.volume}"
-      fill="#FFAB00"
-      stroke="{tick.isReference ? '#00AA00' : '#9C52F2'}"
-      stroke-width="{tick.isReference ? 4 : 3}"
-      class:active={activeTickIds.has(tick.idx)}
-    />
-  {/each}
+    <!-- Draw tick marks -->
+    {#each ticks as tick}
+      <circle
+        cx={tick.x}
+        cy={tick.y}
+        r="{activeTickIds.has(tick.idx) ? 12 : 12 * tick.volume}"
+        fill="#FFAB00"
+        stroke="{tick.isReference ? '#00AA00' : '#9C52F2'}"
+        stroke-width="{tick.isReference ? 4 : 3}"
+        class:active={activeTickIds.has(tick.idx)}
+      />
+    {/each}
+  </g>
 
-  <!-- Draw playhead -->
+  <!-- Playhead fixed at 12 o'clock -->
   <line
-    x1={centerX + (R / 2) * Math.cos(playheadAngle - Math.PI / 2)}
-    y1={centerY + (R / 2) * Math.sin(playheadAngle - Math.PI / 2)}
-    x2={centerX + R * Math.cos(playheadAngle - Math.PI / 2)}
-    y2={centerY + R * Math.sin(playheadAngle - Math.PI / 2)}
+    x1={centerX}
+    y1={centerY - R / 2}
+    x2={centerX}
+    y2={centerY - R}
     stroke="#F20000"
     stroke-width="3"
     stroke-linecap="round"

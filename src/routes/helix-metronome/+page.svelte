@@ -172,11 +172,32 @@
         }
     }
 
-    function togglePlayPause() {
-        if ($metronomeStore.isPlaying) {
+    // Single transport button with 300ms stop window after every state change.
+    // Double-tap from either playing or paused → stop (reset playhead).
+    let showStop = false;
+    let stopTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function enterStopWindow() {
+        showStop = true;
+        if (stopTimer) clearTimeout(stopTimer);
+        stopTimer = setTimeout(() => { showStop = false; }, 300);
+    }
+
+    function handleTransport() {
+        if (showStop) {
+            // In stop window → Stop (reset playhead)
+            if (stopTimer) clearTimeout(stopTimer);
+            stopTimer = null;
+            showStop = false;
+            metronomeActions.stop();
+        } else if ($metronomeStore.isPlaying) {
+            // Playing → Pause, enter stop window
             metronomeActions.pause();
+            enterStopWindow();
         } else {
+            // Paused/Stopped → Play, enter stop window
             metronomeActions.play();
+            enterStopWindow();
         }
     }
 
@@ -211,24 +232,26 @@
                 height={canvasHeight}
             />
 
-            <!-- Transport controls positioned over center -->
+            <!-- Single transport button -->
             <div class="transport-overlay">
-                <button class="transport-btn play-pause-btn" on:click={togglePlayPause}>
-                    {#if $metronomeStore.isPlaying}
+                <button class="transport-btn" on:click={handleTransport}>
+                    {#if showStop}
+                        <!-- Stop icon (during 300ms window) -->
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                        </svg>
+                    {:else if $metronomeStore.isPlaying}
+                        <!-- Pause icon -->
                         <svg viewBox="0 0 24 24" width="24" height="24">
                             <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
                             <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
                         </svg>
                     {:else}
+                        <!-- Play icon -->
                         <svg viewBox="0 0 24 24" width="24" height="24">
                             <polygon points="8,5 20,12 8,19" fill="currentColor"/>
                         </svg>
                     {/if}
-                </button>
-                <button class="transport-btn stop-btn" on:click={metronomeActions.stop}>
-                    <svg viewBox="0 0 24 24" width="20" height="20">
-                        <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
-                    </svg>
                 </button>
             </div>
         </div>
@@ -274,12 +297,16 @@
     }
 
     .transport-btn {
+        width: 52px;
+        height: 52px;
         border: none;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
+        background: #FFAB00;
+        color: white;
         transition: transform 0.1s ease, box-shadow 0.15s ease;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
@@ -291,20 +318,6 @@
 
     .transport-btn:active {
         transform: scale(0.95);
-    }
-
-    .play-pause-btn {
-        width: 52px;
-        height: 52px;
-        background: #FFAB00;
-        color: white;
-    }
-
-    .stop-btn {
-        width: 42px;
-        height: 42px;
-        background: #666;
-        color: white;
     }
 
     .info {

@@ -23,6 +23,20 @@ function computePeriod(state: { num: number; den: number; N_C: number; N_B: numb
   return 1; // fallback
 }
 
+/** When the period changes, adjust timing so the current angular
+ *  position (phase) is preserved — both while playing and paused. */
+function preservePhase(state: MetronomeState, newPeriod: number): { startTime: number; currentTime: number } {
+  if (state.isPlaying) {
+    const now = Date.now() / 1000;
+    const elapsed = now - state.startTime;
+    const phase = (elapsed % state.period) / state.period; // 0-1
+    return { startTime: now - phase * newPeriod, currentTime: state.currentTime };
+  } else {
+    const phase = (state.currentTime % state.period) / state.period; // 0-1
+    return { startTime: state.startTime, currentTime: phase * newPeriod };
+  }
+}
+
 const baseState = {
   num: 2,
   den: 1,
@@ -48,7 +62,8 @@ export const metronomeActions = {
     if (num === den || num < 1 || num > 12 || den < 1 || den > 12) return;
     metronomeStore.update(state => {
       const next = { ...state, num, den };
-      return { ...next, period: computePeriod(next) };
+      const newPeriod = computePeriod(next);
+      return { ...next, period: newPeriod, ...preservePhase(state, newPeriod) };
     });
   },
 
@@ -56,7 +71,8 @@ export const metronomeActions = {
     if (N_C < 2 || N_C > 4) return;
     metronomeStore.update(state => {
       const next = { ...state, N_C };
-      return { ...next, period: computePeriod(next) };
+      const newPeriod = computePeriod(next);
+      return { ...next, period: newPeriod, ...preservePhase(state, newPeriod) };
     });
   },
 
@@ -64,7 +80,8 @@ export const metronomeActions = {
     if (N_B < 1 || !Number.isInteger(N_B)) return;
     metronomeStore.update(state => {
       const next = { ...state, N_B };
-      return { ...next, period: computePeriod(next) };
+      const newPeriod = computePeriod(next);
+      return { ...next, period: newPeriod, ...preservePhase(state, newPeriod) };
     });
   },
 
@@ -72,7 +89,8 @@ export const metronomeActions = {
     if (bpm < 20 || bpm > 400) return;
     metronomeStore.update(state => {
       const next = { ...state, bpm };
-      return { ...next, period: computePeriod(next) };
+      const newPeriod = computePeriod(next);
+      return { ...next, period: newPeriod, ...preservePhase(state, newPeriod) };
     });
   },
 
