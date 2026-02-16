@@ -9,6 +9,7 @@
   export let period: number = 10; // seconds
   export let isPlaying: boolean = false;
   export let volumePattern: string = '8252';
+  export let activeTickIds: Set<number> = new Set();
   export let width: number = 400;
   export let height: number = 400;
 
@@ -113,19 +114,6 @@
     return points.length > 0 ? `M ${points.join(' L ')}` : null;
   })();
 
-  // Find active ticks (those near any local playhead)
-  $: activeTicks = ticks.filter(tick => {
-    const normalizedTime = currentTime / period;
-
-    // Check if tick is near any local playhead
-    for (let p = 0; p < N_C; p++) {
-      const localPlayheadPosition = p + normalizedTime;
-      if (Math.abs(tick.t - localPlayheadPosition+0.003) < 0.003) {
-        return true;
-      }
-    }
-    return false;
-  });
 </script>
 
 <svg {width} {height} class="spiral-canvas">
@@ -158,11 +146,11 @@
     <circle
       cx={tick.x}
       cy={tick.y}
-      r="{activeTicks.includes(tick) ? 12 : 12 * tick.volume}"
+      r="{activeTickIds.has(tick.idx) ? 12 : 12 * tick.volume}"
       fill="#FFAB00"
       stroke="{tick.isReference ? '#00AA00' : '#9C52F2'}"
       stroke-width="{tick.isReference ? 4 : 3}"
-      class:active={activeTicks.includes(tick)}
+      class:active={activeTickIds.has(tick.idx)}
     />
   {/each}
 

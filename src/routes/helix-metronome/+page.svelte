@@ -15,9 +15,37 @@
     let scheduledTicks: Set<string> = new Set(); // Track scheduled ticks by unique ID
     let scheduledTimeouts: Set<ReturnType<typeof setTimeout>> = new Set(); // Track timeout IDs for cleanup
 
-    // Clear scheduled ticks when playback stops
+    // Visual tick activation (timer-based, not position-based)
+    const TICK_ACTIVE_MS = 35;
+    let activeTickIds: Set<number> = new Set();
+    let activeTickTimers: Map<number, ReturnType<typeof setTimeout>> = new Map();
+
+    function activateTick(tickIdx: number) {
+        const existing = activeTickTimers.get(tickIdx);
+        if (existing) clearTimeout(existing);
+
+        activeTickIds.add(tickIdx);
+        activeTickIds = activeTickIds; // trigger Svelte reactivity
+
+        const timer = setTimeout(() => {
+            activeTickIds.delete(tickIdx);
+            activeTickIds = activeTickIds;
+            activeTickTimers.delete(tickIdx);
+        }, TICK_ACTIVE_MS);
+        activeTickTimers.set(tickIdx, timer);
+    }
+
+    function clearActiveTicks() {
+        activeTickTimers.forEach(timer => clearTimeout(timer));
+        activeTickTimers.clear();
+        activeTickIds.clear();
+        activeTickIds = activeTickIds;
+    }
+
+    // Clear scheduled ticks and active state when playback stops
     $: if (!$metronomeStore.isPlaying) {
         clearScheduledTicks();
+        clearActiveTicks();
     }
 
     // Initialize audio and MIDI engines
@@ -69,6 +97,7 @@
                 cancelAnimationFrame(animationFrame);
             }
             clearScheduledTicks();
+            clearActiveTicks();
             if (audioEngine) {
                 audioEngine.dispose();
             }
@@ -130,6 +159,7 @@
                     midiEngine.sendNoteOn(playheadIndex, volume);
                     setTimeout(() => midiEngine.sendNoteOff(playheadIndex), 30);
                 }
+                activateTick(tick.idx);
                 setTimeout(() => {
                     scheduledTicks.delete(tickId);
                 }, 50);
@@ -188,6 +218,7 @@
                 period={$metronomeStore.period}
                 isPlaying={$metronomeStore.isPlaying}
                 volumePattern={$metronomeStore.volumePattern}
+                {activeTickIds}
                 width={canvasWidth}
                 height={canvasHeight}
             />
