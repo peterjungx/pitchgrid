@@ -90,9 +90,16 @@
         return () => window.removeEventListener('resize', handleResize);
     });
 
-    // Handle user interaction to resume audio
-    function handleUserInteraction() {
+    // Handle user interaction to resume/create audio context (iOS requires gesture)
+    async function handleUserInteraction() {
         if (audioEngine) {
+            await audioEngine.resume();
+        }
+    }
+
+    // Re-resume audio after iOS suspends it on tab/app switch
+    function handleVisibilityChange() {
+        if (document.visibilityState === 'visible' && audioEngine) {
             audioEngine.resume();
         }
     }
@@ -165,7 +172,7 @@
     }
 </script>
 
-<svelte:window on:click={handleUserInteraction} />
+<svelte:window on:click={handleUserInteraction} on:touchstart={handleUserInteraction} on:pointerdown={handleUserInteraction} on:visibilitychange={handleVisibilityChange} />
 
 <div class="container">
     <h1>Helix Metronome</h1>
