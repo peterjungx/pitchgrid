@@ -1,14 +1,16 @@
 <script lang="ts">
     import SpiralCanvas from '$lib/components/SpiralCanvas.svelte';
     import ControlsPanel from '$lib/components/ControlsPanel.svelte';
+    import InfoDisplay from '$lib/components/InfoDisplay.svelte';
     import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
     import { AudioEngine } from '$lib/audio_engine';
     import { MidiEngine } from '$lib/midi_engine';
-    import { calculateTickPositions, referenceTickIndex } from '$lib/helix_math';
+    import { calculateTickPositions, referenceTickIndex, referenceLayerBeats } from '$lib/helix_math';
     import { onMount } from 'svelte';
 
     let canvasWidth = 400;
     let canvasHeight = 400;
+    $: refBeats = referenceLayerBeats($metronomeStore.num, $metronomeStore.den, $metronomeStore.N_C, $metronomeStore.N_B);
     let animationFrame: number;
     let audioEngine: AudioEngine;
     let midiEngine: MidiEngine;
@@ -232,8 +234,14 @@
                 height={canvasHeight}
             />
 
-            <!-- Single transport button -->
-            <div class="transport-overlay">
+            <!-- Center overlay: info display + transport button -->
+            <div class="center-overlay">
+                <InfoDisplay
+                    bpm={$metronomeStore.bpm}
+                    num={$metronomeStore.num}
+                    den={$metronomeStore.den}
+                    {refBeats}
+                />
                 <button class="transport-btn" on:click={handleTransport}>
                     {#if showStop}
                         <!-- Stop icon (during 300ms window) -->
@@ -256,7 +264,9 @@
             </div>
         </div>
 
-        <ControlsPanel on:midiOutputChange={handleMidiOutputChange} />
+        <div class="controls-area">
+            <ControlsPanel on:midiOutputChange={handleMidiOutputChange} />
+        </div>
     </div>
 
     <div class="info">
@@ -281,18 +291,26 @@
         gap: 20px;
     }
 
+    .controls-area {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
     .spiral-wrapper {
         position: relative;
     }
 
-    .transport-overlay {
+    .center-overlay {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         z-index: 10;
     }
 
@@ -340,8 +358,8 @@
             gap: 15px;
         }
 
-        .transport-overlay {
-            gap: 10px;
+        .center-overlay {
+            gap: 6px;
         }
     }
 </style>
