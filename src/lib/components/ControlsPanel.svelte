@@ -9,10 +9,8 @@
 
   $: refBeats = referenceLayerBeats($metronomeStore.num, $metronomeStore.den, $metronomeStore.N_C, $metronomeStore.N_B);
 
-  function handleCycleChange(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const value = parseInt(target.value);
-    metronomeActions.setCycles(value);
+  function handleCycleStep(event: CustomEvent<number>) {
+    metronomeActions.setCycles(event.detail);
   }
 
   function handleBpmStep(event: CustomEvent<number>) {
@@ -120,13 +118,16 @@
 
   <!-- Layers -->
   <div class="control-row">
-    <label for="cycles">Layers</label>
+    <label>Layers</label>
     <div class="control-right">
-      <select id="cycles" value={$metronomeStore.N_C} on:change={handleCycleChange}>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-      </select>
+      <StepperControl
+        value={$metronomeStore.N_C}
+        min={2}
+        max={4}
+        width={100}
+        height={36}
+        on:change={handleCycleStep}
+      />
     </div>
   </div>
 

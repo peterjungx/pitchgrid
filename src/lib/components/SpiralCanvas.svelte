@@ -124,7 +124,7 @@
     cx={centerX}
     cy={centerY}
     r={R}
-    fill="#CCCCCC"
+    fill="#F0F0F0"
   />
   <circle
     cx={centerX}

@@ -112,7 +112,7 @@
     // Handle window resize for responsive design
     function handleResize() {
         const minDim = Math.min(window.innerWidth - 40, window.innerHeight - 200);
-        canvasWidth = canvasHeight = Math.max(300, minDim);
+        canvasWidth = canvasHeight = Math.min(500, Math.max(300, minDim));
     }
 
     onMount(() => {
@@ -221,47 +221,50 @@
     <div class="metronome-container">
         <div class="spiral-wrapper">
             <SpiralCanvas
-                num={$metronomeStore.num}
-                den={$metronomeStore.den}
-                N_C={$metronomeStore.N_C}
-                N_B={$metronomeStore.N_B}
-                currentTime={$metronomeStore.currentTime}
-                period={$metronomeStore.period}
-                isPlaying={$metronomeStore.isPlaying}
-                volumePattern={$metronomeStore.volumePattern}
-                {activeTickIds}
-                width={canvasWidth}
-                height={canvasHeight}
-            />
-
-            <!-- Center overlay: info display + transport button -->
-            <div class="center-overlay">
-                <InfoDisplay
-                    bpm={$metronomeStore.bpm}
                     num={$metronomeStore.num}
                     den={$metronomeStore.den}
-                    {refBeats}
+                    N_C={$metronomeStore.N_C}
+                    N_B={$metronomeStore.N_B}
+                    currentTime={$metronomeStore.currentTime}
+                    period={$metronomeStore.period}
+                    isPlaying={$metronomeStore.isPlaying}
+                    volumePattern={$metronomeStore.volumePattern}
+                    {activeTickIds}
+                    width={canvasWidth}
+                    height={canvasHeight}
                 />
-                <button class="transport-btn" on:click={handleTransport}>
-                    {#if showStop}
-                        <!-- Stop icon (during 300ms window) -->
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
-                        </svg>
-                    {:else if $metronomeStore.isPlaying}
-                        <!-- Pause icon -->
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
-                            <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
-                        </svg>
-                    {:else}
-                        <!-- Play icon -->
-                        <svg viewBox="0 0 24 24" width="24" height="24">
-                            <polygon points="8,5 20,12 8,19" fill="currentColor"/>
-                        </svg>
-                    {/if}
-                </button>
-            </div>
+
+                <!-- Transport button in center -->
+                <div class="transport-overlay">
+                    <button class="transport-btn" on:click={handleTransport}>
+                        {#if showStop}
+                            <!-- Stop icon (during 300ms window) -->
+                            <svg viewBox="0 0 24 24" width="36" height="36">
+                                <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                            </svg>
+                        {:else if $metronomeStore.isPlaying}
+                            <!-- Pause icon -->
+                            <svg viewBox="0 0 24 24" width="36" height="36">
+                                <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                                <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                            </svg>
+                        {:else}
+                            <!-- Play icon -->
+                            <svg viewBox="0 0 24 24" width="36" height="36">
+                                <polygon points="8,5 20,12 8,19" fill="currentColor"/>
+                            </svg>
+                        {/if}
+                    </button>
+                </div>
+        </div>
+
+        <div class="info-overlay" style:top="{canvasHeight - 168}px">
+            <InfoDisplay
+                bpm={$metronomeStore.bpm}
+                num={$metronomeStore.num}
+                den={$metronomeStore.den}
+                {refBeats}
+            />
         </div>
 
         <div class="controls-area">
@@ -276,11 +279,14 @@
 </div>
 
 <style>
+    :global(body) {
+        background-color: #F0F0F0 !important;
+    }
+
     .container {
-        margin: 20px;
-        max-width: 800px;
-        margin: 0 auto;
         padding: 20px;
+        background: #F0F0F0;
+        color: #222;
     }
 
     .metronome-container {
@@ -288,7 +294,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 4px;
+    }
+
+    .info-overlay {
+        position: absolute;
+        left: 0;
+        z-index: 10;
     }
 
     .controls-area {
@@ -302,21 +314,17 @@
         position: relative;
     }
 
-    .center-overlay {
+    .transport-overlay {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
         z-index: 10;
     }
 
     .transport-btn {
-        width: 52px;
-        height: 52px;
+        width: 78px;
+        height: 78px;
         border: none;
         border-radius: 50%;
         cursor: pointer;
@@ -345,7 +353,7 @@
     }
 
     .info a {
-        color: #007bff;
+        color: #9C52F2;
     }
 
     /* Mobile responsive */
@@ -358,8 +366,5 @@
             gap: 15px;
         }
 
-        .center-overlay {
-            gap: 6px;
-        }
     }
 </style>
