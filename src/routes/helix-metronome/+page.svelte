@@ -172,14 +172,11 @@
         }
     }
 
-    // Handle ratio changes
-    function handleNumChange(event: Event) {
-        const target = event.target as HTMLInputElement;
-        const value = parseInt(target.value);
-        if (!isNaN(value) && value >= 1 && value <= 12 && value !== $metronomeStore.den) {
-            metronomeActions.setRatio(value, $metronomeStore.den);
+    function togglePlayPause() {
+        if ($metronomeStore.isPlaying) {
+            metronomeActions.pause();
         } else {
-            target.value = $metronomeStore.num.toString();
+            metronomeActions.play();
         }
     }
 
@@ -191,15 +188,6 @@
         }
     }
 
-    function handleDenChange(event: Event) {
-        const target = event.target as HTMLInputElement;
-        const value = parseInt(target.value);
-        if (!isNaN(value) && value >= 1 && value <= 12 && value !== $metronomeStore.num) {
-            metronomeActions.setRatio($metronomeStore.num, value);
-        } else {
-            target.value = $metronomeStore.den.toString();
-        }
-    }
 </script>
 
 <svelte:window on:click={handleUserInteraction} on:touchstart={handleUserInteraction} on:pointerdown={handleUserInteraction} on:visibilitychange={handleVisibilityChange} />
@@ -223,25 +211,25 @@
                 height={canvasHeight}
             />
 
-            <!-- Ratio inputs positioned over center -->
-            <div class="ratio-inputs">
-                <input
-                    type="number"
-                    min="1"
-                    max="12"
-                    bind:value={$metronomeStore.num}
-                    on:change={handleNumChange}
-                    class="ratio-input"
-                />
-                <span>:</span>
-                <input
-                    type="number"
-                    min="1"
-                    max="12"
-                    bind:value={$metronomeStore.den}
-                    on:change={handleDenChange}
-                    class="ratio-input"
-                />
+            <!-- Transport controls positioned over center -->
+            <div class="transport-overlay">
+                <button class="transport-btn play-pause-btn" on:click={togglePlayPause}>
+                    {#if $metronomeStore.isPlaying}
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                            <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                        </svg>
+                    {:else}
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <polygon points="8,5 20,12 8,19" fill="currentColor"/>
+                        </svg>
+                    {/if}
+                </button>
+                <button class="transport-btn stop-btn" on:click={metronomeActions.stop}>
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
@@ -274,33 +262,49 @@
         position: relative;
     }
 
-    .ratio-inputs {
+    .transport-overlay {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         display: flex;
         align-items: center;
-        gap: 5px;
-        background-color: rgba(240, 240, 240, 0.9);
-        padding: 8px 12px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        gap: 12px;
         z-index: 10;
     }
 
-    .ratio-input {
-        width: 45px;
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 4px;
-        font-size: 16px;
+    .transport-btn {
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.1s ease, box-shadow 0.15s ease;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
 
-    .ratio-input:focus {
-        outline: none;
-        border-color: #007bff;
+    .transport-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+
+    .transport-btn:active {
+        transform: scale(0.95);
+    }
+
+    .play-pause-btn {
+        width: 52px;
+        height: 52px;
+        background: #FFAB00;
+        color: white;
+    }
+
+    .stop-btn {
+        width: 42px;
+        height: 42px;
+        background: #666;
+        color: white;
     }
 
     .info {
@@ -323,13 +327,8 @@
             gap: 15px;
         }
 
-        .ratio-inputs {
-            padding: 6px 8px;
-        }
-
-        .ratio-input {
-            width: 40px;
-            font-size: 14px;
+        .transport-overlay {
+            gap: 10px;
         }
     }
 </style>

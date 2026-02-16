@@ -30,7 +30,7 @@ export function calculateTickPositions(num: number, den: number, N_C: number, N_
   const isAccelerando = num > den;
 
   // Reduce the ratio to coprime form
-  const g = gcd(num, den);
+  const g = 1;//gcd(num, den);
   const num_r = num / g;
   const den_r = den / g;
 

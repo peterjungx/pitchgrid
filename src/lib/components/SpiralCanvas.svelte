@@ -160,7 +160,7 @@
     y1={centerY + (R / 2) * Math.sin(playheadAngle - Math.PI / 2)}
     x2={centerX + R * Math.cos(playheadAngle - Math.PI / 2)}
     y2={centerY + R * Math.sin(playheadAngle - Math.PI / 2)}
-    stroke="#0D75FF"
+    stroke="#F20000"
     stroke-width="3"
     stroke-linecap="round"
   />
