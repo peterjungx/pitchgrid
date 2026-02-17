@@ -635,8 +635,9 @@
 			and once you see it, you can play it.
 		</p>
 		<div class="hero-cta-group">
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Get PitchGrid Plugin</a>
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free for 15 Days</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy — just €42</a>
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper (free)</a>
 		</div>
 		<div class="hero-screenshot">
 			<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin — visualizing the two-dimensional structure of music" />
