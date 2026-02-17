@@ -910,6 +910,16 @@
 			-->
 			
 			<div class="video-item">
+				<a href="https://www.youtube.com/watch?v=iFAzg6iwto0" target="_blank">
+					<img src="https://img.youtube.com/vi/iFAzg6iwto0/hqdefault.jpg" alt="Beats Basteln: This Plugin Lets You Create Unique Tuning Systems Globally" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
+				</a>
+				<h4>Featured Review: Beats Basteln</h4>
+				<p style="color: #b0b0b0; margin-bottom: 1rem;">
+					"This plugin is insane." — Florian Mrugalla
+				</p>
+			</div>
+
+			<div class="video-item">
 				<a href="https://youtu.be/8jzrObegsr0" target="_blank">
 					<img src="https://img.youtube.com/vi/8jzrObegsr0/hqdefault.jpg" alt="PitchGrid Plugin Introduction" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
 				</a>
