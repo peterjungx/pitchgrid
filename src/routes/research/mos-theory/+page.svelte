@@ -935,7 +935,7 @@
 	underlies MOS theory maps directly onto the two-dimensional playing surface.
 </p>
 
-<h3>12.3 A Natural Next Step?</h3>
+<h3>12.3 What Carries Over</h3>
 
 <p>
 	PitchGrid is a straightforward generalization of the Western tonal structure. The diatonic 
@@ -945,21 +945,32 @@
 	only the parameters differ.
 </p>
 <p>
+	The question is not a binary "does it generalize or not" — we already know the answer is 
+	nuanced. Some features clearly generalize: the lattice structure, the interval system, 
+	modes, accidentals, and the basic mechanisms of voice leading and counterpoint have nothing 
+	inherently diatonic about them. Other features are specific: a chord progression like 
+	ii–V–I is a product of the 5L+2s structure, though it may have analogues in other systems 
+	that we have not yet discovered. The real question is: <em>which</em> compositional devices 
+	generalize, which transform into something new, and which are irreducibly diatonic?
+</p>
+<p>
+	Consider Bach. His music is not solely determined by harmonic laws — it derives much of its 
+	rich architecture from the <em>symmetries</em> that diatonic structure offers: the interplay 
+	of modes, the relationships between keys, the way voices can move independently while 
+	maintaining harmonic coherence. These are structural properties, not acoustic ones. When we 
+	leave the diatonic world, what PitchGrid reveals is that some of these symmetries break — 
+	but more importantly, the deeper structural features that give compositions their overall 
+	architecture are more general than the diatonic case. They carry over, in transformed form, 
+	to the entire MOS universe.
+</p>
+<p>
 	Western music spent centuries exploring the compositional possibilities of a single MOS 
 	structure (5L+2s) under a handful of tunings. The tools now exist — parametric scale 
 	construction, generalized notation, quantitative consonance analysis, isomorphic 
 	controllers, and software synthesis — to explore the rest of the space with comparable 
-	depth. Whether this exploration yields musical traditions as rich as Western tonality is 
-	an open question. But the structural potential is there, and the framework to investigate 
-	it is now in place.
-</p>
-<p>
-	Does PitchGrid represent a natural next step in the evolution of music? The answer depends 
-	on whether the compositional richness of Western music is a property of the <em>specific</em> 
-	diatonic structure, or of the <em>general</em> MOS construction that produces it. This 
-	article has shown that the structural machinery — lattices, intervals, modes, accidentals, 
-	transformations — generalizes completely. The question of whether the <em>musical</em> 
-	richness follows is the most exciting open problem in scale theory today.
+	depth. Whether this perspective proves to be a fruitful ground on which music can further 
+	develop — offering structures as rich as those that enabled Bach, Beethoven, and beyond — 
+	is for composers and listeners to discover.
 </p>
 
 <h2 id="references">13. References</h2>
