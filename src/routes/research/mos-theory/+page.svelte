@@ -357,6 +357,13 @@
 	as a combinatorial object. Frequencies enter only in Part II, when we define the tuning map.
 </p>
 
+<figure>
+	<img src="/research/mos-theory/mos_diatonic_lattice.png" alt="Diatonic lattice with distinguished vectors" />
+	<figcaption>Figure 1 — The diatonic scale (5L + 2s) on the two-dimensional lattice. Orange nodes 
+	are scale tones, connected by the scale path. Vectors shown: L (large step, blue), s (small step, red), 
+	g (generator, green dashed), c (chroma = L − s, purple dotted).</figcaption>
+</figure>
+
 <h2 id="bases">3. Coprime Vectors and Bases</h2>
 
 <p>
@@ -689,6 +696,19 @@
 </p>
 
 <div class="part-header">Part II — Tuning</div>
+
+<figure>
+	<img src="/research/mos-theory/mos_comparison.png" alt="Four MOS lattice structures compared" />
+	<figcaption>Figure 2 — Four MOS structures on their lattices: Diatonic (5L+2s), Pentatonic (2L+3s), 
+	Bohlen–Pierce (5L+4s), and Porcupine[8] (1L+7s). Each path traces the scale through the 2D lattice, 
+	with different step ratios producing different path shapes.</figcaption>
+</figure>
+
+<figure>
+	<img src="/research/mos-theory/mos_modes.png" alt="Mode 0 vs Mode 6 of the diatonic scale" />
+	<figcaption>Figure 3 — Two modes of the diatonic scale: Mode 0 (Lydian, brightest) and Mode 6 
+	(Locrian, darkest). The mode rotates the starting point of the scale path on the lattice.</figcaption>
+</figure>
 
 <h2 id="tuning">9. The Tuning Map</h2>
 
