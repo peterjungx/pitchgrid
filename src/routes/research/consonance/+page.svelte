@@ -176,16 +176,23 @@
 <p class="article-meta">Peter Jung · February 2026 · PitchGrid</p>
 
 <div class="abstract">
-	<strong>Abstract.</strong> We present a novel measure of musical consonance that is both timbre-aware 
-	and perceptually grounded. Starting from the Plomp-Levelt sensory dissonance model with Sethares' 
-	parametrization, we compute a pairwise dissonance curve for complex tones. We then extract a cubic 
-	spline "hull" curve that traces the shoulders of the dissonance function, and define the 
-	<em>spiky consonance curve</em> as the residual between hull and dissonance. After normalization 
-	and logarithmic scaling, the resulting <em>PitchGrid Consonance Measure</em> maps intervals to a 
-	0–1 scale where 1 is unison and 0 is fully dissonant. We validate the measure across 12-tone equal 
-	temperament, Pythagorean tuning, quarter-comma meantone, and the Bohlen-Pierce scale, showing that 
-	it correctly captures historical preferences for meantone temperament and the fundamental dependence 
-	of consonance on both tuning and timbre.
+	<strong>Abstract.</strong> For centuries, music theory has treated consonance as a fixed property 
+	of intervals — determined by the simplicity of frequency ratios and inherited from the harmonic 
+	series. We show that consonance is better understood as an emergent property of the interaction 
+	between <em>tuning</em> and <em>timbre</em>, and we provide a computable measure that captures 
+	this interaction. Our key innovation is a signal-processing technique we call <em>hull extraction</em>: 
+	fitting a smooth envelope to the Plomp-Levelt dissonance curve and defining consonance as the 
+	residual — the "spiky" peaks where dissonance drops below its local baseline. This reframes 
+	consonance not as the absence of roughness in absolute terms, but as <em>how much better an 
+	interval sounds compared to its spectral neighborhood</em>. The resulting PitchGrid Consonance 
+	Measure assigns each interval a score from 0 (maximally dissonant) to 1 (unison), enabling 
+	systematic comparison across tuning systems, timbres, and scale structures — including 
+	non-Western and microtonal scales that traditional theory cannot address. We validate the 
+	measure across six tuning systems, from 12-TET to exotic MOS scales like Porcupine and 
+	Slendric, and demonstrate a striking result: by constructing a <em>pseudoharmonic</em> timbre 
+	matched to 12-TET ("reverse tuning"), one can achieve higher consonance than quarter-comma 
+	meantone with natural harmonic timbre — suggesting that the path to consonance may lie not 
+	in perfecting the tuning, but in adapting the sound itself.
 </div>
 
 <h2>1. Introduction</h2>
@@ -203,15 +210,36 @@
 	the spectrum of partials — of the tones involved. His parametric model of the Plomp-Levelt curve 
 	enabled computation of aggregate dissonance for arbitrary spectra, revealing that the familiar 
 	consonances of Western music emerge naturally from harmonic spectra, while inharmonic timbres 
-	(bells, metallophones) favor entirely different interval structures.
+	(bells, metallophones) favor entirely different interval structures. Sethares also demonstrated 
+	the converse: given any scale, one can construct a timbre whose partials align with the scale's 
+	intervals, making that scale sound consonant.
 </p>
 <p>
-	However, the raw Sethares dissonance curve, while informative, does not directly yield a clean 
-	measure of consonance. The dissonance minima that indicate consonant intervals sit in valleys of 
-	varying depth and width, making comparison across intervals and tuning systems difficult. In this 
-	article, we introduce the <strong>PitchGrid Spiky Consonance Measure</strong>: a post-processing 
-	pipeline that extracts consonance peaks from the Plomp-Levelt dissonance curve, normalizes them, 
-	and maps them to a perceptually meaningful 0–1 scale.
+	However, Sethares' dissonance curve — while foundational — has an inherent limitation: 
+	it measures <em>absolute</em> roughness, not <em>relative</em> consonance. The dissonance 
+	minima that indicate consonant intervals sit in valleys of varying depth and width, on a 
+	baseline that shifts with register and timbre. Comparing the "consonance" of a fifth against 
+	a major third, or across different tuning systems, requires visual inspection rather than 
+	quantitative comparison. No prior work has extracted a clean, normalized consonance measure 
+	from the Sethares dissonance curve.
+</p>
+<p>
+	In this article, we introduce the <strong>PitchGrid Spiky Consonance Measure</strong> — a 
+	novel post-processing pipeline built on a technique we call <em>hull extraction</em>. We fit 
+	a smooth envelope (hull) to the dissonance curve and define consonance as the <em>residual</em> 
+	between the hull and the curve itself. This transforms consonance from "how low is the 
+	dissonance?" to "how far does the dissonance drop below its local spectral baseline?" — a 
+	relative measure that naturally adapts to different timbres and registers. After normalization 
+	and logarithmic scaling, the measure maps any interval to a 0–1 scale, enabling quantitative 
+	comparison across tuning systems, timbres, and scale structures.
+</p>
+<p>
+	We validate the measure across six tuning systems — including non-diatonic MOS (Moments of 
+	Symmetry) scales such as Porcupine[8] and Slendric[11] — bridging Erv Wilson's structural 
+	scale theory with Sethares' psychoacoustic framework. We further introduce <em>reverse tuning</em>: 
+	the systematic construction of pseudoharmonic timbres matched to a given scale, and demonstrate 
+	that reverse-tuned 12-TET achieves higher mean consonance than quarter-comma meantone with 
+	harmonic timbre — a result with implications for electronic music production and instrument design.
 </p>
 
 <h2>2. Method</h2>
@@ -673,39 +701,72 @@
 
 <h2>5. Discussion</h2>
 
-<h3>5.1 Timbre Dependence</h3>
+<h3>5.1 The Hull Extraction: Why It Matters</h3>
 
 <p>
-	The most important property of the PitchGrid Consonance Measure is its explicit dependence on 
-	timbre. Consonance is not a property of an interval alone — it is a property of the 
-	<em>combination</em> of interval and spectrum. This has profound implications:
+	The central novelty of this work is the <em>hull extraction</em> technique. Prior approaches to 
+	consonance based on the Plomp-Levelt model (Sethares 1993, 2005; Vassilakis 2001) work with 
+	the raw dissonance curve — identifying consonant intervals as dissonance minima. But minima of 
+	varying depth on a shifting baseline resist quantitative comparison. A shallow minimum at 400¢ 
+	might represent a "better" consonance than a deep minimum at 700¢ if the local dissonance 
+	baseline is different.
+</p>
+<p>
+	Hull extraction solves this by fitting a smooth envelope to the dissonance curve and measuring 
+	consonance as the <em>residual</em> — how far each interval drops below its spectral neighborhood. 
+	This is conceptually analogous to how the auditory system likely processes consonance: not as 
+	absolute roughness, but as roughness <em>relative to expectation</em>. The result is a measure 
+	that automatically adapts to different timbres, registers, and spectral densities without manual 
+	calibration.
+</p>
+<p>
+	To our knowledge, no prior work in the consonance/dissonance literature has applied envelope 
+	extraction to the Plomp-Levelt dissonance curve or defined consonance as a hull residual. 
+	The closest analogues exist in other fields — spectral baseline correction in analytical 
+	chemistry, trend extraction in signal processing — but the application to musical consonance 
+	appears to be new.
+</p>
+
+<h3>5.2 Timbre Dependence</h3>
+
+<p>
+	The PitchGrid Consonance Measure inherits from Sethares the crucial insight that consonance 
+	is not a property of an interval alone — it is a property of the <em>combination</em> of 
+	interval and spectrum. What our measure adds is a way to <em>quantify</em> this relationship:
 </p>
 <ul>
 	<li><strong>Instrument design</strong>: The optimal tuning for an instrument depends on its spectrum. 
-		Metallophones and bells (inharmonic spectra) naturally favor non-standard scales.</li>
+		Metallophones and bells (inharmonic spectra) naturally favor non-standard scales — and the 
+		mean consonance score can now tell us <em>by how much</em>.</li>
 	<li><strong>Electronic music</strong>: Synthesized timbres can be designed to make any desired scale 
-		consonant — Sethares' key insight, now quantified by our measure.</li>
-	<li><strong>Generalized music theory</strong>: Scale theory (e.g., MOS scales, regular temperaments) 
-		can be paired with consonance analysis to predict which scales will "work" for a given timbre.</li>
+		consonant. Our reverse tuning results demonstrate this quantitatively for the first time.</li>
+	<li><strong>Generalized music theory</strong>: Scale theory (MOS scales, regular temperaments) 
+		can be paired with consonance analysis to predict which scales will "work" for a given timbre 
+		— enabling systematic exploration of the vast space of non-diatonic tonal structures.</li>
 </ul>
 
-<h3>5.2 Relationship to Existing Measures</h3>
+<h3>5.3 Relationship to Existing Measures</h3>
 
 <p>
 	Several consonance measures exist in the literature: Euler's <em>gradus suavitatis</em>, 
-	Tenney height, harmonic entropy (Erlich), and various roughness models. The PitchGrid measure 
-	differs in several key ways:
+	Tenney height, harmonic entropy (Erlich), and various roughness models (Vassilakis, 
+	Harrison &amp; Pearce). The PitchGrid measure occupies a distinct niche:
 </p>
 <ul>
 	<li>Unlike ratio-based measures (Euler, Tenney), it applies to <em>any</em> interval, including 
-		irrational ones (tempered intervals).</li>
-	<li>Unlike harmonic entropy, it is fully timbre-dependent rather than assuming a universal harmonic 
-		template.</li>
-	<li>Unlike raw roughness models (Sethares, Vassilakis), it provides a normalized 0–1 scale with 
-		clear perceptual meaning through the hull-extraction and log-scaling steps.</li>
+		irrational ones (tempered intervals), without requiring approximation by simple ratios.</li>
+	<li>Unlike harmonic entropy (Erlich), which is a top-down information-theoretic measure of 
+		ratio ambiguity, our approach is bottom-up: derived from the physics of beating partials. 
+		The two approaches measure different aspects of consonance and are complementary.</li>
+	<li>Unlike raw roughness models (Sethares, Vassilakis), it provides a normalized 0–1 scale 
+		through the novel hull-extraction and log-scaling steps — enabling the quantitative 
+		comparisons demonstrated in this article.</li>
+	<li>Unlike composite models (Harrison &amp; Pearce 2020), which combine roughness, harmonicity, 
+		and familiarity to predict chord ratings, our measure is intentionally pure — isolating 
+		the sensory component to serve as a foundation for higher-level analysis.</li>
 </ul>
 
-<h3>5.3 Limitations</h3>
+<h3>5.4 Limitations</h3>
 
 <p>
 	The current measure is purely based on sensory (roughness) dissonance and does not account for:
@@ -718,8 +779,11 @@
 		harmonic templates is not modeled.</li>
 </ul>
 <p>
-	Nevertheless, as a <em>sensory</em> consonance measure, it provides a rigorous, computable 
-	foundation upon which higher-level musical analysis can build.
+	These are deliberate omissions, not oversights. The measure is designed to capture the 
+	<em>sensory floor</em> of consonance — the psychoacoustic foundation upon which musical 
+	context, cultural learning, and cognitive processing operate. A complete consonance model 
+	would integrate our measure with harmonic entropy and contextual factors, but the sensory 
+	component must be isolated and correct before it can be combined.
 </p>
 
 <h2>6. Reverse Tuning: Constructing Timbres for Scales</h2>
@@ -908,6 +972,12 @@
 		and their Musical Significance</em>. PhD thesis, UCLA.</li>
 	<li>Milne, A. J., Sethares, W. A. &amp; Plamondon, J. (2007). "Isomorphic controllers and 
 		dynamic tuning." <em>Computer Music Journal</em>, 31(4), 15–32.</li>
+	<li>Harrison, P. M. C. &amp; Pearce, M. T. (2020). "Simultaneous consonance in music perception 
+		and composition." <em>Psychological Review</em>, 127(2), 216–244.</li>
+	<li>Eerola, T. &amp; Lahdelma, I. (2021). "The anatomy of consonance/dissonance: Evaluating 
+		acoustic and cultural predictors across multiple datasets." <em>Music &amp; Science</em>, 4.</li>
+	<li>Wilson, E. (1975). "Letter to Chalmers pertaining to Moments of Symmetry." 
+		Published at anaphoria.com.</li>
 </ol>
 
 </div>
