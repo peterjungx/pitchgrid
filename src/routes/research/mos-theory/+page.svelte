@@ -942,14 +942,23 @@
 	striking musical consequence: the structural content of a composition can survive 
 	<em>radical</em> retuning. Consider a Bach fugue. Its architecture — the imitative 
 	entries, the voice leading, the formal structure — is determined by the lattice 
-	relationships between notes, not by their specific frequencies. Retune the diatonic 
-	scale to an extreme meantone variant — say, one where the minor third is tuned to the 
-	septimal ratio 7/6 (266.9¢ instead of the usual 315.6¢, achieved in a meantone that 
-	tempers out the septimal semicomma 126/125) — and the harmonic color changes 
-	dramatically. But the structural logic of the composition remains intact: voices still 
-	enter at the right scale degrees, imitation still works, the formal architecture holds. 
-	Structure and tuning are orthogonal, and the structure is what carries the compositional 
-	meaning.
+	relationships between notes, not by their specific frequencies. Now retune the diatonic 
+	scale to a superpythagorean fifth of ~711¢ — a "7-limit diatonic" where the minor 
+	third shrinks to 7/6 (266.9¢ instead of the familiar ~300–316¢) and the major third 
+	stretches to nearly 9/7 (435.1¢). The harmonic color transforms completely: familiar 
+	intervals acquire an alien, septimal quality that evokes entirely different feelings 
+	from meantone or equal temperament. Yet the fugue still <em>works</em> — one still 
+	wants to listen to it. The entries fall on the right scale degrees, the imitation is 
+	intact, the formal architecture holds. On instruments with a strong 7th harmonic, 
+	these septimal intervals are surprisingly consonant, producing a distinctive sound 
+	that is unfamiliar but harmonically pleasing.
+</p>
+<p>
+	This is the power of the structure/tuning separation in action. The composition's 
+	meaning lives in the lattice — in the structural relationships between notes — not 
+	in their specific frequencies. Tuning determines <em>color</em>; structure determines 
+	<em>architecture</em>. They are orthogonal, and it is the architecture that carries 
+	the compositional content.
 </p>
 <p>
 	PitchGrid is a straightforward generalization of the Western tonal structure. The diatonic 
