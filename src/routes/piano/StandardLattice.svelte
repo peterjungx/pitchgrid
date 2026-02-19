@@ -38,6 +38,7 @@
 
     // generate lattice nodes, 0 <= x <= a, 0 <= y <= b
     function update(s:Vector2i, node_col:string, edge_col:string, rect_col:string, affine_t:AffineTransform) {
+        if (!affine_t) return;
         _nodes = [];
         _edges = [];
         _rects = [];

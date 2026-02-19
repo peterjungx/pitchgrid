@@ -13,6 +13,7 @@
     let edges:edge[] = [];
 
     function update(mos:MOS, affine_t:AffineTransform) {
+        if (!affine_t) return;
         nodes = [];
         edges = [];
 

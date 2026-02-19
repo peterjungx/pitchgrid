@@ -280,6 +280,7 @@
 						<a href="/info/ScaleMapper">Scale Mapper</a>
 					</div>
 				</li>
+				<li><a href="/research">Research</a></li>
 				<li><a href="https://node.audio/products/pitchgrid" target="_blank">Plugin</a></li>
 				<li class="nav-icon-links">
 					<a href="https://www.youtube.com/playlist?list=PLY4_jglyyynCPIssKpbC-ZejFcSrjBemR" target="_blank" rel="noopener noreferrer" class="nav-icon" title="YouTube">

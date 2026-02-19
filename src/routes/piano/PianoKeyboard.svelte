@@ -31,6 +31,7 @@
     function update_keys(nodeinfos:nodeinfo[], height:number) {
 
         console.log('update_keys');
+        if (!nodeinfos || nodeinfos.length === 0) return;
         let keys:PianoKey[] = [];
         
         let x_min = nodeinfos[0].n.p.x;

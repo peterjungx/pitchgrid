@@ -42,6 +42,7 @@
         strip_width:number
     
     ) {
+        if (!affine_t) return;
 
         let base_notes = mos.base_scale.getNodes();
         let base_note_dic = new Map();

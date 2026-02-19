@@ -110,7 +110,7 @@
         pitch_lines = [];
 
         // Only update if scalatrix is loaded and data is available
-        if (!sx || !pitchSet || loading) return;
+        if (!sx || !pitchSet || loading || !affine_t) return;
 
         try {
             let base_scale_nodes = mos.base_scale.getNodes();

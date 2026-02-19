@@ -34,8 +34,8 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<circle 
-    cx="{node.p.x}" cy="{node.p.y}" r="{ size }" fill="{color}"
+<ellipse 
+    cx="{node.p.x}" cy="{node.p.y}" rx="{ size * 1.2 }" ry="{ size }" fill="{color}"
     on:click|preventDefault={handleNodeClick}
 />
 <text 

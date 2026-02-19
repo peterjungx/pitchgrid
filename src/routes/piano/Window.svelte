@@ -8,6 +8,8 @@
     import type {MOS, AffineTransform, Vector2i} from '$lib/scalatrix';
 
     export let sx: any;
+    export let initDepth: number = 3;
+    export let initMode: number = 1;
 
     import {onMount} from 'svelte';
 
@@ -18,13 +20,13 @@
     let system:Vector2i = {x:2,y:5};
     let generator = 7/12;
     //let generator = .5849625007; // log2(3/2) = pythagorean tuning
-    let depth = 3;
+    let depth = initDepth;
 
     let steps = 12;
     let window_width_y = 200;
     let key_std_width = 32;
     let offset = 4; 
-    let mode = 1;
+    let mode = initMode;
     let stretch = 1.0;
     let mos:MOS = sx.MOS.fromG(depth, mode, generator, stretch, 1);
     
@@ -62,10 +64,14 @@
 
     let scale_to_screen_affine_t:AffineTransform;
     function update_affine(strip_width:number, key_std_width:number, offset:number, window_width_y:number, mos:MOS, s:Vector2i){
+        // Guard against uninitialized dimensions
+        if (w === 0 || h === 0) return;
         if (scale_to_screen_affine_t!==undefined)scale_to_screen_affine_t.delete();
+        // If L_vec[0] is 0, large step is on the left - reverse generator direction so large always goes right
+        const gen_sign = mos.L_vec.x === 0 ? -1 : 1;
         scale_to_screen_affine_t = sx.affineFromThreeDots(
             {x:0, y:0}, 
-            mos.v_gen, 
+            {x: mos.v_gen.x * gen_sign, y: mos.v_gen.y * gen_sign}, 
             s,       
             {x: (w- key_std_width*strip_width)/2, y:100+window_width_y*(1-(offset-.5)/strip_width)}, 
             {x: (w- key_std_width*strip_width)/2 + generator*key_std_width*strip_width, 
@@ -73,8 +79,7 @@
             {x: (w+ key_std_width*strip_width)/2, y:100+window_width_y*(1-(offset-.5)/strip_width)}  
         );
     }
-    update_affine(steps, key_std_width, offset, window_width_y, mos, system);
-    $: update_affine(steps, key_std_width, offset, window_width_y, mos, system);
+    $: w, h, update_affine(steps, key_std_width, offset, window_width_y, mos, system);
 
     //let scale_to_screen_affine_t:AffineTransform;
     //function updateAffine(tuning_to_screen_affine_t:any, mos:any){

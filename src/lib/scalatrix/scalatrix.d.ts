@@ -116,7 +116,7 @@ export type Node = {
   pitch: number
 };
 
-export interface VectorNode extends ClassHandle {
+export interface VectorNode extends ClassHandle, Iterable<Node> {
   push_back(_0: Node): void;
   resize(_0: number, _1: Node): void;
   size(): number;
@@ -130,7 +130,7 @@ export type PseudoPrimeInt = {
   log2fr: number
 };
 
-export interface PrimeList extends ClassHandle {
+export interface PrimeList extends ClassHandle, Iterable<PseudoPrimeInt> {
   push_back(_0: PseudoPrimeInt): void;
   resize(_0: number, _1: PseudoPrimeInt): void;
   size(): number;
@@ -143,7 +143,7 @@ export type PitchSetPitch = {
   log2fr: number
 };
 
-export interface PitchSet extends ClassHandle {
+export interface PitchSet extends ClassHandle, Iterable<PitchSetPitch> {
   push_back(_0: PitchSetPitch): void;
   resize(_0: number, _1: PitchSetPitch): void;
   size(): number;
@@ -154,6 +154,7 @@ export interface PitchSet extends ClassHandle {
 interface EmbindModule {
   IntegerAffineTransform: {
     new(_0: number, _1: number, _2: number, _3: number, _4: number, _5: number): IntegerAffineTransform;
+    linearFromTwoDots(_0: Vector2i, _1: Vector2i, _2: Vector2i, _3: Vector2i): IntegerAffineTransform;
   };
   AffineTransform: {
     new(_0: number, _1: number, _2: number, _3: number, _4: number, _5: number): AffineTransform;

@@ -34,7 +34,7 @@
 
 
     function update(G_s:number, mos:MOS, nodecolor:string, edgecolor:string, affine_t:any, num_nodes:number, origin_node_pos:number) {
-        if (num_nodes==0) return;
+        if (num_nodes==0 || !affine_t) return;
 
         nodes = [];
         edges = [];
