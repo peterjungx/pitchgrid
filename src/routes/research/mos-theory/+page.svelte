@@ -846,7 +846,7 @@
 	the transitional "non-MOS" scales that PitchGrid traverses when depth varies continuously.
 </p>
 
-<h2 id="design-space">12. The Design Space</h2>
+<h2 id="design-space">12. The Design Space and Open Questions</h2>
 
 <p>
 	The rank-2 MOS framework reveals that the diatonic scale is one point in a vast 
@@ -869,15 +869,97 @@
 	Every point in this space defines a complete tonal system with its own intervals, modes, 
 	accidentals, and structural relationships — and for each structure, infinitely many 
 	tunings are possible. The consonance properties of each system depend on the interaction 
-	between the scale's intervals (determined by the structure + tuning) and the timbre's 
-	partial structure — as analyzed quantitatively in our 
-	<a href="/research/consonance">spiky consonance study</a>.
+	between the scale's intervals and the timbre's partial structure — as analyzed 
+	quantitatively in our <a href="/research/consonance">spiky consonance study</a>.
+</p>
+
+<h3>12.1 What Generalizes?</h3>
+
+<p>
+	Western music has developed the most elaborate system of compositional devices in history: 
+	harmony, counterpoint, voice leading, chord progressions, cadences, modulation, and 
+	large-scale tonal architecture. All of these are built on the diatonic MOS structure. 
+	The central question is not merely what alternative scales <em>sound</em> like — it is 
+	which of these compositional devices <strong>generalize</strong> to the structurally 
+	analogous space of all MOS scales, and which are specific to the diatonic case.
 </p>
 <p>
-	The research question that PitchGrid ultimately poses is: <em>what do these alternative 
-	tonal architectures sound like?</em> With the tools developed here — parametric scale 
-	construction, generalized interval naming, continuous tuning control, lattice algebra, 
-	and quantitative consonance analysis — this question can now be explored systematically.
+	Consider what changes when we move from 5L+2s to a different MOS:
+</p>
+<ul>
+	<li><strong>Chords</strong> are not stacks of thirds. In diatonic music, the triad 
+		(root–third–fifth) is a stack of two generic 2-step intervals. In a Porcupine[8] 
+		scale (1L+7s), the analogous structure would be a stack of 2-step intervals of a 
+		very different character. In Bohlen–Pierce (5L+4s), the basic harmonic unit spans 
+		different generic intervals entirely. The <em>concept</em> of building chords by 
+		stacking generic intervals generalizes; the specific stacking recipe does not.</li>
+	<li><strong>Chord progressions</strong> in Western music are governed by the circle of 
+		fifths — movement by the generator. Every MOS has its own generator, and therefore 
+		its own "circle." But the harmonic implications of moving by one generator step depend 
+		on the MOS structure: in a 5L+2s scale, moving by the generator changes one note 
+		by a chroma (key signature change); in other MOS scales, the same structural operation 
+		has a different effect on the scale content.</li>
+	<li><strong>Voice leading</strong> — the principle that voices should move by small 
+		intervals — is structural: it depends on the lattice geometry, not on specific 
+		frequencies. The <em>smoothest</em> voice leading between two chords depends on which 
+		lattice vectors are "small" — and this changes with the MOS structure.</li>
+	<li><strong>Counterpoint rules</strong> — constraints on simultaneous intervals and their 
+		progression — depend on which intervals are consonant and which are dissonant. In 
+		diatonic music, this classification is historically given. For arbitrary MOS scales, 
+		it can be derived from <a href="/research/consonance">psychoacoustic analysis</a>, 
+		enabling a principled generalization of counterpoint to any tonal structure.</li>
+	<li><strong>Resolution and tension</strong> — the sense that certain intervals "want" to 
+		resolve to others — arises from the interaction between consonance and voice leading. 
+		A dissonant interval adjacent to a consonant one on the lattice creates tension; 
+		movement to the consonant neighbor resolves it. This mechanism is structural and 
+		should generalize, but the specific patterns of tension and resolution will be 
+		different for each MOS.</li>
+</ul>
+
+<h3>12.2 Instruments and Interfaces</h3>
+
+<p>
+	The standard piano keyboard is a physical encoding of the diatonic MOS structure: 
+	seven white keys (the natural notes of one mode) and five black keys (the chromatic 
+	alterations), arranged in the specific pattern of the 5L+2s scale. This layout is 
+	<em>not</em> structurally neutral — it privileges the diatonic scale and makes other 
+	MOS structures awkward to play.
+</p>
+<p>
+	<strong>Isomorphic controllers</strong> — instruments whose playing surface is a regular 
+	two-dimensional grid (such as the Lumatone, Linnstrument, or Dualo) — are naturally 
+	suited to the MOS framework. On an isomorphic layout, the same fingering pattern 
+	produces the same musical structure regardless of which MOS scale or tuning is selected. 
+	Transposition, mode changes, and even changes of MOS family become geometric operations 
+	on the grid, preserving the player's motor memory. The two-dimensional lattice that 
+	underlies MOS theory maps directly onto the two-dimensional playing surface.
+</p>
+
+<h3>12.3 A Natural Next Step?</h3>
+
+<p>
+	PitchGrid is a straightforward generalization of the Western tonal structure. The diatonic 
+	scale, with its modes, intervals, accidentals, and circle of fifths, is not an isolated 
+	phenomenon — it is one instance of a universal construction that produces infinitely many 
+	tonal systems with analogous structural richness. The mathematical framework is the same; 
+	only the parameters differ.
+</p>
+<p>
+	Western music spent centuries exploring the compositional possibilities of a single MOS 
+	structure (5L+2s) under a handful of tunings. The tools now exist — parametric scale 
+	construction, generalized notation, quantitative consonance analysis, isomorphic 
+	controllers, and software synthesis — to explore the rest of the space with comparable 
+	depth. Whether this exploration yields musical traditions as rich as Western tonality is 
+	an open question. But the structural potential is there, and the framework to investigate 
+	it is now in place.
+</p>
+<p>
+	Does PitchGrid represent a natural next step in the evolution of music? The answer depends 
+	on whether the compositional richness of Western music is a property of the <em>specific</em> 
+	diatonic structure, or of the <em>general</em> MOS construction that produces it. This 
+	article has shown that the structural machinery — lattices, intervals, modes, accidentals, 
+	transformations — generalizes completely. The question of whether the <em>musical</em> 
+	richness follows is the most exciting open problem in scale theory today.
 </p>
 
 <h2 id="references">13. References</h2>
