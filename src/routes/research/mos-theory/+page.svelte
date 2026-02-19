@@ -380,7 +380,7 @@
 		The <strong>MOS scale</strong> of cardinality <var>n</var> is the set of pitches:
 	</p>
 	<div class="formula">
-		<var>S<sub>n</sub></var> = { <var>k</var> · <var>g</var> mod <var>E</var> : <var>k</var> = 0, 1, …, <var>n</var>−1 }
+		<var>S<sub>n</sub></var> = {'{'} <var>k</var> · <var>g</var> mod <var>E</var> : <var>k</var> = 0, 1, …, <var>n</var>−1 {'}'}
 	</div>
 	<p>
 		A scale <var>S<sub>n</sub></var> is a <strong>Moment of Symmetry</strong> if it has exactly 
@@ -609,7 +609,7 @@
 <div class="definition">
 	<div class="def-label">Definition 7 — Mode</div>
 	<p>
-		The <strong>mode</strong> <var>m</var> ∈ {0, 1, …, <var>n</var>−1} of an MOS scale 
+		The <strong>mode</strong> <var>m</var> ∈ {'{'} 0, 1, …, <var>n</var>−1 {'}'} of an MOS scale 
 		determines the rotation of the step pattern. Mode 0 has the most "bright" (large-step-heavy) 
 		character; mode <var>n</var>−1 is the most "dark." In Western terms: mode 0 corresponds to 
 		Lydian (brightest), and mode <var>n</var>−1 to Locrian (darkest).
@@ -702,7 +702,7 @@
 	<div class="thm-label">Theorem 2 — Three-Gap Theorem (Sós, 1958)</div>
 	<p>
 		Let <var>α</var> ∈ (0, 1) be irrational and <var>n</var> ≥ 1. Place points at 
-		positions {<var>k</var> · <var>α</var> mod 1 : <var>k</var> = 0, …, <var>n</var>−1} 
+		positions {'{'} <var>k</var> · <var>α</var> mod 1 : <var>k</var> = 0, …, <var>n</var>−1 {'}'} 
 		on the unit circle. The gaps between consecutive points take at most three distinct 
 		lengths. If exactly three lengths occur, one equals the sum of the other two.
 	</p>
@@ -731,7 +731,7 @@
 	<li><strong>Generator</strong> <var>g</var> ∈ (0, <var>E</var>): the generative interval. Fifths give diatonic scales; other generators give Porcupine, Slendric, Mavila, and hundreds of other temperament families.</li>
 	<li><strong>Depth</strong> <var>d</var> ∈ ℕ: the number of iterations, determining the scale's cardinality. Depth 2 gives pentatonic, depth 3 gives diatonic, depth 4 gives chromatic (for the fifth generator).</li>
 	<li><strong>Equave</strong> <var>E</var>: the interval of equivalence. Octave (1200¢) is standard, but tritave (1902¢), double octave, or other values produce radically different tonal worlds.</li>
-	<li><strong>Mode</strong> <var>m</var> ∈ {0, …, <var>n</var>−1}: the rotation of the step pattern, governing the character (bright/dark) of the scale.</li>
+	<li><strong>Mode</strong> <var>m</var> ∈ {'{'} 0, …, <var>n</var>−1 {'}'}: the rotation of the step pattern, governing the character (bright/dark) of the scale.</li>
 </ul>
 <p>
 	Every point in this space defines a complete tonal system with its own intervals, modes, 
