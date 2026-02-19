@@ -25,6 +25,11 @@
 </svelte:head>
 
 <style>
+	:global(html) {
+		background-color: #1a1a2e;
+		color-scheme: dark;
+	}
+
 	:global(body) {
 		margin: 0;
 		padding: 0;
