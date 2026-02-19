@@ -4,6 +4,15 @@
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 
 	injectAnalytics({ mode: 'auto' });
+
+	let mobileMenuOpen = false;
+
+	function toggleMenu() {
+		mobileMenuOpen = !mobileMenuOpen;
+	}
+
+	// Close menu on navigation
+	$: $page.url.pathname, mobileMenuOpen = false;
 </script>
 
 <svelte:head>
@@ -236,6 +245,50 @@
 	@media (max-width: 768px) {
 		.nav-links {
 			display: none;
+			flex-direction: column;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			background: rgba(26, 26, 46, 0.98);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid rgba(255, 171, 0, 0.3);
+			padding: 1rem 2rem;
+			gap: 0.5rem;
+		}
+
+		.nav-links.mobile-open {
+			display: flex;
+		}
+
+		.nav-links li {
+			width: 100%;
+		}
+
+		.nav-links a {
+			display: block;
+			padding: 0.75rem 0;
+		}
+
+		.nav-icon-links {
+			padding-top: 0.5rem;
+			border-top: 1px solid rgba(255, 171, 0, 0.15);
+			margin-top: 0.5rem;
+			margin-left: 0;
+		}
+
+		.dropdown-content {
+			position: static;
+			display: block;
+			border: none;
+			box-shadow: none;
+			padding: 0 0 0 1rem;
+			margin-top: 0;
+			min-width: unset;
+		}
+
+		.dropdown-content::before {
+			display: none;
 		}
 
 		.mobile-menu-btn {
@@ -260,7 +313,7 @@
 				<img src="/PitchGridLogo-Plugin.svg" alt="PitchGrid" height="32" />
 			</a>
 			
-			<ul class="nav-links">
+			<ul class="nav-links" class:mobile-open={mobileMenuOpen}>
 				<li class="dropdown">
 					<a href="/diatonic">Tools</a>
 					<div class="dropdown-content">
@@ -295,7 +348,7 @@
 				</li>
 			</ul>
 
-			<button class="mobile-menu-btn">☰</button>
+			<button class="mobile-menu-btn" on:click={toggleMenu}>{mobileMenuOpen ? '✕' : '☰'}</button>
 		</div>
 	</nav>
 
