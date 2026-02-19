@@ -120,6 +120,20 @@
 		font-weight: 600;
 	}
 
+	.highlight-row {
+		background: rgba(255, 171, 0, 0.08);
+	}
+
+	.formula {
+		background: rgba(255, 255, 255, 0.04);
+		border-left: 3px solid rgba(255, 171, 0, 0.4);
+		padding: 0.8rem 1.2rem;
+		margin: 1rem 0;
+		font-family: 'Georgia', serif;
+		font-size: 1.1rem;
+		letter-spacing: 0.02em;
+	}
+
 	.references {
 		font-size: 0.92rem;
 		line-height: 1.7;
@@ -682,7 +696,131 @@
 	foundation upon which higher-level musical analysis can build.
 </p>
 
-<h2>6. Application to Counterpoint</h2>
+<h2>6. Reverse Tuning: Constructing Timbres for Scales</h2>
+
+<p>
+	Traditional tuning theory asks: <em>given the harmonic series, which scales sound most consonant?</em>
+	Reverse tuning inverts this question: <em>given a scale, which timbre maximizes its consonance?</em>
+</p>
+<p>
+	The Plomp-Levelt model depends on two inputs: the intervals of the scale and the partial frequencies 
+	of the timbre. While centuries of music theory have focused on adjusting scales to fit the harmonic 
+	series, reverse tuning adjusts the partials to fit the scale. For any tuning system, we construct a 
+	<strong>pseudoharmonic spectrum</strong> — a set of partials whose frequency ratios are derived from 
+	the scale's own intervals rather than from integer multiples of a fundamental.
+</p>
+<p>
+	For 12-TET, this means tuning the 3rd partial from its just value of 1902.0¢ to exactly 1900.0¢ 
+	(a tempered perfect twelfth), the 5th partial from 2786.3¢ to 2800.0¢ (a tempered major 
+	seventeenth), and deriving all composite partials from these adjusted primes. The result is a timbre 
+	that is acoustically <em>native</em> to equal temperament.
+</p>
+
+<h3>6.1 Mean Consonance Score</h3>
+
+<p>
+	To compare tuning/timbre configurations with different numbers of intervals fairly, we define the 
+	<strong>mean consonance score</strong> as the average <var>C</var>(<var>x</var>) over all scale 
+	intervals from unison (0¢) up to 1950¢:
+</p>
+<div class="formula">
+	C̄ = (1/<var>N</var>) · Σ <var>C</var>(<var>x<sub>i</sub></var>), &nbsp;&nbsp; 
+	<var>x<sub>i</sub></var> ∈ [0, 1950¢]
+</div>
+<p>
+	This always yields a value between 0 and 1, enabling direct comparison across tuning systems 
+	with different cardinalities.
+</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Configuration</th>
+			<th>Timbre</th>
+			<th># Intervals</th>
+			<th>Mean C̄</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="highlight-row">
+			<td><strong>12-TET (pseudoharmonic)</strong></td>
+			<td><strong>reverse-tuned</strong></td>
+			<td>22</td>
+			<td><strong>0.342</strong></td>
+		</tr>
+		<tr>
+			<td>1/4-comma Meantone</td>
+			<td>harmonic</td>
+			<td>22</td>
+			<td>0.319</td>
+		</tr>
+		<tr>
+			<td>Bohlen-Pierce</td>
+			<td>odd harmonics</td>
+			<td>18</td>
+			<td>0.316</td>
+		</tr>
+		<tr>
+			<td>Slendric[11]</td>
+			<td>harmonic</td>
+			<td>35</td>
+			<td>0.271</td>
+		</tr>
+		<tr>
+			<td>12-TET</td>
+			<td>harmonic</td>
+			<td>22</td>
+			<td>0.271</td>
+		</tr>
+		<tr>
+			<td>Pythagorean</td>
+			<td>harmonic</td>
+			<td>22</td>
+			<td>0.265</td>
+		</tr>
+		<tr>
+			<td>Porcupine[8]</td>
+			<td>harmonic</td>
+			<td>25</td>
+			<td>0.262</td>
+		</tr>
+	</tbody>
+</table>
+
+<h3>6.2 The Key Result</h3>
+
+<p>
+	<strong>Reverse-tuned 12-TET (C̄ = 0.342) beats 1/4-comma meantone with harmonic timbre 
+	(C̄ = 0.319).</strong>
+</p>
+<p>
+	Meantone temperament was historically designed to optimize the consonance of thirds within the 
+	harmonic series. Yet by reverse-tuning the timbre to 12-TET instead, we achieve a higher mean 
+	consonance — without any compromise on the scale side. The pseudoharmonic spectrum lifts nearly 
+	every interval: minor thirds jump from <var>C</var> = 0.00 to 0.25, major seconds from 0.14 to 
+	0.38, minor fifths from 0.08 to 0.40.
+</p>
+<p>
+	This suggests a paradigm shift: <strong>the optimal path to consonance may lie not in perfecting 
+	the tuning, but in adapting the timbre.</strong> For electronic and synthesized music — where 
+	timbre is freely adjustable — reverse tuning unlocks consonance in any scale, including those 
+	traditionally considered "out of tune."
+</p>
+
+<h3>6.3 Implications</h3>
+
+<ul>
+	<li><strong>Any MOS scale can be made consonant</strong> by constructing a matched pseudoharmonic 
+		spectrum. This opens Porcupine, Slendric, and other non-diatonic scales to consonant 
+		harmony.</li>
+	<li><strong>The mean consonance score</strong> provides a single number between 0 and 1 for 
+		comparing tuning/timbre configurations, enabling systematic optimization.</li>
+	<li><strong>For acoustic instruments</strong>, reverse tuning is constrained by physics — but 
+		for synthesis, sampling, and physical modeling, it offers a concrete recipe for building 
+		timbres that make any scale sing.</li>
+</ul>
+
+<h2>7. Application to Counterpoint</h2>
 
 <p>
 	The consonance measure naturally defines <em>consonance classes</em> that can serve as the basis 
@@ -702,7 +840,7 @@
 	counterpoint-like composition in entirely new tonal frameworks.
 </p>
 
-<h2>7. References</h2>
+<h2>8. References</h2>
 
 <ol class="references">
 	<li>Plomp, R. &amp; Levelt, W. J. M. (1965). "Tonal consonance and critical bandwidth." 
