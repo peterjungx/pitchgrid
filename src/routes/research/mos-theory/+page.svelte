@@ -935,8 +935,22 @@
 	underlies MOS theory maps directly onto the two-dimensional playing surface.
 </p>
 
-<h3>12.3 What Carries Over</h3>
+<h3>12.3 Structure Survives Retuning</h3>
 
+<p>
+	The separation of structure from tuning — the central theme of this article — has a 
+	striking musical consequence: the structural content of a composition can survive 
+	<em>radical</em> retuning. Consider a Bach fugue. Its architecture — the imitative 
+	entries, the voice leading, the formal structure — is determined by the lattice 
+	relationships between notes, not by their specific frequencies. Retune the diatonic 
+	scale to an extreme meantone variant — say, one where the minor third is tuned to the 
+	septimal ratio 7/6 (266.9¢ instead of the usual 315.6¢, achieved in a meantone that 
+	tempers out the septimal semicomma 126/125) — and the harmonic color changes 
+	dramatically. But the structural logic of the composition remains intact: voices still 
+	enter at the right scale degrees, imitation still works, the formal architecture holds. 
+	Structure and tuning are orthogonal, and the structure is what carries the compositional 
+	meaning.
+</p>
 <p>
 	PitchGrid is a straightforward generalization of the Western tonal structure. The diatonic 
 	scale, with its modes, intervals, accidentals, and circle of fifths, is not an isolated 
