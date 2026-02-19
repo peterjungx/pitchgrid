@@ -807,7 +807,31 @@
 	traditionally considered "out of tune."
 </p>
 
-<h3>6.3 Implications</h3>
+<h3>6.3 Perceptual Limits of Reverse Tuning</h3>
+
+<p>
+	A crucial caveat: stronger deviations from harmonicity give the timbre a metallic, bell-like 
+	quality. At some point, the human auditory system ceases to fuse the partials into a single 
+	coherent pitch and instead perceives them as distinct, separate tones. The pseudoharmonic 
+	adjustments for 12-TET are very small — the largest shift is only 13.7¢ on the 5th partial — 
+	and remain well within perceptual tolerance. For more exotic scales, however, the required 
+	deviations may become audibly unnatural.
+</p>
+<p>
+	Developing a <strong>quantitative measure of deviation from harmonicity</strong> that captures 
+	the risk of destroying timbral coherence is a key question that will be tackled in upcoming 
+	research. Such a measure would act as a constraint on reverse tuning: the pseudoharmonic 
+	spectrum must not deviate so far from the harmonic series that it loses its identity as a 
+	pitched sound.
+</p>
+<p>
+	This opens an exciting avenue: <strong>jointly optimizing tuning and timbre</strong> to maximize 
+	consonance while minimizing deviation from harmonicity. Rather than fixing one and adjusting 
+	the other, both the scale and the spectrum become free parameters in a single optimization 
+	problem — a possibility that the PitchGrid consonance framework now makes tractable.
+</p>
+
+<h3>6.4 Implications</h3>
 
 <ul>
 	<li><strong>Any MOS scale can be made consonant</strong> by constructing a matched pseudoharmonic 
@@ -818,6 +842,8 @@
 	<li><strong>For acoustic instruments</strong>, reverse tuning is constrained by physics — but 
 		for synthesis, sampling, and physical modeling, it offers a concrete recipe for building 
 		timbres that make any scale sing.</li>
+	<li><strong>Joint tuning-timbre optimization</strong>, balancing consonance against timbral 
+		naturalness, is a natural next step enabled by this framework.</li>
 </ul>
 
 <h2>7. Application to Counterpoint</h2>
