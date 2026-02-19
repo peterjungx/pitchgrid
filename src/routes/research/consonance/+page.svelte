@@ -202,7 +202,29 @@
 
 <h2>2. Method</h2>
 
-<h3>2.1 Plomp-Levelt Dissonance Curve</h3>
+<h3>2.1 Interval Naming Convention</h3>
+
+<p>
+	Throughout this article, we use a <strong>zero-based interval naming convention</strong> designed
+	to generalize naturally to any MOS (Moment of Symmetry) scale. In this system:
+</p>
+<ul>
+	<li><strong>P0</strong> = unison, <strong>P7</strong> = octave (for 7-note diatonic scales)</li>
+	<li>Intervals that come in two sizes across modes are labeled <strong>mX</strong> (minor) and
+		<strong>MX</strong> (Major) — e.g., m2 = minor third, M2 = major third in diatonic</li>
+	<li>We deliberately avoid the traditional labels "perfect fourth" (P4) and "perfect fifth" (P5).
+		In our notation these are <strong>m3</strong> and <strong>M4</strong> respectively, because the
+		concept of "perfection" for 4ths and 5ths does not generalize to non-diatonic MOS scales where
+		different step counts may be "perfect"</li>
+	<li>This notation extends naturally: a Bohlen-Pierce scale uses P0–P9, Porcupine[8] uses P0–P8,
+		and Slendric[11] uses P0–P11, each with their own minor/Major interval pairs</li>
+</ul>
+
+<p>
+	For readability, conventional names are given in parentheses where they first appear.
+</p>
+
+<h3>2.2 Plomp-Levelt Dissonance Curve</h3>
 
 <p>
 	Given a timbre defined by a set of partials with frequencies 
@@ -244,7 +266,7 @@
 	<span class="label">(2)</span>
 </div>
 
-<h3>2.2 The Hull Curve (Hull₃)</h3>
+<h3>2.3 The Hull Curve (Hull₃)</h3>
 
 <p>
 	The dissonance curve <var>D</var>(<var>x</var>) contains sharp valleys at consonant intervals, 
@@ -275,7 +297,7 @@
 		Hull₃ provides a smoother, more faithful envelope of the dissonance curve shoulders.</figcaption>
 </figure>
 
-<h3>2.3 The Spiky Consonance Curve</h3>
+<h3>2.4 The Spiky Consonance Curve</h3>
 
 <p>
 	The <em>spiky consonance curve</em> is defined as the residual:
@@ -293,7 +315,7 @@
 	consonant ratios.
 </p>
 
-<h3>2.4 Normalization</h3>
+<h3>2.5 Normalization</h3>
 
 <p>
 	We normalize the spiky curve by dividing by its value at unison (0 cents):
@@ -306,7 +328,7 @@
 
 <p>so that unison always has normalized spiky value 1.</p>
 
-<h3>2.5 The PitchGrid Consonance Measure</h3>
+<h3>2.6 The PitchGrid Consonance Measure</h3>
 
 <p>
 	Finally, we apply a logarithmic scaling to map the normalized spiky values to a perceptually 
@@ -359,79 +381,85 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td>Unison (P1)</td>
+			<td>P0 (unison)</td>
 			<td>1.00</td>
 			<td>1.00</td>
 			<td>1.00</td>
 		</tr>
 		<tr>
-			<td>Minor second (m2)</td>
+			<td>m1 (minor second)</td>
 			<td>0.00</td>
 			<td>0.00</td>
 			<td>0.00</td>
 		</tr>
 		<tr>
-			<td>Major second (M2)</td>
+			<td>M1 (major second)</td>
 			<td>0.00</td>
 			<td>0.00</td>
 			<td>0.00</td>
 		</tr>
 		<tr>
-			<td>Minor third (m3)</td>
+			<td>m2 (minor third)</td>
 			<td>0.16</td>
 			<td>0.11</td>
 			<td>0.38</td>
 		</tr>
 		<tr>
-			<td>Major third (M3)</td>
+			<td>M2 (major third)</td>
 			<td class="highlight">0.30</td>
 			<td>0.22</td>
 			<td class="highlight">0.54</td>
 		</tr>
 		<tr>
-			<td>Perfect fourth (P4)</td>
+			<td>m3 (perfect fourth)</td>
 			<td>0.60</td>
 			<td>0.61</td>
 			<td>0.58</td>
 		</tr>
 		<tr>
-			<td>Tritone (A4/d5)</td>
+			<td>M3 (augmented fourth)</td>
 			<td>0.00</td>
 			<td>0.00</td>
-			<td>0.00</td>
+			<td class="highlight">0.25</td>
 		</tr>
 		<tr>
-			<td>Perfect fifth (P5)</td>
+			<td>m4 (diminished fifth)</td>
+			<td>0.00</td>
+			<td>0.17</td>
+			<td>0.06</td>
+		</tr>
+		<tr>
+			<td>M4 (perfect fifth)</td>
 			<td>0.73</td>
 			<td class="highlight">0.74</td>
 			<td>0.71</td>
 		</tr>
 		<tr>
-			<td>Minor sixth (m6)</td>
+			<td>m5 (minor sixth)</td>
 			<td>0.22</td>
 			<td>0.18</td>
 			<td>0.44</td>
 		</tr>
 		<tr>
-			<td>Major sixth (M6)</td>
+			<td>M5 (major sixth)</td>
 			<td>0.12</td>
 			<td>0.08</td>
 			<td>0.31</td>
 		</tr>
 		<tr>
-			<td>Minor seventh (m7)</td>
+			<td>m6 (minor seventh)</td>
 			<td>0.00</td>
 			<td>0.00</td>
 			<td>0.00</td>
 		</tr>
 		<tr>
-			<td>Major seventh (M7)</td>
+			<td>M6 (major seventh)</td>
 			<td>0.00</td>
 			<td>0.00</td>
 			<td>0.00</td>
 		</tr>
 		<tr>
-			<td>Octave (P8)</td>
+			<td>P7 (octave)</td>
 			<td class="highlight">0.83</td>
 			<td class="highlight">0.83</td>
 			<td class="highlight">0.83</td>
@@ -441,15 +469,19 @@
 
 <p>Key observations:</p>
 <ul>
-	<li>The <strong>octave</strong> (0.83) and <strong>fifth</strong> (0.73–0.74) are the most consonant 
+	<li>The <strong>octave</strong> (P7, 0.83) and <strong>fifth</strong> (M4, 0.73–0.74) are the most consonant 
 		intervals across all tuning systems — consistent with universal musical practice.</li>
 	<li>The <strong>Pythagorean fifth</strong> (0.74) slightly exceeds the 12-TET fifth (0.73), reflecting 
 		the just 3:2 ratio.</li>
-	<li><strong>Quarter-comma meantone</strong> dramatically improves thirds: the major third jumps from 
+	<li><strong>Quarter-comma meantone</strong> dramatically improves thirds: M2 (major third) jumps from 
 		0.30 (12-TET) to <span class="highlight">0.54</span>, reflecting the just 5:4 ratio. This comes 
-		at a small cost to the fifth (0.71 vs 0.73).</li>
-	<li>Seconds, sevenths, and the tritone consistently receive consonance values of 0 — correctly 
+		at a small cost to M4 (fifth): 0.71 vs 0.73.</li>
+	<li>Seconds (m1, M1) and sevenths (m6, M6) consistently receive consonance values of 0 — correctly 
 		classified as dissonant.</li>
+	<li>The <strong>tritone region</strong> (M3/m4) is more nuanced than previously assumed: while both are
+		0 in 12-TET, the Pythagorean diminished fifth (m4 = 588.2¢) achieves 0.17, and the meantone
+		augmented fourth (M3 = 579.6¢) reaches 0.25. These intervals are <em>not</em> interchangeable —
+		they split apart in non-equal tunings and can be mildly consonant.</li>
 </ul>
 
 <figure>
@@ -498,6 +530,72 @@
 	With the odd-harmonic timbre, the tritave achieves a consonance of <strong>0.72</strong> — 
 	comparable to the fifth in standard tuning. BP scale degrees align with spiky consonance peaks, 
 	validating the fundamental insight that <em>consonance is a joint property of tuning and timbre</em>.
+</p>
+
+<h3>3.4 Non-Diatonic MOS Scales: Porcupine[8] and Slendric[11]</h3>
+
+<p>
+	To demonstrate the generality of the consonance measure beyond diatonic scales, we evaluate two
+	non-diatonic MOS scales using a 13-partial harmonic spectrum (decay factor 0.88):
+</p>
+
+<p><strong>Porcupine[8]</strong> (1L7s) — an 8-note MOS scale with one large and seven small steps:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Interval</th>
+			<th>Cents</th>
+			<th>Consonance</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>P0</td><td>0.0</td><td class="highlight">1.00</td></tr>
+		<tr><td>P8</td><td>1200.0</td><td class="highlight">0.84</td></tr>
+		<tr><td>m5</td><td>713.3</td><td class="highlight">0.60</td></tr>
+		<tr><td>m3</td><td>388.8</td><td>0.43</td></tr>
+		<tr><td>M3</td><td>486.7</td><td>0.41</td></tr>
+		<tr><td>m6</td><td>875.5</td><td>0.35</td></tr>
+		<tr><td>M2</td><td>324.5</td><td>0.14</td></tr>
+		<tr><td>m4</td><td>551.0</td><td>0.06</td></tr>
+		<tr><td>m2</td><td>226.5</td><td>0.01</td></tr>
+		<tr><td>M1</td><td>162.2</td><td>0.00</td></tr>
+		<tr><td>M4</td><td>649.0</td><td>0.00</td></tr>
+		<tr><td>m7</td><td>1037.8</td><td>0.00</td></tr>
+	</tbody>
+</table>
+
+<p><strong>Slendric[11]</strong> (6L5s) — an 11-note MOS scale with six large and five small steps:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Interval</th>
+			<th>Cents</th>
+			<th>Consonance</th>
+			<th>Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td>P0</td><td>0.0</td><td class="highlight">1.00</td><td></td></tr>
+		<tr><td>P11</td><td>1200.3</td><td class="highlight">0.84</td><td></td></tr>
+		<tr><td>m1</td><td>31.7</td><td class="highlight">0.72</td><td>Near-unison: high consonance</td></tr>
+		<tr><td>M6</td><td>701.2</td><td class="highlight">0.71</td><td>≈ just fifth (702.0¢)</td></tr>
+		<tr><td>m5</td><td>499.2</td><td>0.57</td><td></td></tr>
+		<tr><td>M10</td><td>1168.6</td><td>0.56</td><td></td></tr>
+		<tr><td>m9</td><td>966.6</td><td>0.24</td><td></td></tr>
+		<tr><td>m3</td><td>265.4</td><td>0.14</td><td></td></tr>
+		<tr><td>M2</td><td>233.7</td><td>0.11</td><td></td></tr>
+	</tbody>
+</table>
+
+<p>
+	Notable features: Slendric's M6 at 701.2¢ lands almost exactly on the just perfect fifth
+	(3:2 = 702.0¢) and achieves a consonance of 0.71 — comparable to the diatonic fifth. The tiny
+	m1 interval (31.7¢) also scores high (0.72) because it is close enough to unison that partials
+	barely beat against each other. These results illustrate how the consonance measure applies
+	transparently to any MOS scale, with consonance peaks emerging naturally from the interaction of
+	tuning and timbre.
 </p>
 
 <h2>4. Parameter Studies</h2>
@@ -595,7 +693,8 @@
 	<li><strong>Perfect consonances</strong> (<var>C</var> &gt; 0.6): unison, octave, fifth</li>
 	<li><strong>Imperfect consonances</strong> (0.2 &lt; <var>C</var> ≤ 0.6): thirds, sixths (quality 
 		depends on tuning)</li>
-	<li><strong>Dissonances</strong> (<var>C</var> ≤ 0.2): seconds, sevenths, tritone</li>
+	<li><strong>Dissonances</strong> (<var>C</var> ≤ 0.2): seconds, sevenths; the tritone region (M3/m4)
+		is typically dissonant but can be mildly consonant in certain tunings</li>
 </ul>
 <p>
 	This classification extends naturally to non-standard tuning systems: for the Bohlen-Pierce scale 
