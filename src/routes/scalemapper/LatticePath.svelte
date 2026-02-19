@@ -6,6 +6,8 @@
     import {ConsistentTuning} from '$lib/consistent_tuning';
     import {LatticeSynth} from '$lib/lattice_synth';
     import type {TuningData} from '$lib/consistent_tuning';
+    import { computeSpikyCurve, consonanceAt, makeHarmonicSpectrum, consonanceToColor } from '$lib/consonance';
+    import type { ConsonanceCurve } from '$lib/consonance';
     import { e } from 'mathjs';
 
     export let display_data:MappedScaleDisplayData;
@@ -17,6 +19,7 @@
     export let within_target = false;
     export let variant = 1;
     export let show_alt_text = false;
+    export let useConsonanceColors = false;
 
     let enh_angle = tuning_data.tuning.direction_of_enharmonic_equivalence();
 
@@ -49,6 +52,43 @@
     }
     $: update(display_data.s, display_data.edge_length, path, display_data.s_target, color, display_data.dual);
 
+    // Consonance coloring
+    let consonanceCurve: ConsonanceCurve | null = null;
+    const spectrum = makeHarmonicSpectrum(10, 0.88);
+
+    function updateConsonanceColors(nodes: node[], tuningData: TuningData, useColors: boolean) {
+        if (!useColors || !tuningData?.tuning || nodes.length === 0) return;
+        
+        // Compute equave in cents
+        const s_tune = display_data.tune_target ? display_data.s_target : display_data.s;
+        const equaveCents = 1200 * Math.log2(
+            tuningData.tuning.coord_to_freq(s_tune.a, s_tune.b)
+        );
+        
+        // Compute consonance curve for this tuning (up to 2 equaves)
+        const maxCents = Math.max(equaveCents * 1.5, 2000);
+        consonanceCurve = computeSpikyCurve([0, maxCents], spectrum, 261.63, 300, 2.0);
+        
+        // Color each node based on its interval from the root (first node)
+        const rootCoord = nodes[0]?.c_orig || nodes[0]?.c;
+        if (!rootCoord) return;
+        
+        for (const n of nodes) {
+            const coord = display_data.tune_target === false ? n.c_orig : n.c;
+            if (!coord || !rootCoord) continue;
+            
+            const da = coord.aa - rootCoord.aa;
+            const db = coord.bb - rootCoord.bb;
+            const freqRatio = tuningData.tuning.coord_to_freq(da, db);
+            const cents = Math.abs(1200 * Math.log2(Math.max(freqRatio, 0.001)));
+            
+            const C = consonanceAt(consonanceCurve, cents);
+            n.col = consonanceToColor(C, cents % equaveCents, equaveCents);
+        }
+        _nodes = nodes;
+    }
+    
+    $: updateConsonanceColors(_nodes, tuning_data, useConsonanceColors);
 
     let play_interval:number = 300; // ms
     $: playing_sequence = [...Array(_nodes.length).keys()].concat([...Array(_nodes.length).keys()].slice(1,-1).reverse());

@@ -116,6 +116,7 @@
     $: update_on_tuning_param_change(octave, constant_pitch_angle, display_data.s_tune);
 
     let play = false;
+    let useConsonanceColors = false;
 
     $: target_major_scale = calc_scale(display_data.s_target, 1);
     
@@ -166,6 +167,8 @@
         <Checkbox bind:checked={display_data.dual} label="Dual Lattice" />
         <Space h={5}/>
         <Checkbox bind:checked={display_data.tune_target} label="Tune Target" />
+        <Space h={5}/>
+        <Checkbox bind:checked={useConsonanceColors} label="Consonance Colors" />
     </Grid.Col>
     <Grid.Col span={3}>
         <Space h={5}/>
@@ -221,6 +224,7 @@
             showConstantPitchLines={true}
             variant={2}
             show_alt_text={false}
+            bind:useConsonanceColors
         />
 
 
