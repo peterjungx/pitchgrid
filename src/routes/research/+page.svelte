@@ -68,6 +68,19 @@
 		Technical articles on the theory and algorithms behind PitchGrid.
 	</p>
 
+	<div class="paper-card" style="margin-bottom: 2rem;">
+		<h2><a href="/research/mos-theory">The Two-Dimensional Structure of Musical Scales</a></h2>
+		<p class="paper-meta">Peter Jung · February 2026</p>
+		<p class="paper-abstract">
+			Western music theory implicitly treats scales as one-dimensional objects. Yet the 
+			structure that gives rise to keys, modes, accidentals, and the circle of fifths is 
+			inherently two-dimensional. This article formalizes this observation using rank-2 
+			regular temperaments and Moments of Symmetry (MOS) scales, shows that the diatonic 
+			scale is one instance of a vast family of two-dimensional tonal structures, and develops 
+			the mathematical tools needed to navigate this space.
+		</p>
+	</div>
+
 	<div class="paper-card">
 		<h2><a href="/research/consonance">The PitchGrid Spiky Consonance Measure</a></h2>
 		<p class="paper-meta">Peter Jung · February 2026</p>
