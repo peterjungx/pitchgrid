@@ -632,6 +632,22 @@
 		critical bandwidth is narrower relative to the partial spacing, producing shallower peaks.</figcaption>
 </figure>
 
+<p>
+	The key observation is that the consonance patterns are <strong>remarkably stable across 
+	fundamental frequencies</strong>. Consonance values calculated at one frequency are comparable 
+	to those calculated at another, with the notable exception of intervals close to unison and 
+	the octave — where deeper frequencies visibly broaden the consonance peak. It is expected 
+	that lower fundamentals widen the unison peak (critical bandwidth grows relative to the small 
+	frequency differences near unison), but it is surprising that this broadening effect does 
+	<em>not</em> carry over to most other just frequency ratios. The peaks at the fifth, thirds, 
+	and sixths remain largely consistent in height across the tested range.
+</p>
+<p>
+	This stability means that our consonance measure, evaluated at any reasonable fundamental 
+	frequency, will produce comparable results for the vast majority of intervals. Unless otherwise 
+	specified, all evaluations in this study use <var>f</var><sub>0</sub> = 261.6 Hz (middle C).
+</p>
+
 <h3>4.2 Varying Number of Partials</h3>
 
 <figure>
