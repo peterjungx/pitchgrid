@@ -622,27 +622,37 @@
 <h3>4.1 Varying Fundamental Frequency</h3>
 
 <figure>
-	<img src="/research/varying_f0.png" alt="Consonance curves at different fundamental frequencies" />
-	<figcaption>Figure 5. Consonance curves for fundamental frequencies from 100 Hz to 1000 Hz. 
-		Consonance peaks are stable in position but vary in height — lower fundamentals produce 
-		broader, more prominent consonance peaks due to wider critical bandwidths.</figcaption>
+	<img src="/research/param_varying_f0.png" alt="Normalized spiky consonance at different fundamental frequencies" />
+	<figcaption>Figure 5. Normalized spiky₃ consonance for fundamental frequencies from 100 Hz to 
+		1000 Hz (10 harmonic partials, decay = 0.88). Peak <em>positions</em> are invariant — they 
+		are determined by the frequency ratios between partials, not by absolute frequency. However, 
+		peak <em>heights</em> differ: lower fundamentals produce stronger consonance peaks because 
+		the critical bandwidth (Plomp-Levelt parameter) is relatively wider at low frequencies, 
+		making the dissonance dips deeper and the spiky peaks more prominent. At 1000 Hz, the 
+		critical bandwidth is narrower relative to the partial spacing, producing shallower peaks.</figcaption>
 </figure>
 
 <h3>4.2 Varying Number of Partials</h3>
 
 <figure>
-	<img src="/research/varying_partials.png" alt="Consonance curves with different numbers of partials" />
-	<figcaption>Figure 6. Effect of the number of harmonic partials. More partials produce sharper 
-		consonance peaks but also increase overall dissonance between peaks.</figcaption>
+	<img src="/research/param_varying_partials.png" alt="Normalized spiky consonance with different numbers of partials" />
+	<figcaption>Figure 6. Effect of the number of harmonic partials on normalized spiky₃ consonance 
+		(f₀ = 261.6 Hz, decay = 0.88). With only 4 partials, only the octave and fifth produce 
+		clear peaks. As more partials are added, additional consonance peaks emerge at thirds, 
+		sixths, and higher-order intervals. Beyond ~10 partials, the peak structure stabilizes — 
+		additional partials refine rather than fundamentally alter the consonance landscape.</figcaption>
 </figure>
 
 <h3>4.3 Varying Amplitude Decay</h3>
 
 <figure>
-	<img src="/research/varying_decay.png" alt="Consonance curves with different amplitude decay rates" />
-	<figcaption>Figure 7. Effect of amplitude decay rate (1/<var>n<sup>α</sup></var>). Steeper decay 
-		(fewer significant partials) produces simpler consonance structure; slower decay generates more 
-		complex peak patterns.</figcaption>
+	<img src="/research/param_varying_decay.png" alt="Normalized spiky consonance with different amplitude decay rates" />
+	<figcaption>Figure 7. Effect of amplitude decay rate on normalized spiky₃ consonance 
+		(f₀ = 261.6 Hz, 10 partials). With steep decay (0.70), only the lowest partials contribute 
+		significantly, producing a smooth curve dominated by the octave. As decay approaches 1.0 
+		(equal-amplitude partials), higher partials become equally important, creating a richer, 
+		more complex consonance pattern with sharper peaks. The decay rate = 0.88 used throughout 
+		this study represents a typical acoustic instrument timbre.</figcaption>
 </figure>
 
 <h2>5. Discussion</h2>
