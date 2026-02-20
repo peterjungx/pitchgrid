@@ -686,7 +686,11 @@
 			<p>
 				Music theory teaches you rules — but rarely explains where they come from.
 				Why seven notes? Why do key changes work? Why does a chord shape 
-				mean the same thing in every key? These aren't arbitrary conventions. 
+				mean the same thing in every key? And why do we need two different names — 
+				G♭ and F♯ — for what sounds like the same note?
+			</p>
+			<p>
+				These aren't arbitrary conventions. 
 				They're consequences of a two-dimensional structure that's been hiding 
 				in plain sight since Pythagoras — obscured when the piano folded it onto a line.
 			</p>
