@@ -2,7 +2,7 @@
 
 ## What Is PitchGrid?
 
-Western music theory treats pitch as a line — a single dimension running from low to high. The piano keyboard reinforces this: 88 keys in a row, twelve semitones per octave, repeating. But this picture is incomplete. The tonal structure of Western music is fundamentally **two-dimensional**, and recognizing this unlocks a framework that generalizes far beyond the Western tradition.
+Western music theory captures something real. Scales, keys, modes, modulation, counterpoint — these concepts work because they reflect genuine structure in how tones relate to each other. But somewhere along the way, the piano keyboard collapsed something two-dimensional onto a single line, and we stopped noticing what was lost. The tonal structure of Western music is fundamentally **two-dimensional**, and recognizing this doesn't replace the theory you know — it reveals where it comes from, and unlocks a framework that generalizes far beyond the Western tradition.
 
 <!-- TODO: Replace with animated GIF of PitchGrid plugin skew parameter -->
 
@@ -34,9 +34,9 @@ The sections below expand on each aspect of the framework. They can be read in o
 
 ---
 
-### 1. The Problem: Why We Need a Broader Framework
+### 1. What the Piano Hid
 
-Western music theory has calcified around twelve equal semitones. Pick up any introductory textbook and you'll find "an octave has twelve semitones" stated as axiom rather than approximation. This framing obscures the rich structure underneath and makes non-Western tuning systems seem exotic or arbitrary rather than structurally principled.
+Western music theory has settled on twelve equal semitones as its foundation. Pick up any introductory textbook and you'll find "an octave has twelve semitones" stated as axiom rather than approximation. This framing — practical as it is — obscures the richer structure underneath and makes non-Western tuning systems seem exotic or arbitrary rather than structurally principled.
 
 The practical consequence is cultural. Cheap digital keyboards with 12-TET hardwired ship worldwide. DAWs assume twelve semitones. MIDI was built around it. Musicians raised in this ecosystem lack tools to conceptualize — let alone perform in — the tuning systems of Gamelan, Indian classical music, Arabic maqam, or the many African traditions that use intervals with no clean 12-TET approximation.
 
@@ -99,7 +99,7 @@ This cyclic pattern of two interval sizes is the structural backbone of Western 
 
 ---
 
-### 5. Changing Keys and the Tyranny of Twelve
+### 5. Changing Keys and the Twelve-Tone Compromise
 
 A distinctive feature of Western music is modulation — changing keys by altering a single note. Raising the F in C-major to F♯ shifts the pattern from LLsLLLs to LLLsLLs, yielding G-major. Lowering B to B♭ gives F-major. Each modulation swaps two adjacent intervals (an Ls pair becomes sL, or vice versa), preserving the overall structure.
 

@@ -666,27 +666,33 @@
 					<strong>PitchGrid unfolds that projection.</strong> What felt like arbitrary rules suddenly makes geometric sense. 
 					Modes, keys, transposition, counterpoint — they all still work, but now you can see <em>why</em>.
 				</p>
+				<p>
+					Bach's famous B–A–C–H motif? It's a sequential walk through a generalized scale 
+					mapped into Western pitch space — a structure he may have intuited three centuries 
+					before anyone had the math to describe it.
+				</p>
 			</div>
 		</div>
 	</section>
 
-	<!-- Validation -->
+	<!-- The Missing Piece -->
 	<section class="section">
-		<h2>You Knew There Was More</h2>
+		<h2>Something Was Always Missing</h2>
 		<p class="section-intro">
-			If you've explored microtonality and felt lost — you're not alone.
+			If you've ever felt that music theory explains the <em>what</em> but not the <em>why</em> — you were right.
 		</p>
 		<div class="validation-box">
-			<h3>The Microtonal Jungle</h3>
+			<h3>The Missing Piece</h3>
 			<p>
-				Many talented musicians enter the world of alternative tunings hoping to find new sonic territory. 
-				Instead, they find disconnected tools, invented notations, debates about EDOs, and an approach 
-				completely severed from the Western theory they spent years learning. 
-				Their music loses architecture. Eventually, many give up and return to 12-TET.
+				Music theory teaches you rules — but rarely explains where they come from.
+				Why seven notes? Why do key changes work? Why does a chord shape 
+				mean the same thing in every key? These aren't arbitrary conventions. 
+				They're consequences of a two-dimensional structure that's been hiding 
+				in plain sight since Pythagoras — obscured when the piano folded it onto a line.
 			</p>
 		</div>
 		<p class="section-intro" style="margin-top: 2rem;">
-			PitchGrid is the map they didn't have. <em>Western theory extended, not abandoned.</em>
+			PitchGrid unfolds it back. <em>Not new theory — the missing chapter of existing theory.</em>
 		</p>
 	</section>
 
@@ -750,7 +756,7 @@
 		<img src="/docs/images/PitchGrid-Basic-CMajor.png" alt="PitchGrid Basic C-Major" class="concept-image" />
 		<div class="audience-grid">
 			<div class="audience-card audience-yes">
-				<h3>✓ These still work:</h3>
+				<h3>✓ Universal Structure</h3>
 				<ul>
 					<li>Modes and modal interchange</li>
 					<li>Keys and key relationships</li>
@@ -760,7 +766,7 @@
 				</ul>
 			</div>
 			<div class="audience-card audience-maybe">
-				<h3>↻ These are 12-TET specific:</h3>
+				<h3>↻ The 12-TET Special Case</h3>
 				<ul>
 					<li>Circle of fifths closing after 12 steps (in general, it's a spiral)</li>
 					<li>The semitone as fundamental unit</li>
@@ -778,11 +784,11 @@
 			<div class="audience-card audience-yes">
 				<h3>✓ PitchGrid is for you if:</h3>
 				<ul>
-					<li>You've tried microtonality and felt lost in the xenharmonic jungle</li>
+					<li>You want to understand <em>why</em> Western music theory works the way it does</li>
+					<li>You're a composer looking for fresh harmonic territory with real structure</li>
 					<li>You want new sounds without abandoning the theory you know</li>
 					<li>You play an isomorphic controller and want to explore new tunings</li>
-					<li>You're a composer looking for fresh harmonic territory</li>
-					<li>You want to understand <em>why</em> Western music theory works</li>
+					<li>You've tried microtonality and wished it connected back to tradition</li>
 				</ul>
 			</div>
 			<div class="audience-card audience-maybe">
@@ -796,16 +802,22 @@
 		</div>
 	</section>
 
-	<!-- The Honest Truth -->
+	<!-- Building on Tradition -->
 	<section class="section">
 		<div class="pioneer-section">
-			<h2>The Honest Truth</h2>
+			<h2>2,500 Years in the Making</h2>
 			<p>
-				There is no corpus yet. No cultural memory of melodies in these tunings. 
-				No standards to learn, no covers to play. The promised land exists — but it's waiting for settlers.
+				PitchGrid doesn't start from zero. It builds on the same foundations as all of Western music — 
+				the stacking of fifths that Pythagoras described, the modes that medieval composers sang, 
+				the key relationships that Bach exploited and Beethoven expanded.
 			</p>
 			<p>
-				<strong>The first great works in these tunings haven't been written yet. Maybe you'll write them.</strong>
+				Everything you already know still works. But now there's room to go further — 
+				into scale structures that are mathematically just as coherent as the diatonic, 
+				with their own modes, keys, and modulation spaces.
+			</p>
+			<p>
+				<strong>The next chapter of tonal music is waiting to be written. Maybe you'll write it.</strong>
 			</p>
 			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Start Exploring</a>
 		</div>
@@ -841,11 +853,12 @@
 	<!-- Theory Section -->
 	<section class="section">
 		<div class="theory-section">
-			<h2>The Math Behind It (Optional)</h2>
+			<h2>The Theory Behind It</h2>
 			<p style="font-size: 1.1rem; color: #b0b0b0; margin-bottom: 2rem;">
-				Want to understand why this works? The theory is there if you want it — but you don't need it to play.
+				From Pythagoras to generalized diatonic scales — how 2,500 years of tonal thinking 
+				leads naturally to the PitchGrid framework.
 			</p>
-			<a href="/info/PitchGrid" class="btn-large">Read the PitchGrid Concept</a>
+			<a href="/info/PitchGrid" class="btn-large">Read the Full Story</a>
 		</div>
 	</section>
 
