@@ -53,9 +53,10 @@
 
 	.hero-cta-group {
 		display: flex;
-		flex-direction: column;
-		gap: 0.75rem;
+		gap: 1rem;
+		justify-content: center;
 		align-items: center;
+		flex-wrap: wrap;
 		margin-top: 1.5rem;
 	}
 
@@ -654,9 +655,9 @@
 		</div>
 		<p class="hero-bridge">Explore this interactively with the <em>PitchGrid Plugin</em></p>
 		<div class="hero-cta-group">
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free for 15 Days</a>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy — just €42</a>
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper (free)</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy €42</a>
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Mapper (free)</a>
 		</div>
 	</div>
 </section>
