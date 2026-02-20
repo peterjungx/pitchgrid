@@ -53,11 +53,24 @@
 
 	.hero-cta-group {
 		display: flex;
-		gap: 1rem;
-		justify-content: center;
+		flex-direction: column;
+		gap: 0.75rem;
 		align-items: center;
-		flex-wrap: wrap;
-		margin-bottom: 3rem;
+		margin-top: 1.5rem;
+	}
+
+	.hero-bridge {
+		font-size: 1.1rem;
+		color: rgba(255, 255, 255, 0.7);
+		margin-top: 1.5rem;
+		margin-bottom: 0.5rem;
+		text-align: center;
+	}
+
+	.hero-bridge em {
+		color: #FFAB00;
+		font-style: normal;
+		font-weight: 600;
 	}
 
 	.hero-cta {
@@ -590,11 +603,6 @@
 			font-size: 1.1rem;
 		}
 
-		.hero-cta-group {
-			flex-direction: column;
-			align-items: center;
-		}
-
 		.hero-screenshot {
 			max-width: 95%;
 		}
@@ -635,11 +643,6 @@
 			The piano hides this. Standard notation encodes it. PitchGrid <em>reveals</em> it — 
 			and once you see it, you can play it.
 		</p>
-		<div class="hero-cta-group">
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free for 15 Days</a>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy — just €42</a>
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper (free)</a>
-		</div>
 		<div class="hero-screenshot">
 			<video autoplay muted loop playsinline disablepictureinpicture
 				poster="/docs/images/PitchGridPluginUI.png"
@@ -648,6 +651,12 @@
 				<source src="/pitchgrid-anim-web.mp4" type="video/mp4" />
 				<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin" />
 			</video>
+		</div>
+		<p class="hero-bridge">Explore this interactively with the <em>PitchGrid Plugin</em></p>
+		<div class="hero-cta-group">
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free for 15 Days</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy — just €42</a>
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper (free)</a>
 		</div>
 	</div>
 </section>
