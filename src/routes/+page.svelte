@@ -106,7 +106,8 @@
 		display: block;
 	}
 
-	.hero-screenshot img {
+	.hero-screenshot img,
+	.hero-screenshot video {
 		width: 100%;
 		height: auto;
 		border-radius: 12px;
@@ -640,7 +641,13 @@
 			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Get PitchGrid Mapper (free)</a>
 		</div>
 		<div class="hero-screenshot">
-			<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin — visualizing the two-dimensional structure of music" />
+			<video autoplay muted loop playsinline disablepictureinpicture
+				poster="/docs/images/PitchGridPluginUI.png"
+				alt="PitchGrid — from Circle of Fifths to the two-dimensional lattice">
+				<source src="/pitchgrid-anim.webm" type="video/webm" />
+				<source src="/pitchgrid-anim-web.mp4" type="video/mp4" />
+				<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin" />
+			</video>
 		</div>
 	</div>
 </section>
