@@ -639,10 +639,9 @@
 <!-- Hero Section -->
 <section class="hero">
 	<div class="hero-content">
-		<h1 class="hero-claim">The tonal structure of Western music is two-dimensional.</h1>
+		<h1 class="hero-claim">A Foundation for Music Theory that Actually Explains Why</h1>
 		<p class="hero-subtext">
-			The piano hides this. Standard notation encodes it. PitchGrid <em>reveals</em> it — 
-			and once you see it, you can play it.
+			The tonal structure of Western music is two-dimensional. The piano hides this. Standard notation encodes it. PitchGrid <em>reveals</em> it.
 		</p>
 		<div class="hero-screenshot">
 			<video autoplay muted loop playsinline disablepictureinpicture
