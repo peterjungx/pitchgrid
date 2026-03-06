@@ -843,6 +843,29 @@
 		</div>
 	</section>
 
+	<!-- PitchGrid for Ableton Move -->
+	<section class="section">
+		<h2>PitchGrid for Ableton Move</h2>
+		<p style="font-size: 1.1rem; color: #b0b0b0; margin-bottom: 2rem;">
+			Turn your Ableton Move into a microtonal groove box. A free MIDI FX module for the 
+			<a href="https://github.com/charlesvestal/move-anything" target="_blank" style="color: #FFAB00;">Move Everything</a> 
+			framework — 190+ tuning presets, real-time pad coloring, and full MPE output.
+		</p>
+		<h3 style="font-size: 1.1rem; color: #e0e0e0; margin-bottom: 1.5rem;">Watch PitchGrid in action on an Ableton Move</h3>
+		<div class="video-embed" style="max-width: 800px; margin: 0 auto 2rem;">
+			<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px;">
+				<iframe 
+					src="https://www.youtube.com/embed/mkE0a3VOceI" 
+					title="Microtonal Groove Box — PitchGrid on Ableton Move"
+					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+					allowfullscreen
+				></iframe>
+			</div>
+		</div>
+		<a href="https://github.com/pitchgrid-io/move-anything-pitchgrid" target="_blank" class="btn">Get It on GitHub</a>
+	</section>
+
 	<!-- More Tools Section -->
 	<section class="section">
 		<h2>More Tools</h2>
