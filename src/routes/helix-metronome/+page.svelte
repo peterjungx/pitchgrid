@@ -81,7 +81,7 @@
                         const timeToTick = (tick.t - currentPosition) * state.period;
                         if (timeToTick > -0.03 && timeToTick < 0.5) {
                             const triggerTime = now + timeToTick;
-                            const envelope = 0.5 + 0.5 * Math.sin(Math.PI * tick.t / state.N_C);
+                            const envelope = Math.sin(Math.PI * tick.t / state.N_C);
                             const patternPos = ((tickIndex - refIdx) % state.volumePattern.length + state.volumePattern.length) % state.volumePattern.length;
                             const patternDigit = parseInt(state.volumePattern[patternPos]) || 0;
                             const volume = envelope * (patternDigit / 9);

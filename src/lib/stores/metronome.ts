@@ -41,7 +41,7 @@ const baseState = {
   num: 2,
   den: 1,
   N_C: 3,
-  N_B: 4,
+  N_B: 12,
   bpm: 120,
 };
 
