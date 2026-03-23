@@ -131,6 +131,24 @@ export function referenceTickIndex(num: number, den: number, N_C: number, N_B: n
 }
 
 /**
+ * Find the N_B (bars) value whose reference-layer beat count is closest
+ * to a desired number of beats.
+ */
+export function closestNBForBeats(targetBeats: number, num: number, den: number, N_C: number, maxNB: number = 99): number {
+  let bestNB = 1;
+  let bestDiff = Infinity;
+  for (let nb = 1; nb <= maxNB; nb++) {
+    const beats = referenceLayerBeats(num, den, N_C, nb);
+    const diff = Math.abs(beats - targetBeats);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestNB = nb;
+    }
+  }
+  return bestNB;
+}
+
+/**
  * Calculate the radius of the spiral at a given angle and segment
  * @param angle Angle in radians (0 to 2π)
  * @param segment Segment number (0 to N_C-1)

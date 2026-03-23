@@ -11,7 +11,7 @@
 
   $: shown = displayValue !== undefined ? displayValue : value;
 
-  const dispatch = createEventDispatcher<{ change: number }>();
+  const dispatch = createEventDispatcher<{ change: number; directInput: number }>();
 
   $: isVertical = width / height < 1;
   $: btnSize = isVertical
@@ -32,7 +32,8 @@
     const target = event.target as HTMLInputElement;
     const val = parseFloat(target.value);
     if (!isNaN(val)) {
-      dispatch('change', Math.min(max, Math.max(min, val)));
+      const clamped = Math.min(max, Math.max(min, val));
+      dispatch('directInput', clamped);
     } else {
       target.value = String(shown);
     }

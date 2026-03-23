@@ -1,6 +1,6 @@
 <script lang="ts">
   import { metronomeStore, metronomeActions } from '$lib/stores/metronome';
-  import { referenceLayerBeats } from '$lib/helix_math';
+  import { referenceLayerBeats, closestNBForBeats } from '$lib/helix_math';
   import StepperControl from '$lib/components/StepperControl.svelte';
   import { midiStore } from '$lib/midi_engine';
   import { createEventDispatcher } from 'svelte';
@@ -33,6 +33,12 @@
     if (newVal >= 1) {
       metronomeActions.setBars(newVal);
     }
+  }
+
+  function handleBeatsDirectInput(event: CustomEvent<number>) {
+    const store = $metronomeStore;
+    const nb = closestNBForBeats(event.detail, store.num, store.den, store.N_C);
+    metronomeActions.setBars(nb);
   }
 
   function handleNumStep(event: CustomEvent<number>) {
@@ -69,6 +75,7 @@
         width={120}
         height={36}
         on:change={handleBpmStep}
+        on:directInput={handleBpmStep}
       />
       <span class="period-info">Cycle: {$metronomeStore.period.toFixed(2)}s</span>
     </div>
@@ -107,11 +114,13 @@
       <StepperControl
         value={$metronomeStore.N_B}
         displayValue={refBeats}
+        editable={true}
         min={1}
         max={99}
-        width={100}
+        width={120}
         height={36}
         on:change={handleBarsStep}
+        on:directInput={handleBeatsDirectInput}
       />
     </div>
   </div>
