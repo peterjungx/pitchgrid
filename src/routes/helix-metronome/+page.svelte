@@ -216,7 +216,8 @@
 <svelte:window on:click={handleUserInteraction} on:touchstart={handleUserInteraction} on:pointerdown={handleUserInteraction} on:visibilitychange={handleVisibilityChange} />
 
 <div class="container">
-    <h1>Helix Metronome</h1>
+    <h1>HELIX/Risset Metronome</h1> 
+    <h3>by Sebastian Gramss & Peter Jung</h3>
 
     <div class="metronome-container">
         <div class="spiral-wrapper">
@@ -274,7 +275,7 @@
 
     <div class="info">
         <p>Click anywhere to enable audio. The metronome creates accelerating or decelerating rhythms based on the ratio setting.</p>
-        <p>Reference: <a href="https://sebastiangramss.de/helix/" target="_blank">Helix Metronome</a></p>
+        <p>Reference: <a href="https://sebastiangramss.de/helix/" target="_blank">Sebastian Gramss - HELIX/Risset Info</a></p>
     </div>
 </div>
 
