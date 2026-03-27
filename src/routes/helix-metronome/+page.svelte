@@ -276,6 +276,7 @@
     <div class="info">
         <p>Click anywhere to enable audio. The metronome creates accelerating or decelerating rhythms based on the ratio setting.</p>
         <p>Reference: <a href="https://sebastiangramss.de/helix/" target="_blank">Sebastian Gramss - HELIX/Risset Info</a></p>
+        <p><a href="https://de.wikipedia.org/wiki/Helix_(Musik)" target="_blank">Helix (Musik) — Wikipedia</a></p>
     </div>
 </div>
 
