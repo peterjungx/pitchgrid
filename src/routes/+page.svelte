@@ -1012,9 +1012,20 @@
 		<h2>Events & Exhibitions</h2>
 		<div class="events-grid">
 			<div class="event-card">
+				<h4>PitchGrid Workshop at Untwelving, Munich</h4>
+				<p>
+					"Touch the Microtones" — open PitchGrid workshop at Campus #28 "Untwelving" 
+					at the Münchner Kammerspiele, May 23rd, 2026, 15:00–19:00.
+				</p>
+				<a href="https://www.muenchner-kammerspiele.de/de/programm/50165-campus-28-untwelving" target="_blank">
+					See Program
+				</a>
+			</div>
+
+			<div class="event-card">
 				<h4>PitchGrid at Superbooth 2026</h4>
 				<p>
-					Visit us at Superbooth 2026 in Berlin — booth o136. 
+					Visit us at Superbooth 2026 in Berlin, booth o136.
 					Explore alternative tuning systems hands-on.
 				</p>
 				<a href="https://www.superbooth.com/en/messe-and-exhibitors/exhibitors/pitchgrid.html" target="_blank">
@@ -1025,7 +1036,7 @@
 			<div class="event-card">
 				<h4>Talk at Superbooth 2025</h4>
 				<p>
-					"Microtonal Dimensions" — joint presentation with Intuitive Instruments and Entonal Studio. 
+					"Microtonal Dimensions" with Intuitive Instruments and Entonal Studio.
 					May 9th, 2025.
 				</p>
 				<a href="https://www.superbooth.com/en/events/details/pro-audio-presentation-intuitive-instruments-pitchgrid-entonal-studio.html" target="_blank">
@@ -1045,19 +1056,19 @@
 			<div class="source-item">
 				<h4>pitchgrid</h4>
 				<p>This website, including the Diatonic PitchGrid and ScaleMapper tools.</p>
-				<a href="https://github.com/peterjungx/pitchgrid" target="_blank">View Repository</a>
+				<a href="https://github.com/pitchgrid-io/pitchgrid" target="_blank">View Repository</a>
 			</div>
 			
 			<div class="source-item">
 				<h4>PitchGridRack</h4>
 				<p>VCV Rack plugin including the MicroExquis module for hardware integration.</p>
-				<a href="https://github.com/peterjungx/PitchGridRack" target="_blank">View Repository</a>
+				<a href="https://github.com/pitchgrid-io/PitchGridRack" target="_blank">View Repository</a>
 			</div>
 			
 			<div class="source-item">
 				<h4>scalatrix</h4>
 				<p>Core library unifying PitchGrid algorithms. Written in C++ with Python and WASM bindings.</p>
-				<a href="https://github.com/peterjungx/scalatrix" target="_blank">View Repository</a>
+				<a href="https://github.com/pitchgrid-io/scalatrix" target="_blank">View Repository</a>
 			</div>
 		</div>
 	</section>
