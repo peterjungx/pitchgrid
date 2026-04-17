@@ -890,6 +890,13 @@
 				<p>Parametric MIDI sequencer extending PitchGrid concepts to rhythm.</p>
 				<a href="https://github.com/peterjungx/pgrhythm" target="_blank" class="btn">View on GitHub</a>
 			</div>
+
+			<div class="feature-card">
+				<span class="feature-icon">📈</span>
+				<h3>PseudoHarmonic Synth</h3>
+				<p>Additive synthesizer with prime-factor stretching. Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.0 now public.</p>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn">Download v0.3.0</a>
+			</div>
 		</div>
 	</section>
 
@@ -1069,6 +1076,12 @@
 				<h4>scalatrix</h4>
 				<p>Core library unifying PitchGrid algorithms. Written in C++ with Python and WASM bindings.</p>
 				<a href="https://github.com/pitchgrid-io/scalatrix" target="_blank">View Repository</a>
+			</div>
+
+			<div class="source-item">
+				<h4>pseudoharmonic-synth</h4>
+				<p>Additive synth with prime stretches, real-time consonance visualization, OSC "Follow Tuning" for MOS scales from PitchGrid Mapper. Now public with releases.</p>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth" target="_blank">View Repository</a>
 			</div>
 		</div>
 	</section>
