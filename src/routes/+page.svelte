@@ -926,7 +926,7 @@
 							Album: various releases — <a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17" target="_blank">Bandcamp</a>
 						</li>
 						<li>
-							<strong>Forrest Fang</strong> — "Harmonic Perch" (remixed version)<br>
+							<strong>Forrest Fang</strong> — "Harmonic Perch"<br>
 							Album: *Radiance and the Receding of Light* (Projekt Records) — <a href="https://projektrecords.bandcamp.com/album/radiance-and-the-receding-light" target="_blank">Bandcamp album</a>
 						</li>
 						<li>
