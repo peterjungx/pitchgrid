@@ -912,49 +912,40 @@
 		</div>
 	</section>
 
-	<!-- Music Section (commented out - works too minuscule for scope)
 	<section class="section">
 		<h2>Music Created with PitchGrid</h2>
 		<div class="music-section">
 			<p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: #b0b0b0;">
-				Early explorers are already making music in these new territories
+				Real music using PitchGrid — early examples and releases
 			</p>
 			<div class="music-grid">
 				<div class="music-item">
-					<h4>Featured Tracks</h4>
 					<ul>
 						<li>
-							<a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17" target="_blank">
-								"Tranquil 9&5in17" by Beats Basteln
-							</a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="music-item">
-					<h4>SoundCloud Playlist</h4>
-					<ul>
-						<li>
-							<a href="https://soundcloud.com/peter-jung-119529179/sets/pitchgrid" target="_blank">
-								PitchGrid Collection
-							</a>
+							<strong>Beats Basteln</strong> — "Tranquil 9&5in17"<br>
+							Album: various releases — <a href="https://beatsbasteln.bandcamp.com/track/tranquil-9-5in17" target="_blank">Bandcamp</a>
 						</li>
 						<li>
-							<a href="https://soundcloud.com/forrest-fang/forrest-fang-harmonic-perch" target="_blank">
-								"Harmonic Perch" by Forrest Fang
-							</a>
+							<strong>Forrest Fang</strong> — "Harmonic Perch" (remixed version)<br>
+							Album: *Radiance and the Receding of Light* (Projekt Records) — <a href="https://projektrecords.bandcamp.com/album/radiance-and-the-receding-light" target="_blank">Bandcamp album</a>
 						</li>
 						<li>
-							<a href="https://soundcloud.com/western-sub/unseen-footage" target="_blank">
-								"Unseen footage" by Western Sub
-							</a>
+							<strong>Western Sub</strong> — "Unseen footage"<br>
+							Album: single — <a href="https://soundcloud.com/western-sub/unseen-footage" target="_blank">SoundCloud</a>
+						</li>
+						<li>
+							<strong>Peter Jung & Lucas Croon</strong> — "Primus Kantus"<br>
+							Single — <a href="https://soundcloud.com/peter-jung-119529179/primus-kantus" target="_blank">SoundCloud</a>
+						</li>
+						<li>
+							<strong>Peter Jung</strong> — PitchGrid demos & experiments<br>
+							Playlist: <a href="https://soundcloud.com/peter-jung-119529179/sets/pitchgrid" target="_blank">SoundCloud</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</section>
-	-->
 
 	<!-- Videos Section -->
 	<section class="section">
