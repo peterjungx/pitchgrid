@@ -654,9 +654,9 @@
 		</div>
 		<p class="hero-bridge">Explore this interactively with the <em>PitchGrid Plugin</em></p>
 		<div class="hero-cta-group">
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Try Free</a>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank">Buy €42</a>
-			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank">Mapper (free)</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank" data-plausible-label="Trial Download">Try Free</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank" data-plausible-label="Buy PitchGrid">Buy €42</a>
+			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank" data-plausible-label="Download Mapper">Mapper (free)</a>
 		</div>
 	</div>
 </section>
@@ -736,7 +736,7 @@
 					Modes, transposition, chord relationships: they all still work. 
 					Maps to the piano keyboard and DAW piano roll — bridging new tunings with your existing tools.
 				</p>
-				<a href="https://node.audio/products/pitchgrid" target="_blank" class="btn">Get the Plugin</a>
+				<a href="https://node.audio/products/pitchgrid" target="_blank" class="btn" data-plausible-label="Get the Plugin">Get the Plugin</a>
 				<a href="/info/plugin-user-manual" class="btn btn-secondary">User Manual</a>
 			</div>
 			
@@ -750,7 +750,7 @@
 					geometry matches the music. Same shape = same interval, anywhere on the grid. 
 					Your hands learn what your ears hear.
 				</p>
-				<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="btn">Download Mapper</a>
+				<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="btn" data-plausible-label="Download Mapper">Download Mapper</a>
 				<a href="/info/PitchGridMapper" class="btn btn-secondary">Learn More</a>
 			</div>
 		</div>
@@ -839,7 +839,7 @@
 			<p>
 				<strong>The next chapter of tonal music is waiting to be written. Maybe you'll write it.</strong>
 			</p>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank">Start Exploring</a>
+			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank" data-plausible-label="Start Exploring">Start Exploring</a>
 		</div>
 	</section>
 

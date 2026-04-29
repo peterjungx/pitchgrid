@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { DiscordLogo, GithubLogo } from 'radix-icons-svelte';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
@@ -7,9 +8,111 @@
 
 	let mobileMenuOpen = false;
 
+	type PlausibleProps = Record<string, string>;
+
+	type PlausibleAnchor = HTMLAnchorElement & {
+		dataset: DOMStringMap & {
+			plausibleEvent?: string;
+			plausibleLabel?: string;
+			plausiblePlatform?: string;
+		};
+	};
+
 	function toggleMenu() {
 		mobileMenuOpen = !mobileMenuOpen;
 	}
+
+	function isOutboundLink(link: HTMLAnchorElement) {
+		if (!link.href) return false;
+
+		try {
+			const url = new URL(link.href, window.location.href);
+			return (
+				(url.protocol === 'http:' || url.protocol === 'https:') &&
+				url.origin !== window.location.origin
+			);
+		} catch {
+			return false;
+		}
+	}
+
+	function normalizeLabel(value?: string | null) {
+		return value?.replace(/\s+/g, ' ').trim() || undefined;
+	}
+
+	function getPlatform(url: URL, link: PlausibleAnchor) {
+		const explicitPlatform = normalizeLabel(link.dataset.plausiblePlatform);
+		if (explicitPlatform) return explicitPlatform;
+
+		const title = normalizeLabel(link.getAttribute('title'));
+		if (title) return title;
+
+		const ariaLabel = normalizeLabel(link.getAttribute('aria-label'));
+		if (ariaLabel) return ariaLabel;
+
+		const host = url.hostname.replace(/^www\./, '').toLowerCase();
+
+		if (host.includes('discord.gg') || host.includes('discord.com')) return 'Discord';
+		if (host.includes('github.com')) return 'GitHub';
+		if (host.includes('youtube.com') || host.includes('youtu.be')) return 'YouTube';
+		if (host.includes('bandcamp.com')) return 'Bandcamp';
+		if (host.includes('soundcloud.com')) return 'SoundCloud';
+		if (host.includes('node.audio')) return 'node.audio';
+
+		return host;
+	}
+
+	function getLabel(url: URL, link: PlausibleAnchor) {
+		return (
+			normalizeLabel(link.dataset.plausibleLabel) ||
+			normalizeLabel(link.textContent) ||
+			normalizeLabel(link.getAttribute('aria-label')) ||
+			normalizeLabel(link.getAttribute('title')) ||
+			getPlatform(url, link)
+		);
+	}
+
+	function trackOutboundLink(link: PlausibleAnchor) {
+		const plausible =
+			typeof window !== 'undefined'
+				? ((window as Window & { plausible?: (event: string, options?: { props?: PlausibleProps }) => void })
+						.plausible)
+				: undefined;
+
+		if (!plausible || !isOutboundLink(link)) return;
+
+		const url = new URL(link.href, window.location.href);
+		const eventName = normalizeLabel(link.dataset.plausibleEvent) || 'Outbound Link Click';
+		const label = getLabel(url, link);
+		const platform = getPlatform(url, link);
+
+		plausible(eventName, {
+			props: {
+				url: url.href,
+				domain: url.hostname.replace(/^www\./, ''),
+				label: label ?? url.href,
+				platform
+			}
+		});
+	}
+
+	onMount(() => {
+		const handleDocumentClick = (event: MouseEvent) => {
+			const target = event.target;
+			if (!(target instanceof Element)) return;
+
+			const link = target.closest('a[href]') as PlausibleAnchor | null;
+			if (!link) return;
+
+			trackOutboundLink(link);
+		};
+
+		document.addEventListener('click', handleDocumentClick, { capture: true });
+
+		return () => {
+			document.removeEventListener('click', handleDocumentClick, { capture: true });
+		};
+	});
 
 	// Close menu on navigation
 	$: $page.url.pathname, mobileMenuOpen = false;
@@ -339,15 +442,15 @@
 					</div>
 				</li>
 				<li><a href="/research">Research</a></li>
-				<li><a href="https://node.audio/products/pitchgrid" target="_blank">Plugin</a></li>
+				<li><a href="https://node.audio/products/pitchgrid" target="_blank" data-plausible-label="Plugin Nav">Plugin</a></li>
 				<li class="nav-icon-links">
-					<a href="https://www.youtube.com/playlist?list=PLY4_jglyyynCPIssKpbC-ZejFcSrjBemR" target="_blank" rel="noopener noreferrer" class="nav-icon" title="YouTube">
+					<a href="https://www.youtube.com/playlist?list=PLY4_jglyyynCPIssKpbC-ZejFcSrjBemR" target="_blank" rel="noopener noreferrer" class="nav-icon" title="YouTube" data-plausible-label="YouTube Nav">
 						<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
 					</a>
-					<a href="https://discord.gg/Ahs3B2Fx" target="_blank" rel="noopener noreferrer" class="nav-icon" title="Discord">
+					<a href="https://discord.gg/Ahs3B2Fx" target="_blank" rel="noopener noreferrer" class="nav-icon" title="Discord" data-plausible-label="Discord Nav">
 						<DiscordLogo size={22} />
 					</a>
-					<a href="https://github.com/pitchgrid-io" target="_blank" rel="noopener noreferrer" class="nav-icon" title="GitHub">
+					<a href="https://github.com/pitchgrid-io" target="_blank" rel="noopener noreferrer" class="nav-icon" title="GitHub" data-plausible-label="GitHub Nav">
 						<GithubLogo size={22} />
 					</a>
 				</li>
