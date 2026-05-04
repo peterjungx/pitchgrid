@@ -1,7 +1,12 @@
 import { json } from '@sveltejs/kit';
-import { BREVO_API_KEY, BREVO_LIST_ID } from '$env/dynamic/private';
 
-// Triggered new Vercel deployment with env vars (BREVO_API_KEY + BREVO_LIST_ID)
+// Using process.env for Vercel compatibility (no PRIVATE_ prefix needed)
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
+const BREVO_LIST_ID = process.env.BREVO_LIST_ID;
+
+if (!BREVO_API_KEY || !BREVO_LIST_ID) {
+	console.error('Brevo env vars not configured');
+}
 
 export const POST = async ({ request }) => {
   try {
