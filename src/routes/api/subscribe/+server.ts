@@ -4,16 +4,15 @@ import { json } from '@sveltejs/kit';
 const BREVO_API_KEY = process.env.BREVO_API_KEY?.trim();
 const BREVO_LIST_ID = process.env.BREVO_LIST_ID?.trim();
 
-if (!BREVO_API_KEY) {
-	console.error('BREVO_API_KEY env var missing on Vercel');
-	return json({ error: 'Server configuration error (key missing)' }, { status: 500 });
-}
-if (!BREVO_LIST_ID) {
-	console.error('BREVO_LIST_ID env var missing on Vercel');
-	return json({ error: 'Server configuration error (list ID missing)' }, { status: 500 });
-}
-
 export const POST = async ({ request }) => {
+	if (!BREVO_API_KEY) {
+		console.error('BREVO_API_KEY env var missing on Vercel');
+		return json({ error: 'Server configuration error (key missing)' }, { status: 500 });
+	}
+	if (!BREVO_LIST_ID) {
+		console.error('BREVO_LIST_ID env var missing on Vercel');
+		return json({ error: 'Server configuration error (list ID missing)' }, { status: 500 });
+	}
   try {
     const { email, name = '' } = await request.json();
 
