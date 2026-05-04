@@ -34,12 +34,14 @@ export const POST = async ({ request }) => {
       }),
     });
 
-    if (response.ok || response.status === 409) { // 409 = already exists
-      return json({ success: true, message: 'Thank you for subscribing!' });
-    } else {
+    console.log('Brevo response status:', response.status);
+    if (!response.ok && response.status !== 409) {
       const errorData = await response.json().catch(() => ({}));
-      return json({ error: errorData.message || 'Subscription failed' }, { status: response.status });
+      console.error('Brevo error:', errorData);
+      return json({ error: errorData.message || `Brevo error (${response.status})` }, { status: response.status });
     }
+
+    return json({ success: true, message: 'Thank you for subscribing!' });
   } catch (err) {
     console.error('Brevo subscription error:', err);
     return json({ error: 'Internal server error' }, { status: 500 });
