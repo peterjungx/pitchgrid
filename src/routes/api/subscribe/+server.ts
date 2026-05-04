@@ -1,6 +1,8 @@
 import { json } from '@sveltejs/kit';
 import { BREVO_API_KEY, BREVO_LIST_ID } from '$env/dynamic/private';
 
+// Triggered new Vercel deployment with env vars (BREVO_API_KEY + BREVO_LIST_ID)
+
 export const POST = async ({ request }) => {
   try {
     const { email, name = '' } = await request.json();
