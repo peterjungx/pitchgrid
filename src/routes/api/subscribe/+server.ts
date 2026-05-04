@@ -1,11 +1,16 @@
 import { json } from '@sveltejs/kit';
 
 // Using process.env for Vercel compatibility (no PRIVATE_ prefix needed)
-const BREVO_API_KEY = process.env.BREVO_API_KEY;
-const BREVO_LIST_ID = process.env.BREVO_LIST_ID;
+const BREVO_API_KEY = process.env.BREVO_API_KEY?.trim();
+const BREVO_LIST_ID = process.env.BREVO_LIST_ID?.trim();
 
-if (!BREVO_API_KEY || !BREVO_LIST_ID) {
-	console.error('Brevo env vars not configured');
+if (!BREVO_API_KEY) {
+	console.error('BREVO_API_KEY env var missing on Vercel');
+	return json({ error: 'Server configuration error (key missing)' }, { status: 500 });
+}
+if (!BREVO_LIST_ID) {
+	console.error('BREVO_LIST_ID env var missing on Vercel');
+	return json({ error: 'Server configuration error (list ID missing)' }, { status: 500 });
 }
 
 export const POST = async ({ request }) => {
