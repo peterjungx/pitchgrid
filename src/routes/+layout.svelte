@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import { DiscordLogo, GithubLogo } from 'radix-icons-svelte';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+import Newsletter from '$lib/components/Newsletter.svelte';
 
 	injectAnalytics({ mode: 'auto' });
 
@@ -497,6 +498,9 @@
 						<li><a href="https://www.youtube.com/@pitchgrid-io" target="_blank">YouTube</a></li>
 					</ul>
 				</div>
+			<div class="footer-section">
+				<Newsletter />
+			</div>
 			</div>
 			
 			<div class="footer-bottom">
