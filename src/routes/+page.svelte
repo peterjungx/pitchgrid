@@ -729,7 +729,7 @@
 				<div class="product-screenshot">
 					<img src="/docs/images/PitchGridPluginUI.png" alt="PitchGrid Plugin UI" />
 				</div>
-				<h3>🎛️ PitchGrid Plugin</h3>
+				<h3><img src="/docs/images/icon-plugin.svg" alt="" class="product-icon" /> PitchGrid Plugin</h3>
 				<p>
 					<strong>See the tuning.</strong> The plugin opens a window into an infinite 2D lattice of pitches. 
 					Turn knobs to explore — watch intervals shift, find the sweet spots where ratios align. 
@@ -744,7 +744,7 @@
 				<div class="product-screenshot">
 					<img src="/docs/images/PitchGridMapper-Isomorphic.png" alt="PitchGrid Mapper — Isomorphic Layout" />
 				</div>
-				<h3>🎹 PitchGrid Mapper</h3>
+				<h3><img src="/docs/images/icon-mapper.svg" alt="" class="product-icon" /> PitchGrid Mapper</h3>
 				<p>
 					<strong>Play the tuning.</strong> The Mapper lays out any scale on your 2D controller so the 
 					geometry matches the music. Same shape = same interval, anywhere on the grid. 
@@ -752,6 +752,20 @@
 				</p>
 				<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" target="_blank" class="btn" data-plausible-label="Download Mapper">Download Mapper</a>
 				<a href="/info/PitchGridMapper" class="btn btn-secondary">Learn More</a>
+			</div>
+
+			<div class="product-item">
+				<div class="product-screenshot">
+					<img src="/docs/images/PseudoHarmonicSynthUI.png" alt="PseudoHarmonic Synth UI" />
+				</div>
+				<h3><img src="/docs/images/icon-synth.svg" alt="" class="product-icon" /> PseudoHarmonic Synth</h3>
+				<p>
+					<strong>Hear the tuning.</strong> Additive synthesizer with prime-factor stretching. 
+					Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" 
+					with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.1.
+				</p>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn" data-plausible-label="Download Synth">Download v0.3.1</a>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth" target="_blank" class="btn btn-secondary">Learn More</a>
 			</div>
 		</div>
 		
@@ -891,14 +905,7 @@
 				<a href="https://github.com/peterjungx/pgrhythm" target="_blank" class="btn">View on GitHub</a>
 			</div>
 
-			<div class="feature-card">
-				<div class="feature-screenshot">
-					<img src="/docs/images/PseudoHarmonicSynthUI.png" alt="PseudoHarmonic Synth UI" />
-				</div>
-				<h3>PseudoHarmonic Synth</h3>
-				<p>Additive synthesizer with prime-factor stretching. Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.1 now public.</p>
-				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn">Download v0.3.1</a>
-			</div>
+			
 		</div>
 	</section>
 
