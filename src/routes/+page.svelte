@@ -1,4 +1,10 @@
 <style>
+	.product-icon {
+		width: 1.35em;
+		height: 1.35em;
+		vertical-align: -0.15em;
+		margin-right: 0.35em;
+	}
 	/* Hero Section */
 	.hero {
 		background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
@@ -765,7 +771,7 @@
 					with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.1.
 				</p>
 				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn" data-plausible-label="Download Synth">Download v0.3.1</a>
-				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth" target="_blank" class="btn btn-secondary">Learn More</a>
+				<a href="/info/pseudoharmonic-synth" class="btn btn-secondary">Learn More</a>
 			</div>
 		</div>
 		
