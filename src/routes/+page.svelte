@@ -892,10 +892,12 @@
 			</div>
 
 			<div class="feature-card">
-				<span class="feature-icon">📈</span>
+				<div class="feature-screenshot">
+					<img src="/docs/images/PseudoHarmonicSynthUI.png" alt="PseudoHarmonic Synth UI" />
+				</div>
 				<h3>PseudoHarmonic Synth</h3>
-				<p>Additive synthesizer with prime-factor stretching. Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.0 now public.</p>
-				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn">Download v0.3.0</a>
+				<p>Additive synthesizer with prime-factor stretching. Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.1 now public.</p>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn">Download v0.3.1</a>
 			</div>
 		</div>
 	</section>
