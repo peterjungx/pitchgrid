@@ -767,10 +767,9 @@
 				<h3><img src="/docs/images/icon-synth.svg" alt="" class="product-icon" /> PseudoHarmonic Synth</h3>
 				<p>
 					<strong>Hear the tuning.</strong> Additive synthesizer with prime-factor stretching. 
-					Real-time consonance curve shows how timbre and tuning interact. OSC "Follow Tuning" 
-					with PitchGrid Mapper for MOS scales. VST3/AU + standalone, v0.3.1.
+					Real-time consonance curve shows how timbre and tuning interact. "Follow Tuning" to tune overtones automatically making the timbre "fit" the tuning of the MOS in PitchGrid. VST3/AU + standalone.
 				</p>
-				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn" data-plausible-label="Download Synth">Download v0.3.1</a>
+				<a href="https://github.com/pitchgrid-io/pseudoharmonic-synth/releases" target="_blank" class="btn" data-plausible-label="Download Synth">Download Synth</a>
 				<a href="/info/pseudoharmonic-synth" class="btn btn-secondary">Learn More</a>
 			</div>
 		</div>
