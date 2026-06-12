@@ -28,8 +28,8 @@
                 <button type="submit" class="buy-button">Buy now — {price}</button>
             </form>
             <p class="trial">
-                Not sure yet? <a href="/info/PitchGrid">Learn more</a> or download the
-                <strong>14-day free trial</strong>.
+                Not sure yet? <a href="/info/PitchGrid">Learn more</a> or
+                <a href="/download"><strong>download the 14-day free trial</strong></a>.
             </p>
         </div>
     </section>
