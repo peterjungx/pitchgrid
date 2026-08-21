@@ -10,7 +10,7 @@ Get PitchGrid running in under 5 minutes.
 
 ### 1. Install
 
-- **Download** from [node.audio/products/pitchgrid](https://node.audio/products/pitchgrid)
+- **Download** from [pitchgrid.io/download](https://pitchgrid.io/download)
 - **Run the installer** (Windows: .exe, Mac: .pkg)
 - **Rescan plugins** in your DAW
 
@@ -634,7 +634,7 @@ This is a beta feature; the protocol may change in future versions.
 
 ### Full License
 
-- One-time purchase from [node.audio](https://node.audio/products/pitchgrid)
+- One-time purchase from [pitchgrid.io/download](https://pitchgrid.io/download)
 - Perpetual license with free updates for version 1.x
 - 3 activations per license (3 computers)
 

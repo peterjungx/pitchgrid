@@ -1,6 +1,6 @@
 # ![](favicon.png "50") PitchGrid Mapper
 
-> **⚠️ Requires [PitchGrid Plugin](https://node.audio/products/pitchgrid)** — The Mapper is a companion app for scales defined in the PitchGrid plugin. It does not function standalone.
+> **⚠️ Requires [PitchGrid Plugin](https://pitchgrid.io/download)** — The Mapper is a companion app for scales defined in the PitchGrid plugin. It does not function standalone.
 
 ## Play Any Scale in a Layout That Makes Sense
 
