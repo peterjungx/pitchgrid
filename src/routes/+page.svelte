@@ -660,8 +660,8 @@
 		</div>
 		<p class="hero-bridge">Explore this interactively with the <em>PitchGrid Plugin</em></p>
 		<div class="hero-cta-group">
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank" data-plausible-label="Trial Download">Try Free</a>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta-secondary" target="_blank" data-plausible-label="Buy PitchGrid">Buy €42</a>
+			<a href="/download" class="hero-cta" data-plausible-label="Trial Download">Try Free</a>
+			<a href="/download" class="hero-cta-secondary" data-plausible-label="Buy PitchGrid">Buy €42</a>
 			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank" data-plausible-label="Download Mapper">Mapper (free)</a>
 		</div>
 	</div>
@@ -742,7 +742,7 @@
 					Modes, transposition, chord relationships: they all still work. 
 					Maps to the piano keyboard and DAW piano roll — bridging new tunings with your existing tools.
 				</p>
-				<a href="https://node.audio/products/pitchgrid" target="_blank" class="btn" data-plausible-label="Get the Plugin">Get the Plugin</a>
+				<a href="/download" class="btn" data-plausible-label="Get the Plugin">Get the Plugin</a>
 				<a href="/info/plugin-user-manual" class="btn btn-secondary">User Manual</a>
 			</div>
 			
@@ -858,7 +858,7 @@
 			<p>
 				<strong>The next chapter of tonal music is waiting to be written. Maybe you'll write it.</strong>
 			</p>
-			<a href="https://node.audio/products/pitchgrid" class="hero-cta" target="_blank" data-plausible-label="Start Exploring">Start Exploring</a>
+			<a href="/download" class="hero-cta" data-plausible-label="Start Exploring">Start Exploring</a>
 		</div>
 	</section>
 
