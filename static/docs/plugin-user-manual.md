@@ -119,7 +119,7 @@ On first launch, you'll see a licensing dialog:
 - **Trial**: Click "Start Trial" for 15 days of full functionality
 - **Activate**: Enter your email and license key (from your purchase confirmation)
 
-One license allows 3 activations (3 different computers). For issues, contact support@node.audio.
+One license allows 3 activations (3 different computers). For issues, contact peter@pitchgrid.io.
 
 ---
 
@@ -620,7 +620,7 @@ This is a beta feature; the protocol may change in future versions.
 ### Getting Help
 
 - Documentation: [pitchgrid.io](https://pitchgrid.io)
-- Email: support@node.audio
+- Email: peter@pitchgrid.io
 - Community: [PitchGrid Discord](https://discord.gg/pitchgrid)
 
 ---
@@ -652,7 +652,7 @@ To transfer to a new computer: deactivate on the old machine first (Settings > D
 
 © 2025-2026 Node Audio and Peter Jung. All rights reserved.
 
-PitchGrid is a trademark of Peter Jung. This software is provided under license; see [node.audio/eula](https://node.audio/eula) for terms.
+PitchGrid is a trademark of Peter Jung. This software is provided under license; see the [EULA](/eula) for terms.
 
 VST is a trademark of Steinberg. Audio Units is a trademark of Apple. All other trademarks are property of their respective owners.
 
