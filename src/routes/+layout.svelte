@@ -515,7 +515,7 @@ import Newsletter from '$lib/components/Newsletter.svelte';
 					<span aria-hidden="true"> · </span>
 					<a href="/privacy">Privacy</a>
 					<span aria-hidden="true"> · </span>
-					<a href="/eula">EULA</a>
+					<a href="/plugin-eula">EULA</a>
 				</p>
 			</div>
 		</div>
