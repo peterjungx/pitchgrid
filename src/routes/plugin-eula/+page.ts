@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-import eulaSource from '$lib/legal/eula.md?raw';
+import eulaSource from '$lib/legal/plugin-eula.md?raw';
 import type { PageLoad } from './$types';
 
 // Rendered once at build/SSR time; legal text is static.

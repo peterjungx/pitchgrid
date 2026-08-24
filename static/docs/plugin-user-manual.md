@@ -652,7 +652,7 @@ To transfer to a new computer: deactivate on the old machine first (Settings > D
 
 © 2025-2026 Node Audio and Peter Jung. All rights reserved.
 
-PitchGrid is a trademark of Peter Jung. This software is provided under license; see the [EULA](/eula) for terms.
+PitchGrid is a trademark of Peter Jung. This software is provided under license; see the [EULA](/plugin-eula) for terms.
 
 VST is a trademark of Steinberg. Audio Units is a trademark of Apple. All other trademarks are property of their respective owners.
 

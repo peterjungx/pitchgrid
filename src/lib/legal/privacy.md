@@ -57,7 +57,7 @@ Purchases and licence keys are handled by **Moonbase** ([https://pitchgrid.moonb
 
 ### Plugin activation
 
-The plugin may send a device fingerprint, operating system, and software version to the licensing service to enforce the licence (see the [EULA](/eula)). Legal basis: Art. 6(1)(b) and (f).
+The plugin may send a device fingerprint, operating system, and software version to the licensing service to enforce the licence (see the [EULA](/plugin-eula)). Legal basis: Art. 6(1)(b) and (f).
 
 ### Downloads
 
@@ -95,5 +95,5 @@ To exercise your rights, email [peter@pitchgrid.io](mailto:peter@pitchgrid.io) o
 ## 8. Related documents
 
 - [Impressum](/imprint)
-- [End User License Agreement](/eula)
+- [End User License Agreement](/plugin-eula)
 - [Bayes GmbH privacy policy](https://www.bayes.de/privacy/)
