@@ -350,6 +350,10 @@ import Newsletter from '$lib/components/Newsletter.svelte';
 		font-size: 0.9rem;
 	}
 
+	.footer-legal {
+		margin-top: 0.5rem;
+	}
+
 	/* Responsive */
 	@media (max-width: 768px) {
 		.nav-links {
@@ -493,6 +497,7 @@ import Newsletter from '$lib/components/Newsletter.svelte';
 				<div class="footer-section">
 					<h3>Connect</h3>
 					<ul>
+						<li>Bayes GmbH, Cologne</li>
 						<li><a href="mailto:peter@pitchgrid.io">peter@pitchgrid.io</a></li>
 						<li><a href="https://discord.gg/nm5RwCJhQT" target="_blank">Discord</a></li>
 						<li><a href="https://www.youtube.com/@pitchgrid-io" target="_blank">YouTube</a></li>
@@ -504,7 +509,14 @@ import Newsletter from '$lib/components/Newsletter.svelte';
 			</div>
 			
 			<div class="footer-bottom">
-				<p>&copy; 2026 Peter Jung. Most PitchGrid tools are open source and available on GitHub.</p>
+				<p>&copy; 2026 Bayes GmbH. Most PitchGrid tools are open source and available on GitHub.</p>
+				<p class="footer-legal">
+					<a href="/imprint">Impressum</a>
+					<span aria-hidden="true"> · </span>
+					<a href="/privacy">Privacy</a>
+					<span aria-hidden="true"> · </span>
+					<a href="/eula">EULA</a>
+				</p>
 			</div>
 		</div>
 	</footer>

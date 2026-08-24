@@ -4,9 +4,10 @@
 	let message = '';
 	let loading = false;
 	let success = false;
+	let consent = false;
 
 	async function handleSubmit() {
-		if (!email) return;
+		if (!email || !consent) return;
 
 		loading = true;
 		message = '';
@@ -26,6 +27,7 @@
 				success = true;
 				email = '';
 				name = '';
+				consent = false;
 			} else {
 				message = data.error || 'Subscription failed. Please try again.';
 			}
@@ -39,7 +41,7 @@
 
 <div class="newsletter">
 	<h3>Stay updated</h3>
-	<p>Join the PitchGrid mailing list for updates, new tools, and events.</p>
+	<p class="intro">Join the PitchGrid mailing list for updates, new tools, and events.</p>
 	
 	<form on:submit|preventDefault={handleSubmit}>
 		<input 
@@ -55,7 +57,19 @@
 			required 
 			disabled={loading}
 		/>
-		<button type="submit" disabled={loading || !email}>
+		<label class="consent">
+			<input
+				type="checkbox"
+				bind:checked={consent}
+				required
+				disabled={loading}
+			/>
+			<span>
+				I agree to receive email updates about PitchGrid.
+				<a href="/privacy">See our privacy policy</a>.
+			</span>
+		</label>
+		<button type="submit" disabled={loading || !email || !consent}>
 			{loading ? 'Subscribing...' : 'Subscribe'}
 		</button>
 	</form>
@@ -81,6 +95,13 @@
 		font-size: 0.95rem;
 	}
 
+	.intro {
+		color: #ccc;
+		font-size: 0.95rem;
+		margin-bottom: 1rem;
+		margin-top: 0;
+	}
+
 	form {
 		display: flex;
 		flex-direction: column;
@@ -99,6 +120,25 @@
 	input:focus {
 		outline: none;
 		border-color: #FFAB00;
+	}
+
+	.consent {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		color: #ccc;
+		font-size: 0.85rem;
+		line-height: 1.4;
+		cursor: pointer;
+	}
+
+	.consent input[type="checkbox"] {
+		margin-top: 0.2rem;
+		flex-shrink: 0;
+		width: auto;
+		padding: 0;
+		accent-color: #FFAB00;
+		cursor: pointer;
 	}
 
 	button {
@@ -128,7 +168,7 @@
 		font-size: 0.9rem;
 	}
 
-	:global(.newsletter p:not(.success)) {
+	:global(.newsletter p:not(.success):not(.intro)) {
 		color: #ff6b6b;
 		font-size: 0.9rem;
 		margin-top: 0.5rem;

@@ -1123,7 +1123,7 @@
 		<div style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; color: #b0b0b0;">
 			<p>
 				<strong>Who is behind PitchGrid?</strong><br>
-				The PitchGrid project is the brainchild of Peter Jung, an independent researcher.
+				PitchGrid is built by Peter Jung at Bayes GmbH in Cologne.
 			</p>
 			<p>
 				If you are a builder of tools for musicians and are interested in integrating 
