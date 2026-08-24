@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { PageData } from './$types';
+    import { MOONBASE_BUY_URL } from '$lib/shop/moonbase';
 
     export let data: PageData;
 
@@ -15,9 +16,14 @@
     };
     const order = ['macos', 'windows', 'linux'];
 
-    $: latestAssets = data.latest
-        ? [...data.latest.assets].sort((a, b) => order.indexOf(a.platform) - order.indexOf(b.platform))
-        : [];
+    // Linux is built but not offered until we have smoked it on more than one distro.
+    function offered<T extends { platform: string }>(assets: T[]): T[] {
+        return [...assets]
+            .filter((a) => a.platform !== 'linux')
+            .sort((a, b) => order.indexOf(a.platform) - order.indexOf(b.platform));
+    }
+
+    $: latestAssets = data.latest ? offered(data.latest.assets) : [];
 
     function fmtDate(iso: string): string {
         return new Date(iso).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -45,7 +51,7 @@
                     </a>
                 {/each}
             </div>
-            <p class="buy-hint">Like it? <a href="/buy">Get a license — 42 €/$/£</a></p>
+            <p class="buy-hint">Like it? <a href={MOONBASE_BUY_URL}>Get a license — 42 €/$/£</a></p>
         {:else}
             <p>No releases published yet — check back soon.</p>
         {/if}
@@ -64,7 +70,7 @@
                             <td>{release.version}</td>
                             <td>{fmtDate(release.date)}</td>
                             <td>
-                                {#each release.assets as asset, i}
+                                {#each offered(release.assets) as asset, i}
                                     {#if i > 0}&nbsp;·&nbsp;{/if}
                                     <a href={asset.url} download>{platformLabel[asset.platform]}</a>
                                 {/each}
