@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { MOONBASE_BUY_URL } from '$lib/shop/moonbase';
+</script>
+
 <style>
 	.product-icon {
 		width: 1.35em;
@@ -661,7 +665,7 @@
 		<p class="hero-bridge">Explore this interactively with the <em>PitchGrid Plugin</em></p>
 		<div class="hero-cta-group">
 			<a href="/download" class="hero-cta" data-plausible-label="Trial Download">Try Free</a>
-			<a href="https://pitchgrid.moonbase.sh/buy/pitchgrid-plugin" class="hero-cta-secondary" target="_blank" rel="noopener" data-plausible-label="Buy PitchGrid">Buy €42</a>
+			<a href={MOONBASE_BUY_URL} class="hero-cta-secondary" target="_blank" rel="noopener" data-plausible-label="Buy PitchGrid">Get a license — 42 €/$/£</a>
 			<a href="https://github.com/pitchgrid-io/pitchgrid-mapper/releases" class="hero-cta-secondary" target="_blank" data-plausible-label="Download Mapper">Mapper (free)</a>
 		</div>
 	</div>
