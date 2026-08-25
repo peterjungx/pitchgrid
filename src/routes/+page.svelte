@@ -945,7 +945,7 @@
 						</li>
 						<li>
 							<strong>Forrest Fang</strong> — "Harmonic Perch"<br>
-							Album: *Radiance and the Receding of Light* (Projekt Records) — <a href="https://projektrecords.bandcamp.com/album/radiance-and-the-receding-light" target="_blank">Bandcamp album</a>
+							Album: *Radiance and the Receding of Light* (Projekt Records) — <a href="https://projektrecords.bandcamp.com/track/harmonic-perch" target="_blank">Bandcamp</a>
 						</li>
 						<li>
 							<strong>Western Sub</strong> — "Unseen footage"<br>
